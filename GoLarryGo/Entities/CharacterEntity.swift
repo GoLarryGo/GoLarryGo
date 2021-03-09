@@ -10,7 +10,9 @@ class CharacterEntity: GKEntity {
         // Utiliza o componente VisualComponent para gerar o sprite da entidade
         let visualComponent = VisualComponent(texture: SKTexture(imageNamed: "Dude"), name: "character")
         addComponent(visualComponent)
-        
+        visualComponent.node.physicsBody = SKPhysicsBody(circleOfRadius: visualComponent.node.size.height/2)
+        visualComponent.node.physicsBody?.isDynamic = true
+        visualComponent.node.physicsBody?.allowsRotation = false
         let runComponent = RunComponent()
         addComponent(runComponent)
         
