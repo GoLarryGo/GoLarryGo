@@ -15,6 +15,9 @@ class FloorEntity: GKEntity {
         // Utiliza o componente VisualComponent para gerar o sprite da entidade
         let visualComponent = VisualComponent(texture: SKTexture(imageNamed: "back03"), name: "floor")
         addComponent(visualComponent)
+        
+        let moviment = MoveSceneryComponent()
+        addComponent(moviment)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
