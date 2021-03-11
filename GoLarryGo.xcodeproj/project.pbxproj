@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5709446A25F79F7D001F32DB /* FloorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* FloorEntity.swift */; };
 		570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */; };
+		570D1B9D25FA4F9300A02917 /* back.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 570D1B9C25FA4F9300A02917 /* back.atlas */; };
 		5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */; };
 		5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF2E25F77D4900E708E4 /* VisualComponent.swift */; };
 		5759DF3425F77D5F00E708E4 /* RunComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF3325F77D5F00E708E4 /* RunComponent.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		5709446925F79F7D001F32DB /* FloorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorEntity.swift; sourceTree = "<group>"; };
 		570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyWalkState.swift; sourceTree = "<group>"; };
+		570D1B9C25FA4F9300A02917 /* back.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = back.atlas; sourceTree = "<group>"; };
 		5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		5759DF2E25F77D4900E708E4 /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		5759DF3325F77D5F00E708E4 /* RunComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunComponent.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		7B6A1A2525F7BC3200E1B9E2 /* AssetsAtlas */ = {
 			isa = PBXGroup;
 			children = (
+				570D1B9C25FA4F9300A02917 /* back.atlas */,
 				7B6A1A3825F802B500E1B9E2 /* roboWalkRight.atlas */,
 				7B6A1A3325F802AD00E1B9E2 /* roboWalkLeft.atlas */,
 				7B6A1A2E25F802A500E1B9E2 /* larryWalk.atlas */,
@@ -338,6 +341,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				570D1B9D25FA4F9300A02917 /* back.atlas in Resources */,
 				7B6A1A3925F802B500E1B9E2 /* roboWalkRight.atlas in Resources */,
 				7B6A1A2A25F8029800E1B9E2 /* larryJump.atlas in Resources */,
 				7B6A1A3425F802AD00E1B9E2 /* roboWalkLeft.atlas in Resources */,
