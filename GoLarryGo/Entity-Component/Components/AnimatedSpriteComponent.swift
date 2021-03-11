@@ -10,7 +10,7 @@ import Foundation
 import GameplayKit
 import SpriteKit
 
-class AnimatedSceneryComponent: GKComponent {
+class AnimatedSpriteComponent: GKComponent {
 
     var spriteNode: SKSpriteNode!
 

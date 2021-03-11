@@ -12,7 +12,7 @@ import GameplayKit
 class BackgroundEntity: GKEntity {
     override init() {
         super.init()
-        self.addComponent(AnimatedSceneryComponent(atlasName: "back"))
+        self.addComponent(AnimatedSpriteComponent(atlasName: "back"))
 
         self.addComponent(
             PlayerControlComponent(states: [

@@ -24,8 +24,8 @@ import GameplayKit
 class MoveSceneryState: GKState {
     var entity: GKEntity
     
-    var animatedSpriteComponent: AnimatedSceneryComponent? {
-        self.entity.component(ofType: AnimatedSceneryComponent.self)
+    var animatedSpriteComponent: AnimatedSpriteComponent? {
+        self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
 
 //    var moveComponent: MoveSceneryComponent? {
