@@ -20,7 +20,7 @@ class BackgroundEntity: GKEntity {
             ])
         )
 
-        self.addComponent(MoveSceneryComponent())
+        //self.addComponent(MoveSceneryComponent())
     }
     
     required init?(coder: NSCoder) {

@@ -16,14 +16,14 @@ class EntityManager {
     func add(_ entity: GKEntity) {
     entities.insert(entity)
 
-        if let spriteNode = entity.component(ofType: VisualComponent.self)?.node {
+        if let spriteNode = entity.component(ofType: AnimatedSpriteComponent.self)?.spriteNode {
           scene.addChild(spriteNode)
         }
     }
 
     // 4
     func remove(_ entity: GKEntity) {
-        if let spriteNode = entity.component(ofType: VisualComponent.self)?.node {
+        if let spriteNode = entity.component(ofType: AnimatedSpriteComponent.self)?.spriteNode {
           spriteNode.removeFromParent()
             
         }

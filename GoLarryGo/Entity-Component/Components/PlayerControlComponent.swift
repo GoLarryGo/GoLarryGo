@@ -14,7 +14,8 @@ class PlayerControlComponent: GKComponent {
 
     init(states: [GKState]) {
         self.stateMachine = GKStateMachine(states: states)
-        //self.stateMachine.enter(IdleState.self)
+        self.stateMachine.enter(MoveSceneryState.self)
+        self.stateMachine.enter(CharacterWalkState.self)
         super.init()
     }
 
@@ -22,44 +23,18 @@ class PlayerControlComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
 
-  //  func handle(direction: PanDirection) {
-        //guard stateMachine.currentState!.classForCoder != JumpState.self else { return }
+    func halt() {
+        stateMachine.enter(MoveSceneryState.self)
+        stateMachine.enter(CharacterWalkState.self)
+    }
+    
+    func jump() {
+        stateMachine.enter(CharacterJumpState.self)
+    }
 
-//        switch direction {
-//        case .right: moveRight()
-//        case .left: moveLeft()
-//        case .up: jump()
-//
-//        default: break
-//        }
-    //}
-
-//    func halt() {
-//        guard stateMachine.currentState!.classForCoder != JumpState.self else { return }
-//
-//        stateMachine.enter(IdleState.self)
-//    }
-//
-//    func attack() {
-//        guard stateMachine.currentState!.classForCoder != JumpState.self else { return }
-//
-//        stateMachine.enter(AttackState.self)
-//    }
-//
-//    private func moveLeft() {
-//        stateMachine.enter(WalkLeftState.self)
-//    }
-//
-//    private func moveRight() {
-//        stateMachine.enter(WalkRightState.self)
-//    }
-//
-//    private func jump() {
-//        stateMachine.enter(JumpState.self)
-//    }
 
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
-        self.entity?.component(ofType: MoveSceneryComponent.self)?.update(deltaTime: seconds)
+        self.entity?.component(ofType: MoveCharacterComponent.self)?.update(deltaTime: seconds)
     }
 }

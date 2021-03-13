@@ -1,24 +1,21 @@
 //
-//  MoveSceneryComponent.swift
+//  MoveCharacterComponent.swift
 //  GoLarryGo
 //
-//  Created by PATRICIA S SIQUEIRA on 09/03/21.
+//  Created by aluno on 12/03/21.
 //
-//
-import GameplayKit
 import SpriteKit
+import GameplayKit
+import UIKit
 
-class MoveSceneryComponent: GKComponent {
-    
+class MoveCharacterComponent: GKComponent {
     var spriteNode: SKSpriteNode? {
         self.entity?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
-        spriteNode?.position.x -= 1
+        spriteNode?.position.x += 1
 
     }
 }
-
-

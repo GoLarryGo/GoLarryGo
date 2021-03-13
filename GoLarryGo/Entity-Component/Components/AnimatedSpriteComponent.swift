@@ -11,10 +11,9 @@ import GameplayKit
 import SpriteKit
 
 class AnimatedSpriteComponent: GKComponent {
-
     var spriteNode: SKSpriteNode!
-
     var animationAtlas: SKTextureAtlas?
+    
     var animationTextures: [SKTexture] {
         animationAtlas?.textureNames.compactMap { textureName in animationAtlas?.textureNamed(textureName) } ?? []
     }
@@ -46,7 +45,7 @@ class AnimatedSpriteComponent: GKComponent {
             SKAction.repeatForever(
                 SKAction.animate(
                     with: animationTextures,
-                    timePerFrame: 0.1,
+                    timePerFrame: 0.7,
                     resize: false,
                     restore: true
                 )

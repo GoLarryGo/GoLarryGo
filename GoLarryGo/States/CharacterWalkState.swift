@@ -1,23 +1,23 @@
 //
-//  MoveScenery.swift
+//  CharacterWalkState.swift
 //  GoLarryGo
 //
-//  Created by PATRICIA S SIQUEIRA on 10/03/21.
+//  Created by aluno on 12/03/21.
 //
-
-import Foundation
 import SpriteKit
 import GameplayKit
+import UIKit
 
-class MoveSceneryState: GKState {
+class CharacterWalkState: GKState {
+    
     var entity: GKEntity
     
     var animatedSpriteComponent: AnimatedSpriteComponent? {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
 
-    var moveComponent: MoveSceneryComponent? {
-        self.entity.component(ofType: MoveSceneryComponent.self)
+    var moveComponent: MoveCharacterComponent? {
+        self.entity.component(ofType: MoveCharacterComponent.self)
     }
 
     init(_ entity: GKEntity){
@@ -27,13 +27,13 @@ class MoveSceneryState: GKState {
 
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
-        print("back")
+        print("larry")
 
-        animatedSpriteComponent?.setAnimation(atlasName: "back")
-        //walkComponent?.walk(direction: direction)
+        animatedSpriteComponent?.setAnimation(atlasName: "larryWalk")
     }
 
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
     }
+    
 }

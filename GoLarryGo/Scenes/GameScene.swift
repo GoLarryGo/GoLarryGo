@@ -10,106 +10,33 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    // Criamos a referência o gerenciador de entidades
     var entityManager: EntityManager!
-    var character: CharacterEntity!
-    
-    lazy var sceneCamera: SKCameraNode = {
-        let camera = SKCameraNode()
-        camera.setScale(3500)
-        return camera
-    }()
     
     private var previousUpdateTime: TimeInterval = TimeInterval()
     
+    let character = CharacterEntity()
     let back = BackgroundEntity()
-
+    let floor = FloorEntity()
+    
     var playerControlComponent: PlayerControlComponent? {
-        back.component(ofType: PlayerControlComponent.self)
+        character.component(ofType: PlayerControlComponent.self)
+    }
+    
+    lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
+    @objc func jumpTap(_ sender: UITapGestureRecognizer) {
+        playerControlComponent?.jump()
     }
     
     override func didMove(to view: SKView) {
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
-        //addChild(background)
-        
-        // cria uma instância do gerenciador de entidades
         entityManager = EntityManager(scene: self)
         
-        //Camera
-        self.camera = sceneCamera
-        
+        view.addGestureRecognizer(tap)
+       
         //Nodes
-        self.setupNodesPosition()
-        
-//        //cria a instância background
-//        let background = BackgroundEntity()
-//        entityManager.add(background)
-//        if let visualComponentBackground = background.component(ofType: VisualComponent.self) {
-//            visualComponentBackground.node.position = CGPoint(x: size.width/2, y: size.height/2)
-//            visualComponentBackground.node.size = CGSize(width: size.width, height: size.height)
-//            visualComponentBackground.node.zPosition = -6
-//        }
-        
-        //cria a instância sol
-        let sun = SunEntity()
-        entityManager.add(sun)
-        if let visualComponentSun = sun.component(ofType: VisualComponent.self) {
-            visualComponentSun.node.position = CGPoint(x: size.width/2, y: size.height/1.3)
-            visualComponentSun.node.size = CGSize(width: size.width * 0.2, height: size.height * 0.2)
-            visualComponentSun.node.zPosition = -4
-            if let moveComponentSun = sun.component(ofType: MoveSunComponent.self) {
-                    visualComponentSun.node.run(moveComponentSun.setAnimation(CGPoint(x: size.width/2, y: size.height/1.3)))
-//                if visualComponentSun.node.position.x < 0 {
-//                    entityManager.remove(sun)
-//                }
-            }
-        }
-        
-
-        //cria a instância chão
-        let floor = FloorEntity()
-        entityManager.add(floor)
-        if let visualComponentFloor = floor.component(ofType: VisualComponent.self) {
-            visualComponentFloor.node.position = CGPoint(x: frame.minX, y: size.height/2)
-            visualComponentFloor.node.size = CGSize(width: size.width, height: size.height)
-            visualComponentFloor.node.zPosition = -1
-//            if let moveComponentFloor = floor.component(ofType: MoveSceneryComponent.self) {
-//                    visualComponentFloor.node.run(moveComponentFloor.setAnimation(sizeX: size.width))
-//                }
-        }
-        
-        //cria a instância chão
-        let floor1 = FloorEntity()
-        entityManager.add(floor1)
-        if let visualComponentFloor1 = floor1.component(ofType: VisualComponent.self) {
-            visualComponentFloor1.node.position = CGPoint(x: frame.maxX, y: size.height/2)
-            visualComponentFloor1.node.size = CGSize(width: size.width, height: size.height)
-            visualComponentFloor1.node.zPosition = -1
-//            if let moveComponentFloor1 = clouds1.component(ofType: MoveSceneryComponent.self) {
-//                    visualComponentFloor1.node.run(moveComponentFloor1.setAnimation(sizeX: size.width))
-//                }
-        }
-        
-        let topFloor = SKSpriteNode()
-        topFloor.position = CGPoint(x: 0, y: 30)
-        topFloor.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: frame.size.width, height: 30))
-        topFloor.physicsBody?.isDynamic = false
-        addChild(topFloor)
-        
-        
-        
-        character = CharacterEntity()
-        
-        if let visualComponentCharacter = character.component(ofType: VisualComponent.self) {
-            visualComponentCharacter.node.position = CGPoint(x: 50, y: 400)
-            if let runComponent = character.component(ofType: RunComponent.self) {
-                visualComponentCharacter.node.run(runComponent.startRun())
-            }
-        }
-        entityManager.add(character)
-        
-
-
+        setupBackNodePosition()
+        setupFloorNodePosition()
+        setupCharacterNodePosition()
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -120,23 +47,48 @@ class GameScene: SKScene {
     }
     
     // MARK: - Adding Nodes to Scene
-    func setupNodesPosition() {
+    func setupBackNodePosition() {
         //acessing back from AnimatedSpriteComponents
-        guard let backgroundSpriteNode = back.component(ofType: AnimatedSceneryComponent.self)?.spriteNode else {return}
+        guard let backgroundSpriteNode = back.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
 
-        //positioning knight
+        //positioning back
         backgroundSpriteNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         backgroundSpriteNode.size = CGSize(width: size.width, height: size.height)
-        backgroundSpriteNode.zPosition = -1
+        backgroundSpriteNode.zPosition = -6
   
         self.addChild(backgroundSpriteNode)
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let visualComponentCharacter = character.component(ofType: VisualComponent.self) {
-            if visualComponentCharacter.node.position.y < 60 {
-                visualComponentCharacter.node.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 6))
-            }
-        }
+    func setupFloorNodePosition() {
+        //acessing floor from AnimatedSpriteComponents
+        guard let floorSpriteNode = floor.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        
+        //positioning floor
+        floorSpriteNode.position = CGPoint(x: size.width/2, y: size.height/2)
+        floorSpriteNode.size = CGSize(width: size.width, height: size.height)
+        floorSpriteNode.zPosition = -1
+        
+        entityManager.add(floor)
+        setupTopFloor()
+    }
+    
+    func setupCharacterNodePosition() {
+        //acessing character from AnimatedSpriteComponents
+        guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        
+        //positioning character
+        characterSpriteNode.position = CGPoint(x: 50, y: 31)
+        characterSpriteNode.size = CGSize(width: 32, height: 32)
+        
+        entityManager.add(character)
+    }
+    
+    // MARK: - PhysicsBody
+    func setupTopFloor() {
+        let topFloor = SKSpriteNode()
+        topFloor.position = CGPoint(x: size.width/2, y: 30)
+        topFloor.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 30))
+        topFloor.physicsBody?.isDynamic = false
+        addChild(topFloor)
     }
 }

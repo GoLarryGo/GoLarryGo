@@ -13,13 +13,13 @@ class CharacterEntity: GKEntity {
         
         addComponent(
             PlayerControlComponent(states: [
-                MoveSceneryState(self),
+                CharacterWalkState(self),
+                CharacterJumpState(self)
             ])
         )
         
-        let runComponent = RunComponent()
-        addComponent(runComponent)
-        
+        addComponent(MoveCharacterComponent())
+        addComponent(JumpCharacterComponent(impulse: 300))
     }
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {
