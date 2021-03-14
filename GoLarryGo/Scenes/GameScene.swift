@@ -10,50 +10,85 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    // criamos a referência o gerenciador de entidades
     var entityManager: EntityManager!
     
-    /*private lazy var background: SKSpriteNode = {
-        let background = SKSpriteNode(imageNamed: "back03")
-        background.position = CGPoint(x: size.width/2, y: size.height/2)
-        background.size = CGSize(width: size.width, height: size.height)
-        background.zPosition = 0
-        return background
-    }()*/
+    private var previousUpdateTime: TimeInterval = TimeInterval()
+    
+    let character = CharacterEntity()
+    let back = BackgroundEntity()
+    let floor = FloorEntity()
+    
+    var playerControlComponent: PlayerControlComponent? {
+        character.component(ofType: PlayerControlComponent.self)
+    }
+    
+    lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
+    @objc func jumpTap(_ sender: UITapGestureRecognizer) {
+        playerControlComponent?.jump()
+    }
     
     override func didMove(to view: SKView) {
-        
-        //addChild(background)
-        
-        // cria uma instância do gerenciador de entidades
+        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         entityManager = EntityManager(scene: self)
         
-        let floor = FloorEntity()
-        entityManager.add(floor)
-        if let visualComponentFloor = floor.component(ofType: VisualComponent.self) {
-            visualComponentFloor.node.position = CGPoint(x: size.width/2, y: size.height/2)
-            visualComponentFloor.node.size = CGSize(width: size.width, height: size.height)
-            visualComponentFloor.node.zPosition = -1
-        }
-        
-        
-        
-        let character = CharacterEntity()
-        entityManager.add(character)
-        if let visualComponentCharacter = character.component(ofType: VisualComponent.self) {
-            visualComponentCharacter.node.position = CGPoint(x: 50, y: 20)
-            if let runComponent = character.component(ofType: RunComponent.self) {
-                visualComponentCharacter.node.run(runComponent.startRun())
-            }
-        }
-        
-        
-
-
+        view.addGestureRecognizer(tap)
+       
+        //Nodes
+        setupBackNodePosition()
+        setupFloorNodePosition()
+        setupCharacterNodePosition()
     }
 
-    
     override func update(_ currentTime: TimeInterval) {
+        let timeSincePreviousUpdate = currentTime - previousUpdateTime
+        playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
+        previousUpdateTime = currentTime
+        
+    }
+    
+    // MARK: - Adding Nodes to Scene
+    func setupBackNodePosition() {
+        //acessing back from AnimatedSpriteComponents
+        guard let backgroundSpriteNode = back.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
 
+        //positioning back
+        backgroundSpriteNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        backgroundSpriteNode.size = CGSize(width: size.width, height: size.height)
+        backgroundSpriteNode.zPosition = -6
+  
+        self.addChild(backgroundSpriteNode)
+    }
+    
+    func setupFloorNodePosition() {
+        //acessing floor from AnimatedSpriteComponents
+        guard let floorSpriteNode = floor.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        
+        //positioning floor
+        floorSpriteNode.position = CGPoint(x: size.width/2, y: size.height/2)
+        floorSpriteNode.size = CGSize(width: size.width, height: size.height)
+        floorSpriteNode.zPosition = -1
+        
+        entityManager.add(floor)
+        setupTopFloor()
+    }
+    
+    func setupCharacterNodePosition() {
+        //acessing character from AnimatedSpriteComponents
+        guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        
+        //positioning character
+        characterSpriteNode.position = CGPoint(x: 50, y: 31)
+        characterSpriteNode.size = CGSize(width: 32, height: 32)
+        
+        entityManager.add(character)
+    }
+    
+    // MARK: - PhysicsBody
+    func setupTopFloor() {
+        let topFloor = SKSpriteNode()
+        topFloor.position = CGPoint(x: size.width/2, y: 30)
+        topFloor.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 30))
+        topFloor.physicsBody?.isDynamic = false
+        addChild(topFloor)
     }
 }

@@ -8,10 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		5709446A25F79F7D001F32DB /* FloorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* FloorEntity.swift */; };
+		570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */; };
+		570D1B9D25FA4F9300A02917 /* back.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 570D1B9C25FA4F9300A02917 /* back.atlas */; };
+		570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */; };
+		570D1C3325FBA9DA00A02917 /* MoveCharacterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */; };
+		570D1C3B25FBB0AF00A02917 /* CharacterJumpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */; };
+		570D1C4025FBB1A400A02917 /* JumpCharacterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */; };
 		5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */; };
 		5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF2E25F77D4900E708E4 /* VisualComponent.swift */; };
-		5759DF3425F77D5F00E708E4 /* RunComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF3325F77D5F00E708E4 /* RunComponent.swift */; };
 		5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF3825F77DEB00E708E4 /* EntityManager.swift */; };
+		7B01590625F9B36700DAA2EE /* MoveSceneryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B01590525F9B36700DAA2EE /* MoveSceneryState.swift */; };
+		7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */; };
+		7B6A1A1325F7AFD200E1B9E2 /* BackgroundEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A1225F7AFD200E1B9E2 /* BackgroundEntity.swift */; };
+		7B6A1A1825F7BAF600E1B9E2 /* MoveSceneryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A1725F7BAF600E1B9E2 /* MoveSceneryComponent.swift */; };
+		7B6A1A2A25F8029800E1B9E2 /* larryJump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A2925F8029800E1B9E2 /* larryJump.atlas */; };
+		7B6A1A2F25F802A500E1B9E2 /* larryWalk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A2E25F802A500E1B9E2 /* larryWalk.atlas */; };
+		7B6A1A3425F802AD00E1B9E2 /* roboWalkLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A3325F802AD00E1B9E2 /* roboWalkLeft.atlas */; };
+		7B6A1A3925F802B500E1B9E2 /* roboWalkRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A3825F802B500E1B9E2 /* roboWalkRight.atlas */; };
+		7B6A1A3E25F8041E00E1B9E2 /* SunEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */; };
+		7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */; };
+		7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */; };
+		7B6A1A7A25F9A9E300E1B9E2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */; };
+		7B6A1A8425F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A8325F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift */; };
 		7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C2A25F65E8500215887 /* AppDelegate.swift */; };
 		7B6D3C3125F65E8500215887 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C3025F65E8500215887 /* GameScene.swift */; };
 		7B6D3C3325F65E8500215887 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C3225F65E8500215887 /* GameViewController.swift */; };
@@ -39,10 +57,28 @@
 
 /* Begin PBXFileReference section */
 		5709446925F79F7D001F32DB /* FloorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorEntity.swift; sourceTree = "<group>"; };
+		570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyWalkState.swift; sourceTree = "<group>"; };
+		570D1B9C25FA4F9300A02917 /* back.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = back.atlas; sourceTree = "<group>"; };
+		570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWalkState.swift; sourceTree = "<group>"; };
+		570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCharacterComponent.swift; sourceTree = "<group>"; };
+		570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterJumpState.swift; sourceTree = "<group>"; };
+		570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpCharacterComponent.swift; sourceTree = "<group>"; };
 		5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		5759DF2E25F77D4900E708E4 /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
-		5759DF3325F77D5F00E708E4 /* RunComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunComponent.swift; sourceTree = "<group>"; };
 		5759DF3825F77DEB00E708E4 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		7B01590525F9B36700DAA2EE /* MoveSceneryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSceneryState.swift; sourceTree = "<group>"; };
+		7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
+		7B6A1A1225F7AFD200E1B9E2 /* BackgroundEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundEntity.swift; sourceTree = "<group>"; };
+		7B6A1A1725F7BAF600E1B9E2 /* MoveSceneryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSceneryComponent.swift; sourceTree = "<group>"; };
+		7B6A1A2925F8029800E1B9E2 /* larryJump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryJump.atlas; sourceTree = "<group>"; };
+		7B6A1A2E25F802A500E1B9E2 /* larryWalk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryWalk.atlas; sourceTree = "<group>"; };
+		7B6A1A3325F802AD00E1B9E2 /* roboWalkLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = roboWalkLeft.atlas; sourceTree = "<group>"; };
+		7B6A1A3825F802B500E1B9E2 /* roboWalkRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = roboWalkRight.atlas; sourceTree = "<group>"; };
+		7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunEntity.swift; sourceTree = "<group>"; };
+		7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSunComponent.swift; sourceTree = "<group>"; };
+		7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlComponent.swift; sourceTree = "<group>"; };
+		7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7B6A1A8325F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSpriteComponent.swift; sourceTree = "<group>"; };
 		7B6D3C2725F65E8500215887 /* GoLarryGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoLarryGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6D3C2A25F65E8500215887 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B6D3C3025F65E8500215887 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -87,6 +123,8 @@
 			children = (
 				7B6D3C3225F65E8500215887 /* GameViewController.swift */,
 				7B6D3C2A25F65E8500215887 /* AppDelegate.swift */,
+				7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */,
+				7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -97,6 +135,8 @@
 				5759DF3825F77DEB00E708E4 /* EntityManager.swift */,
 				5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */,
 				5709446925F79F7D001F32DB /* FloorEntity.swift */,
+				7B6A1A1225F7AFD200E1B9E2 /* BackgroundEntity.swift */,
+				7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -104,8 +144,13 @@
 		5759DF2725F77CAD00E708E4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */,
+				7B6A1A8325F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift */,
+				570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */,
+				570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */,
 				5759DF2E25F77D4900E708E4 /* VisualComponent.swift */,
-				5759DF3325F77D5F00E708E4 /* RunComponent.swift */,
+				7B6A1A1725F7BAF600E1B9E2 /* MoveSceneryComponent.swift */,
+				7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -116,6 +161,38 @@
 				7B6D3C3025F65E8500215887 /* GameScene.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		7B01590425F9B33900DAA2EE /* States */ = {
+			isa = PBXGroup;
+			children = (
+				7B01590525F9B36700DAA2EE /* MoveSceneryState.swift */,
+				570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */,
+				570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */,
+				570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */,
+			);
+			path = States;
+			sourceTree = "<group>";
+		};
+		7B6A1A2525F7BC3200E1B9E2 /* AssetsAtlas */ = {
+			isa = PBXGroup;
+			children = (
+				570D1B9C25FA4F9300A02917 /* back.atlas */,
+				7B6A1A3825F802B500E1B9E2 /* roboWalkRight.atlas */,
+				7B6A1A3325F802AD00E1B9E2 /* roboWalkLeft.atlas */,
+				7B6A1A2E25F802A500E1B9E2 /* larryWalk.atlas */,
+				7B6A1A2925F8029800E1B9E2 /* larryJump.atlas */,
+			);
+			path = AssetsAtlas;
+			sourceTree = "<group>";
+		};
+		7B6A1AE525F9B19100E1B9E2 /* Entity-Component */ = {
+			isa = PBXGroup;
+			children = (
+				5759DF2625F77CA200E708E4 /* Entities */,
+				5759DF2725F77CAD00E708E4 /* Components */,
+			);
+			path = "Entity-Component";
 			sourceTree = "<group>";
 		};
 		7B6D3C1E25F65E8500215887 = {
@@ -143,8 +220,9 @@
 			children = (
 				5759DF2525F77C9300E708E4 /* Shared */,
 				5759DF2825F77CD400E708E4 /* Scenes */,
-				5759DF2625F77CA200E708E4 /* Entities */,
-				5759DF2725F77CAD00E708E4 /* Components */,
+				7B01590425F9B33900DAA2EE /* States */,
+				7B6A1AE525F9B19100E1B9E2 /* Entity-Component */,
+				7B6A1A2525F7BC3200E1B9E2 /* AssetsAtlas */,
 				7B6D3C3725F65E8800215887 /* Assets.xcassets */,
 				7B6D3C3925F65E8800215887 /* Info.plist */,
 			);
@@ -272,7 +350,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				570D1B9D25FA4F9300A02917 /* back.atlas in Resources */,
+				7B6A1A3925F802B500E1B9E2 /* roboWalkRight.atlas in Resources */,
+				7B6A1A2A25F8029800E1B9E2 /* larryJump.atlas in Resources */,
+				7B6A1A3425F802AD00E1B9E2 /* roboWalkLeft.atlas in Resources */,
 				7B6D3C3825F65E8800215887 /* Assets.xcassets in Resources */,
+				7B6A1A2F25F802A500E1B9E2 /* larryWalk.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +380,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */,
+				570D1C4025FBB1A400A02917 /* JumpCharacterComponent.swift in Sources */,
 				7B6D3C3125F65E8500215887 /* GameScene.swift in Sources */,
+				7B6A1A7A25F9A9E300E1B9E2 /* Extensions.swift in Sources */,
+				7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */,
+				7B6A1A3E25F8041E00E1B9E2 /* SunEntity.swift in Sources */,
+				570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */,
+				7B01590625F9B36700DAA2EE /* MoveSceneryState.swift in Sources */,
+				7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */,
+				7B6A1A1825F7BAF600E1B9E2 /* MoveSceneryComponent.swift in Sources */,
 				5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */,
+				7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */,
 				5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */,
 				7B6D3C3325F65E8500215887 /* GameViewController.swift in Sources */,
+				570D1C3B25FBB0AF00A02917 /* CharacterJumpState.swift in Sources */,
+				7B6A1A1325F7AFD200E1B9E2 /* BackgroundEntity.swift in Sources */,
+				570D1C3325FBA9DA00A02917 /* MoveCharacterComponent.swift in Sources */,
 				5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */,
+				7B6A1A8425F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift in Sources */,
 				7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */,
 				5709446A25F79F7D001F32DB /* FloorEntity.swift in Sources */,
-				5759DF3425F77D5F00E708E4 /* RunComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
