@@ -66,17 +66,14 @@ class GameScene: SKScene {
     
     // MARK: - Adding Nodes to Scene
     func setupBackground() {
-        var backgroundImage = SKSpriteNode()
         //Scroll background
-            for i in 0..<2 {
+        var backgroundImage = SKSpriteNode()
                 backgroundImage = SKSpriteNode(imageNamed: "back")
                 backgroundImage.anchorPoint = CGPoint(x: 0, y: 0)
                 backgroundImage.size = CGSize(width: self.size.width + 10, height: self.size.height)
-                backgroundImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 0)
-                backgroundImage.run(scenery.moveScenery(self.size))
+                backgroundImage.position = CGPoint(x: self.size.width, y: 0)
                 backgroundImage.zPosition = ZPositionsCategories.background
                 backNode.addChild(backgroundImage)
-            }
         self.addChild(backNode)
         
         //Scrool clounds
@@ -122,7 +119,7 @@ class GameScene: SKScene {
         var sunImage = SKSpriteNode()
                 sunImage = SKSpriteNode(imageNamed: "sun")
                 sunImage.anchorPoint = CGPoint(x: 0, y: 0)
-                sunImage.size = CGSize(width: self.size.width * 0.2, height: self.size.height * 0.2)
+                sunImage.size = CGSize(width: self.size.width * 0.2, height: self.size.height * 0.25)
                 sunImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
                 //sunImage.run(scenery.moveSun(self.size))
                 sunImage.zPosition = ZPositionsCategories.sun
