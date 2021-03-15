@@ -1,22 +1,18 @@
 //
-//  CharacterJumpState.swift
+//  CharacterDeadState.swift
 //  GoLarryGo
 //
-//  Created by aluno on 12/03/21.
+//  Created by Samuel Sales on 15/03/21.
 //
 import SpriteKit
 import GameplayKit
 import UIKit
 
-class CharacterJumpState: GKState {
+class CharacterDeadState: GKState {
     var entity: GKEntity
     
     var animatedSpriteComponent: AnimatedSpriteComponent? {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
-    }
-
-    var jumpComponent: JumpCharacterComponent? {
-        self.entity.component(ofType: JumpCharacterComponent.self)
     }
 
     init(_ entity: GKEntity){
@@ -26,12 +22,8 @@ class CharacterJumpState: GKState {
 
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
-        print("larry jump")
-        //if animatedSpriteComponent?.spriteNode.position.y == 30 {
-            animatedSpriteComponent?.setAnimation(atlasName: "larryJump")
-            jumpComponent?.jump()
-            
-        //}
+        print("larry dead")
+        animatedSpriteComponent?.setAnimation(atlasName: "larryJump")
     }
 
     override func update(deltaTime seconds: TimeInterval) {

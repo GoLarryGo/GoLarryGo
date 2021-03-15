@@ -1,25 +1,20 @@
+//
+//  RobotEntity.swift
+//  GoLarryGo
+//
+//  Created by Samuel Sales on 15/03/21.
+//
 import SpriteKit
 import GameplayKit
 
-// Cria a entidade Character main, herdando de GKEntity
-class CharacterEntity: GKEntity {
+class RobotEntity: GKEntity {
     
     override init() {
         super.init()
         // Utiliza o componente AnimatedSpriteComponent para gerar o sprite da entidade
-        let animetedSpriteComponent = AnimatedSpriteComponent(atlasName: "larryWalk")
+        let animetedSpriteComponent = AnimatedSpriteComponent(atlasName: "roboWalkLeft")
         addComponent(animetedSpriteComponent)
         setupPhysicsBody(component: animetedSpriteComponent)
-        
-        addComponent(
-            PlayerControlComponent(states: [
-                CharacterWalkState(self),
-                CharacterJumpState(self)
-            ])
-        )
-        
-        addComponent(MoveCharacterComponent())
-        addComponent(JumpCharacterComponent(impulse: 300))
     }
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {
@@ -32,4 +27,3 @@ class CharacterEntity: GKEntity {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

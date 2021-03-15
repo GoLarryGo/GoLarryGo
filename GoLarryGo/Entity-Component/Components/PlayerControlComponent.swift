@@ -23,13 +23,19 @@ class PlayerControlComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func halt() {
+    func start() {
+        guard stateMachine.currentState!.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(MoveSceneryState.self)
         stateMachine.enter(CharacterWalkState.self)
     }
     
     func jump() {
+        guard stateMachine.currentState!.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(CharacterJumpState.self)
+    }
+    
+    func dead() {
+        stateMachine.enter(CharacterDeadState.self)
     }
 
 
