@@ -14,7 +14,6 @@ class PlayerControlComponent: GKComponent {
 
     init(states: [GKState]) {
         self.stateMachine = GKStateMachine(states: states)
-        self.stateMachine.enter(MoveSceneryState.self)
         self.stateMachine.enter(CharacterWalkState.self)
         super.init()
     }
@@ -24,7 +23,6 @@ class PlayerControlComponent: GKComponent {
     }
 
     func halt() {
-        stateMachine.enter(MoveSceneryState.self)
         stateMachine.enter(CharacterWalkState.self)
     }
     
