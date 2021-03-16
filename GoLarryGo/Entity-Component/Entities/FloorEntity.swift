@@ -16,8 +16,7 @@ class FloorEntity: GKEntity {
         let visualComponent = AnimatedSpriteComponent(textureName: "back03")
         addComponent(visualComponent)
         
-        let moviment = MoveSceneryComponent()
-        addComponent(moviment)
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

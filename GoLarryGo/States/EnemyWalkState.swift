@@ -38,10 +38,6 @@ class EnemyWalkState: GKState {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
 
-    var moveComponent: MoveSceneryComponent? {
-        self.entity.component(ofType: MoveSceneryComponent.self)
-    }
-
     init(_ entity: GKEntity){
         self.entity = entity
         super.init()

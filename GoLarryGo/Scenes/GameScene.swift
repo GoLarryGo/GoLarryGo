@@ -12,10 +12,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var entityManager: EntityManager!
     
+    var backNode = SKNode()
+    var cloundsNode = SKNode()
+    var montainFixNode = SKNode()
+    var montainAltNode = SKNode()
+    var sunNode = SKNode()
+    
+    
+    var scenery = Scenery()
+    
     private var previousUpdateTime: TimeInterval = TimeInterval()
     
     let character = CharacterEntity()
-    let back = BackgroundEntity()
     let floor = FloorEntity()
     let robot = RobotEntity()
     
@@ -34,15 +42,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         //physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         physicsWorld.contactDelegate = self
+        self.backgroundColor = .back
+        
+        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         entityManager = EntityManager(scene: self)
         
         view.addGestureRecognizer(tap)
-       
-        //Nodes
-        setupBackNodePosition()
+        
+        //Setups
+        setupBackground()
         setupFloorNodePosition()
         setupCharacterNodePosition()
         setupRobotNodePosition()
+        
+        //SpeedBackgroun
+        backNode.speed = 1
+        montainFixNode.speed = 0.5
+        montainAltNode.speed = 0.5
+        cloundsNode.speed = 1
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -50,19 +67,71 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
         
+        
+        
     }
     
     // MARK: - Adding Nodes to Scene
-    func setupBackNodePosition() {
-        //acessing back from AnimatedSpriteComponents
-        guard let backgroundSpriteNode = back.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-
-        //positioning back
-        backgroundSpriteNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        backgroundSpriteNode.size = CGSize(width: size.width, height: size.height)
-        backgroundSpriteNode.zPosition = -6
-  
-        self.addChild(backgroundSpriteNode)
+    func setupBackground() {
+        //Scroll background
+        var backgroundImage = SKSpriteNode()
+                backgroundImage = SKSpriteNode(imageNamed: "back")
+                backgroundImage.anchorPoint = CGPoint(x: 0, y: 0)
+                backgroundImage.size = CGSize(width: self.size.width + 10, height: self.size.height)
+                backgroundImage.position = CGPoint(x: self.size.width, y: 0)
+                backgroundImage.zPosition = ZPositionsCategories.background
+                backNode.addChild(backgroundImage)
+        self.addChild(backNode)
+        
+        //Scrool clounds
+        var cloundsImage = SKSpriteNode()
+            for i in 0..<2 {
+                cloundsImage = SKSpriteNode(imageNamed: "clouds")
+                cloundsImage.anchorPoint = CGPoint(x: 0, y: 0)
+                cloundsImage.size = CGSize(width: self.size.width, height: self.size.height * 0.35)
+                cloundsImage.position = CGPoint(x: self.size.width * CGFloat(i), y: self.size.height * 0.5)
+                cloundsImage.run(scenery.moveScenery(self.size))
+                cloundsImage.zPosition = ZPositionsCategories.clounds
+                cloundsNode.addChild(cloundsImage)
+            }
+        self.addChild(cloundsNode)
+        
+        //Scrool montainFix
+        var montainFixImage = SKSpriteNode()
+            for i in 0..<2 {
+                montainFixImage = SKSpriteNode(imageNamed: "montainFix")
+                montainFixImage.anchorPoint = CGPoint(x: 0, y: 0)
+                montainFixImage.size = CGSize(width: self.size.width, height: self.size.height * 0.4)
+                montainFixImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 0)
+                montainFixImage.run(scenery.moveScenery(self.size))
+                montainFixImage.zPosition = ZPositionsCategories.montainFix
+                montainFixNode.addChild(montainFixImage)
+            }
+        self.addChild(montainFixNode)
+        
+        //Scrool montainAlt
+        var montainAltImage = SKSpriteNode()
+            for i in 0..<2 {
+                montainAltImage = SKSpriteNode(imageNamed: "montainAlt")
+                montainAltImage.anchorPoint = CGPoint(x: 0, y: 0)
+                montainAltImage.size = CGSize(width: self.size.width * 0.5, height: self.size.height * 0.5)
+                montainAltImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 0)
+                montainAltImage.run(scenery.moveScenery(self.size))
+                montainAltImage.zPosition = ZPositionsCategories.montainAlt
+                montainAltNode.addChild(montainAltImage)
+            }
+        self.addChild(montainAltNode)
+        
+        //Scrool sun
+        var sunImage = SKSpriteNode()
+                sunImage = SKSpriteNode(imageNamed: "sun")
+                sunImage.anchorPoint = CGPoint(x: 0, y: 0)
+                sunImage.size = CGSize(width: self.size.width * 0.2, height: self.size.height * 0.25)
+                sunImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+                //sunImage.run(scenery.moveSun(self.size))
+                sunImage.zPosition = ZPositionsCategories.sun
+                sunNode.addChild(sunImage)
+        self.addChild(sunNode)
     }
     
     func setupFloorNodePosition() {
