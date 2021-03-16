@@ -18,13 +18,17 @@ class GameScene: SKScene {
     var montainAltNode = SKNode()
     var sunNode = SKNode()
     
+    //Floor
+    let ground = Ground(numberOfTiles: 120)
+    var groundNodes: [SKSpriteNode] = []
+    var numberGround = Int.random(in: 3..<16)
     
     var scenery = Scenery()
     
     private var previousUpdateTime: TimeInterval = TimeInterval()
     
     let character = CharacterEntity()
-    let floor = FloorEntity()
+    
     
     var playerControlComponent: PlayerControlComponent? {
         character.component(ofType: PlayerControlComponent.self)
@@ -45,7 +49,7 @@ class GameScene: SKScene {
         
         //Setups
         setupBackground()
-        setupFloorNodePosition()
+        setupFloorPosition()
         setupCharacterNodePosition()
         
         //SpeedBackgroun
@@ -53,14 +57,20 @@ class GameScene: SKScene {
         montainFixNode.speed = 0.5
         montainAltNode.speed = 0.5
         cloundsNode.speed = 1
+        
+        //adding move to floor
+            for groundNode in groundNodes {
+                groundNode.run(scenery.moveGround(self.size))
+//                if groundNode.position.x < 0 {
+//                    removeFromParent()
+//                }
+            }
     }
 
     override func update(_ currentTime: TimeInterval) {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
-        
-        
         
     }
     
@@ -127,23 +137,35 @@ class GameScene: SKScene {
         self.addChild(sunNode)
     }
     
-    func setupFloorNodePosition() {
-        //acessing floor from AnimatedSpriteComponents
-        guard let floorSpriteNode = floor.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-        
-        //positioning floor
-        floorSpriteNode.position = CGPoint(x: size.width/2, y: size.height/2)
-        floorSpriteNode.size = CGSize(width: size.width, height: size.height)
-        floorSpriteNode.zPosition = -1
-        
-        entityManager.add(floor)
-        setupTopFloor()
+    func setupFloorPosition() {
+        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else {
+            return
+        }
+        //initial positioning ground tiles
+        let tileCount = groundTileRowComponent.tileNodes.count
+        let groundTileNodes: [SKSpriteNode] = groundTileRowComponent.tileNodes.enumerated().map { (index, node) in
+                let offset = CGFloat(tileCount/2 - index)
+                node.position = CGPoint(
+                    x: node.texture!.size().width / 2 * offset,
+                    y: 15
+                )
+                return node
+        }
+        //adding nodes to scene
+            for groundNode in groundTileNodes {
+                groundNode.zPosition = ZPositionsCategories.ground
+                groundNode.size = CGSize(width: 32, height: 32)
+                groundNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: groundNode.size.width, height: groundNode.size.height))
+                groundNode.physicsBody?.isDynamic = false
+                groundNode.name = "ground"
+                groundNodes.append(groundNode)
+                self.addChild(groundNode)
+            }
     }
     
     func setupCharacterNodePosition() {
         //acessing character from AnimatedSpriteComponents
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-        
         //positioning character
         characterSpriteNode.position = CGPoint(x: 50, y: 31)
         characterSpriteNode.size = CGSize(width: 32, height: 32)

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5709446A25F79F7D001F32DB /* FloorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* FloorEntity.swift */; };
+		5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* GroundEntity.swift */; };
 		570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */; };
 		570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */; };
 		570D1C3325FBA9DA00A02917 /* MoveCharacterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */; };
@@ -18,6 +18,7 @@
 		5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF3825F77DEB00E708E4 /* EntityManager.swift */; };
 		7B1A538B25FF93AC002BC9B2 /* Scenary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A538A25FF93AC002BC9B2 /* Scenary.swift */; };
 		7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A538F25FF9A9F002BC9B2 /* ZPositions.swift */; };
+		7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */; };
 		7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */; };
 		7B6A1A2A25F8029800E1B9E2 /* larryJump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A2925F8029800E1B9E2 /* larryJump.atlas */; };
 		7B6A1A2F25F802A500E1B9E2 /* larryWalk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A2E25F802A500E1B9E2 /* larryWalk.atlas */; };
@@ -34,6 +35,7 @@
 		7B6D3C3825F65E8800215887 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6D3C3725F65E8800215887 /* Assets.xcassets */; };
 		7B6D3C4325F65E8800215887 /* GoLarryGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C4225F65E8800215887 /* GoLarryGoTests.swift */; };
 		7B6D3C4E25F65E8800215887 /* GoLarryGoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C4D25F65E8800215887 /* GoLarryGoUITests.swift */; };
+		7B74CB102600E78400F1BD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5709446925F79F7D001F32DB /* FloorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorEntity.swift; sourceTree = "<group>"; };
+		5709446925F79F7D001F32DB /* GroundEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundEntity.swift; sourceTree = "<group>"; };
 		570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyWalkState.swift; sourceTree = "<group>"; };
 		570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWalkState.swift; sourceTree = "<group>"; };
 		570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCharacterComponent.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 		5759DF3825F77DEB00E708E4 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		7B1A538A25FF93AC002BC9B2 /* Scenary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenary.swift; sourceTree = "<group>"; };
 		7B1A538F25FF9A9F002BC9B2 /* ZPositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZPositions.swift; sourceTree = "<group>"; };
+		7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileRowComponent.swift; sourceTree = "<group>"; };
 		7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		7B6A1A2925F8029800E1B9E2 /* larryJump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryJump.atlas; sourceTree = "<group>"; };
 		7B6A1A2E25F802A500E1B9E2 /* larryWalk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryWalk.atlas; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 		7B6D3C4925F65E8800215887 /* GoLarryGoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoLarryGoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6D3C4D25F65E8800215887 /* GoLarryGoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoLarryGoUITests.swift; sourceTree = "<group>"; };
 		7B6D3C4F25F65E8800215887 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				7B6D3C2A25F65E8500215887 /* AppDelegate.swift */,
 				7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */,
 				7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */,
+				7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -130,7 +135,7 @@
 			children = (
 				5759DF3825F77DEB00E708E4 /* EntityManager.swift */,
 				5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */,
-				5709446925F79F7D001F32DB /* FloorEntity.swift */,
+				5709446925F79F7D001F32DB /* GroundEntity.swift */,
 				7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */,
 			);
 			path = Entities;
@@ -145,6 +150,7 @@
 				570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */,
 				5759DF2E25F77D4900E708E4 /* VisualComponent.swift */,
 				7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */,
+				7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -352,6 +358,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B74CB102600E78400F1BD5B /* LaunchScreen.storyboard in Resources */,
 				7B6A1A3925F802B500E1B9E2 /* roboWalkRight.atlas in Resources */,
 				7B6A1A2A25F8029800E1B9E2 /* larryJump.atlas in Resources */,
 				7B6A1A3425F802AD00E1B9E2 /* roboWalkLeft.atlas in Resources */,
@@ -391,6 +398,7 @@
 				570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */,
 				7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */,
 				7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */,
+				7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */,
 				5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */,
 				7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */,
 				5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */,
@@ -400,7 +408,7 @@
 				5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */,
 				7B6A1A8425F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift in Sources */,
 				7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */,
-				5709446A25F79F7D001F32DB /* FloorEntity.swift in Sources */,
+				5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

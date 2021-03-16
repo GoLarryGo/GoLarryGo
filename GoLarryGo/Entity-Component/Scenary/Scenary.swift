@@ -10,6 +10,12 @@ import SpriteKit
 
 class Scenery {
     
+    func moveGround(_ size: CGSize) -> SKAction {
+        let moveBack = SKAction.moveBy(x: -size.width, y: 0, duration: 8)
+        let repositionBack = SKAction.moveBy(x: size.width, y: 0, duration: 0)
+        let loopBack = SKAction.repeatForever(SKAction.sequence([moveBack,repositionBack]))
+        return loopBack
+    }
     
     func moveScenery(_ size: CGSize) -> SKAction {
         let moveBack = SKAction.moveBy(x: -size.width, y: 0, duration: 8)
