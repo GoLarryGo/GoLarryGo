@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        let controller = GameViewController()
+        let controller = HomeViewController()
         window.rootViewController = controller
         
         self.window = window
