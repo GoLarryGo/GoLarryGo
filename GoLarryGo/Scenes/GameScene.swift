@@ -8,7 +8,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var entityManager: EntityManager!
     
@@ -28,6 +28,10 @@ class GameScene: SKScene {
     private var previousUpdateTime: TimeInterval = TimeInterval()
     
     let character = CharacterEntity()
+    let robot = RobotEntity()
+    
+    let categoryCharacterPhysic: UInt32 = 1
+    let categoryRobotPhysic: UInt32 = 1
     
     
     var playerControlComponent: PlayerControlComponent? {
@@ -36,13 +40,18 @@ class GameScene: SKScene {
     
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
+        guard playerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
         playerControlComponent?.jump()
     }
     
     override func didMove(to view: SKView) {
+        //physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
+        physicsWorld.contactDelegate = self
+        
+        playerControlComponent?.start()
+        
         self.backgroundColor = .back
         
-        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         entityManager = EntityManager(scene: self)
         
         view.addGestureRecognizer(tap)
@@ -51,6 +60,7 @@ class GameScene: SKScene {
         setupBackground()
         setupFloorPosition()
         setupCharacterNodePosition()
+        setupRobotNodePosition()
         
         //SpeedBackgroun
         backNode.speed = 1
@@ -71,7 +81,6 @@ class GameScene: SKScene {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
-        
     }
     
     // MARK: - Adding Nodes to Scene
@@ -167,10 +176,32 @@ class GameScene: SKScene {
         //acessing character from AnimatedSpriteComponents
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         //positioning character
-        characterSpriteNode.position = CGPoint(x: 50, y: 31)
-        characterSpriteNode.size = CGSize(width: 32, height: 32)
+        characterSpriteNode.position = CGPoint(x: 50, y: 300)
+        characterSpriteNode.size = CGSize(width: 64, height: 64)
+        
+        characterSpriteNode.physicsBody?.categoryBitMask = categoryCharacterPhysic
+        characterSpriteNode.physicsBody?.collisionBitMask = categoryRobotPhysic
+        characterSpriteNode.physicsBody?.contactTestBitMask = categoryRobotPhysic
+        
+        characterSpriteNode.name = "character"
         
         entityManager.add(character)
+    }
+    
+    func setupRobotNodePosition() {
+        //acessing character from AnimatedSpriteComponents
+        guard let robotSpriteNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        
+        //positioning character
+        robotSpriteNode.position = CGPoint(x: 400, y: 300)
+        robotSpriteNode.size = CGSize(width: 64, height: 64)
+        
+        robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic
+        robotSpriteNode.physicsBody?.contactTestBitMask = categoryCharacterPhysic
+        
+        robotSpriteNode.name = "robot"
+        
+        entityManager.add(robot)
     }
     
     // MARK: - PhysicsBody
@@ -180,5 +211,21 @@ class GameScene: SKScene {
         topFloor.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 30))
         topFloor.physicsBody?.isDynamic = false
         addChild(topFloor)
+    }
+}
+
+extension GameScene {
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("teve contato")
+        
+        if (contact.bodyA.node?.name == "character" && contact.bodyB.node?.name == "robot")
+        || (contact.bodyA.node?.name == "robot" && contact.bodyB.node?.name == "character") {
+            playerControlComponent?.dead()
+        }
+        
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        print("acabou contato")
     }
 }

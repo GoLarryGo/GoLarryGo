@@ -27,11 +27,15 @@ class CharacterJumpState: GKState {
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
         print("larry jump")
-        if animatedSpriteComponent?.spriteNode.position.y == 30 {
-            animatedSpriteComponent?.setAnimation(atlasName: "larryJump")
-            jumpComponent?.jump()
-            
-        }
+        animatedSpriteComponent?.setAnimationSingle(atlasName: "larryJump")
+        jumpComponent?.jump(completion: {
+            self.stateMachine?.enter(CharacterWalkState.self)
+        })
+    }
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        super.isValidNextState(stateClass)
+        return stateClass == CharacterWalkState.self
     }
 
     override func update(deltaTime seconds: TimeInterval) {

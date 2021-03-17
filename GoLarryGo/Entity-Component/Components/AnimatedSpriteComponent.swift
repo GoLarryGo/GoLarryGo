@@ -45,10 +45,27 @@ class AnimatedSpriteComponent: GKComponent {
             SKAction.repeatForever(
                 SKAction.animate(
                     with: animationTextures,
-                    timePerFrame: 0.7,
+                    timePerFrame: 0.5,
                     resize: false,
                     restore: true
                 )
+            ),
+            withKey: atlasName
+        )
+    }
+    
+    func setAnimationSingle(atlasName: String) {
+        spriteNode.removeAllActions()
+
+        self.animationAtlas = SKTextureAtlas(named: atlasName)
+        self.spriteNode.texture = animationTextures.first!
+        
+        spriteNode.run(
+            SKAction.animate(
+                with: animationTextures,
+                timePerFrame: 0.1,
+                resize: false,
+                restore: false
             ),
             withKey: atlasName
         )
