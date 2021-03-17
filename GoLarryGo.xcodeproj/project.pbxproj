@@ -43,6 +43,13 @@
 		7B6D3C4325F65E8800215887 /* GoLarryGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C4225F65E8800215887 /* GoLarryGoTests.swift */; };
 		7B6D3C4E25F65E8800215887 /* GoLarryGoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C4D25F65E8800215887 /* GoLarryGoUITests.swift */; };
 		7B74CB102600E78400F1BD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */; };
+		EF390EA126023E5C008778F3 /* pixel-arial-11-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */; };
+		EF390EA226023E5C008778F3 /* pixel-arial-11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */; };
+		EF390EAE26023E6F008778F3 /* botao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA726023E6F008778F3 /* botao.mp3 */; };
+		EF390EB026023E6F008778F3 /* roboMorrendo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA926023E6F008778F3 /* roboMorrendo.mp3 */; };
+		EF390EB126023E6F008778F3 /* larryPulando.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAA26023E6F008778F3 /* larryPulando.mp3 */; };
+		EF390EB226023E6F008778F3 /* larryMorrendo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAB26023E6F008778F3 /* larryMorrendo.mp3 */; };
+		EF390EB326023E6F008778F3 /* 03 Chibi Ninja.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAD26023E6F008778F3 /* 03 Chibi Ninja.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +112,13 @@
 		7B6D3C4D25F65E8800215887 /* GoLarryGoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoLarryGoUITests.swift; sourceTree = "<group>"; };
 		7B6D3C4F25F65E8800215887 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pixel-arial-11-bold.ttf"; sourceTree = "<group>"; };
+		EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pixel-arial-11.ttf"; sourceTree = "<group>"; };
+		EF390EA726023E6F008778F3 /* botao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = botao.mp3; sourceTree = "<group>"; };
+		EF390EA926023E6F008778F3 /* roboMorrendo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = roboMorrendo.mp3; sourceTree = "<group>"; };
+		EF390EAA26023E6F008778F3 /* larryPulando.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = larryPulando.mp3; sourceTree = "<group>"; };
+		EF390EAB26023E6F008778F3 /* larryMorrendo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = larryMorrendo.mp3; sourceTree = "<group>"; };
+		EF390EAD26023E6F008778F3 /* 03 Chibi Ninja.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03 Chibi Ninja.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +275,7 @@
 		7B6D3C2925F65E8500215887 /* GoLarryGo */ = {
 			isa = PBXGroup;
 			children = (
+				EF390E9926023D07008778F3 /* Resources */,
 				5759DF2525F77C9300E708E4 /* Shared */,
 				3945D2EB26022777008965EE /* Controller */,
 				3945D2EA26022770008965EE /* View */,
@@ -290,6 +305,52 @@
 				7B6D3C4F25F65E8800215887 /* Info.plist */,
 			);
 			path = GoLarryGoUITests;
+			sourceTree = "<group>";
+		};
+		EF390E9926023D07008778F3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EF390E9B26023D1E008778F3 /* Fonts */,
+				EF390E9A26023D13008778F3 /* Sounds */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EF390E9A26023D13008778F3 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				EF390EA626023E6F008778F3 /* sound effects */,
+				EF390EAC26023E6F008778F3 /* soundtrack */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		EF390E9B26023D1E008778F3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */,
+				EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		EF390EA626023E6F008778F3 /* sound effects */ = {
+			isa = PBXGroup;
+			children = (
+				EF390EA726023E6F008778F3 /* botao.mp3 */,
+				EF390EA926023E6F008778F3 /* roboMorrendo.mp3 */,
+				EF390EAA26023E6F008778F3 /* larryPulando.mp3 */,
+				EF390EAB26023E6F008778F3 /* larryMorrendo.mp3 */,
+			);
+			path = "sound effects";
+			sourceTree = "<group>";
+		};
+		EF390EAC26023E6F008778F3 /* soundtrack */ = {
+			isa = PBXGroup;
+			children = (
+				EF390EAD26023E6F008778F3 /* 03 Chibi Ninja.mp3 */,
+			);
+			path = soundtrack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,15 +456,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF390EB126023E6F008778F3 /* larryPulando.mp3 in Resources */,
 				3945D2CA2600D8F1008965EE /* larryJump.atlas in Resources */,
 				3945D22625FFA972008965EE /* larryDying.atlas in Resources */,
+				EF390EA126023E5C008778F3 /* pixel-arial-11-bold.ttf in Resources */,
 				3945D29526004087008965EE /* robotWalkRight.atlas in Resources */,
 				3945D29426004087008965EE /* robotWalkLeft.atlas in Resources */,
 				7B74CB102600E78400F1BD5B /* LaunchScreen.storyboard in Resources */,
 				7B6D3C3825F65E8800215887 /* Assets.xcassets in Resources */,
+				EF390EB326023E6F008778F3 /* 03 Chibi Ninja.mp3 in Resources */,
 				3945D21925FFA921008965EE /* larryWalk.atlas in Resources */,
+				EF390EAE26023E6F008778F3 /* botao.mp3 in Resources */,
 				3945D29326004087008965EE /* robotDead.atlas in Resources */,
+				EF390EB226023E6F008778F3 /* larryMorrendo.mp3 in Resources */,
 				3945D28926003FAA008965EE /* larryDead.atlas in Resources */,
+				EF390EA226023E5C008778F3 /* pixel-arial-11.ttf in Resources */,
+				EF390EB026023E6F008778F3 /* roboMorrendo.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
