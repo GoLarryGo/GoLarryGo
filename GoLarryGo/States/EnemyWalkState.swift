@@ -47,7 +47,7 @@ class EnemyWalkState: GKState {
         super.didEnter(from: previousState)
         print("walkState")
 
-        animatedSpriteComponent?.setAnimation(atlasName: "roboWalkLeft")
+        animatedSpriteComponent?.setAnimation(atlasName: "robotWalkLeft")
         //walkComponent?.walk(direction: direction)
     }
 
