@@ -38,10 +38,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         character.component(ofType: PlayerControlComponent.self)
     }
     
-    var playerControlComponent2: PlayerControlComponent? {
-        robot.component(ofType: PlayerControlComponent.self)
-    }
-    
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
         guard playerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
@@ -53,7 +49,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         playerControlComponent?.start()
-        playerControlComponent2?.startRobot()
         
         self.backgroundColor = .back
         
@@ -214,6 +209,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic
         robotSpriteNode.physicsBody?.contactTestBitMask = categoryCharacterPhysic
+        
         robotSpriteNode.name = "robot"
         
         entityManager.add(robot)
