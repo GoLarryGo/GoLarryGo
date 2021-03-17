@@ -36,15 +36,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
+        guard playerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
         playerControlComponent?.jump()
     }
     
     override func didMove(to view: SKView) {
         //physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         physicsWorld.contactDelegate = self
+        
+        playerControlComponent?.start()
+        
         self.backgroundColor = .back
         
-        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         entityManager = EntityManager(scene: self)
         
         view.addGestureRecognizer(tap)
@@ -66,9 +69,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
-        
-        
-        
     }
     
     // MARK: - Adding Nodes to Scene

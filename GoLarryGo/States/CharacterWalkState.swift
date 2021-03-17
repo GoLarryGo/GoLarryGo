@@ -30,6 +30,12 @@ class CharacterWalkState: GKState {
         print("larry")
 
         animatedSpriteComponent?.setAnimation(atlasName: "larryWalk")
+        //moveComponent?.
+    }
+    
+    override func willExit(to nextState: GKState) {
+        super.willExit(to: nextState)
+        //quando ele tiver saindo
     }
 
     override func update(deltaTime seconds: TimeInterval) {

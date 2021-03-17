@@ -14,16 +14,17 @@ class CharacterEntity: GKEntity {
         addComponent(
             PlayerControlComponent(states: [
                 CharacterWalkState(self),
-                CharacterJumpState(self)
+                CharacterJumpState(self),
+                CharacterDeadState(self)
             ])
         )
         
         addComponent(MoveCharacterComponent())
-        addComponent(JumpCharacterComponent(impulse: 300))
+        addComponent(JumpCharacterComponent(impulse: 600))
     }
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {
-        component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: 32)
+        component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: 16)
         component.spriteNode.physicsBody?.isDynamic = true
         component.spriteNode.physicsBody?.allowsRotation = false
     }

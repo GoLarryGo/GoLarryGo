@@ -14,7 +14,11 @@ class CharacterDeadState: GKState {
     var animatedSpriteComponent: AnimatedSpriteComponent? {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
-
+    
+    var moveComponent: MoveCharacterComponent? {
+        self.entity.component(ofType: MoveCharacterComponent.self)
+    }
+    
     init(_ entity: GKEntity){
         self.entity = entity
         super.init()
@@ -23,7 +27,8 @@ class CharacterDeadState: GKState {
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
         print("larry dead")
-        animatedSpriteComponent?.setAnimation(atlasName: "larryJump")
+        animatedSpriteComponent?.setAnimationSingle(atlasName: "larryDead")
+        moveComponent?.halt()
     }
 
     override func update(deltaTime seconds: TimeInterval) {

@@ -9,13 +9,33 @@ import GameplayKit
 import UIKit
 
 class MoveCharacterComponent: GKComponent {
+    
+    var walk: Bool = true
+    var velocity: CGFloat
+    
     var spriteNode: SKSpriteNode? {
         self.entity?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode
     }
     
+    init(velocity: CGFloat = 1) {
+        self.velocity = velocity
+        super.init()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func halt() {
+        self.walk = false
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
-        spriteNode?.position.x += 1
-
+        if walk {
+            spriteNode?.position.x += velocity
+        } else {
+            spriteNode?.position.x += 0
+        }
     }
 }

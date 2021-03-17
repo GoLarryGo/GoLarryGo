@@ -14,7 +14,7 @@ class PlayerControlComponent: GKComponent {
 
     init(states: [GKState]) {
         self.stateMachine = GKStateMachine(states: states)
-        self.stateMachine.enter(CharacterWalkState.self)
+        //self.stateMachine.enter(CharacterWalkState.self)
         super.init()
     }
 
@@ -23,13 +23,12 @@ class PlayerControlComponent: GKComponent {
     }
 
     func start() {
-        guard stateMachine.currentState!.classForCoder != CharacterDeadState.self else { return }
-        stateMachine.enter(MoveSceneryState.self)
+        guard stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(CharacterWalkState.self)
     }
     
     func jump() {
-        guard stateMachine.currentState!.classForCoder != CharacterDeadState.self else { return }
+        guard stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(CharacterJumpState.self)
     }
     
