@@ -11,13 +11,16 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
+    var scene: GameScene!
+
     override func loadView() {
         //super.viewDidLoad()
         let view = SKView(frame: UIScreen.main.bounds) //cria uma sk view
-        let scene = GameScene(size: view.bounds.size) //cria a scene que vai ser apresentada
+        scene = GameScene(size: view.bounds.size) //cria a scene que vai ser apresentada
+
         // Set the scale mode to scale to fit the window
         scene.scaleMode = .aspectFit
-        
+
         // Present the scene
         view.presentScene(scene)
         view.ignoresSiblingOrder = true
@@ -26,10 +29,18 @@ class GameViewController: UIViewController {
         
         self.view = view
     }
-    
+
     override func viewDidLoad() {
-        super.viewDidLoad()
+        scene.isPaused = true
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        present(HomeViewController(), animated: false, completion: nil)
+
+    }
+
+
 
 }
 

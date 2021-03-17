@@ -24,7 +24,7 @@ class HomeView: UIView {
     
     override init(frame: CGRect) {
         super .init(frame: frame)
-        backgroundColor = UIColor(displayP3Red: 120, green: 100, blue: 30, alpha: 0.2)
+        backgroundColor = UIColor.black.withAlphaComponent(0.2)
         setupViewHierarchy()
         setupConstraints()
     }
@@ -47,8 +47,8 @@ class HomeView: UIView {
         NSLayoutConstraint.activate([
             soundButton.topAnchor.constraint(equalTo: topAnchor, constant: 24),
             soundButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            soundButton.heightAnchor.constraint(equalToConstant: 24),
-            soundButton.widthAnchor.constraint(equalToConstant: 24)
+            soundButton.heightAnchor.constraint(equalToConstant: 44),
+            soundButton.widthAnchor.constraint(equalToConstant: 44)
         ])
     }
     
@@ -56,8 +56,8 @@ class HomeView: UIView {
         NSLayoutConstraint.activate([
             logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            logoImageView.heightAnchor.constraint(equalToConstant: 67),
-            logoImageView.widthAnchor.constraint(equalToConstant: 260)
+            logoImageView.heightAnchor.constraint(equalToConstant: 120),
+            logoImageView.widthAnchor.constraint(equalToConstant: 378)
         ])
     }
 
