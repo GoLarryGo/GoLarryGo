@@ -14,6 +14,7 @@ class PlayerControlComponent: GKComponent {
 
     init(states: [GKState]) {
         self.stateMachine = GKStateMachine(states: states)
+        stateMachine.enter(EnemyWalkState.self)
         //self.stateMachine.enter(CharacterWalkState.self)
         super.init()
     }
