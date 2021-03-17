@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    static let yellowText = UIColor(red: 252, green: 237, blue: 296, alpha: 100)
-    static let greenText = UIColor(red: 22, green: 156, blue: 145, alpha: 100)
+    static let yellowText = UIColor(red: 249/255, green: 235/255, blue: 197/255, alpha: 1)
+    static let greenText = UIColor(red: 22/255, green: 156/255, blue: 145/255, alpha: 1)
+    static let backgroundColor = UIColor(displayP3Red: 120, green: 100, blue: 30, alpha: 0.2)
 }
