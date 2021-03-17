@@ -25,6 +25,7 @@ class PlayerControlComponent: GKComponent {
     func start() {
         guard stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(CharacterWalkState.self)
+        stateMachine.enter(EnemyWalkState.self)
     }
     
     func jump() {

@@ -63,10 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupRobotNodePosition()
         
         //SpeedBackgroun
-        backNode.speed = 1
-        montainFixNode.speed = 0.5
-        montainAltNode.speed = 0.5
-        cloundsNode.speed = 1
+        setupSpeed(isDead: false)
         
         //adding move to floor
             for groundNode in groundNodes {
@@ -81,6 +78,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
+    }
+    
+    func setupSpeed(isDead: Bool) {
+        if isDead {
+            backNode.speed = 0
+            montainFixNode.speed = 0
+            montainAltNode.speed = 0
+            cloundsNode.speed = 0
+        } else {
+            backNode.speed = 1
+            montainFixNode.speed = 0.5
+            montainAltNode.speed = 0.5
+            cloundsNode.speed = 1
+        }
     }
     
     // MARK: - Adding Nodes to Scene
@@ -164,7 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for groundNode in groundTileNodes {
                 groundNode.zPosition = ZPositionsCategories.ground
                 groundNode.size = CGSize(width: 32, height: 32)
-                groundNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: groundNode.size.width, height: groundNode.size.height))
+                groundNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: groundNode.size.width * 2, height: groundNode.size.height * 2))
                 groundNode.physicsBody?.isDynamic = false
                 groundNode.name = "ground"
                 groundNodes.append(groundNode)
@@ -221,6 +232,10 @@ extension GameScene {
         if (contact.bodyA.node?.name == "character" && contact.bodyB.node?.name == "robot")
         || (contact.bodyA.node?.name == "robot" && contact.bodyB.node?.name == "character") {
             playerControlComponent?.dead()
+            setupSpeed(isDead: true)
+            for groundNode in groundNodes {
+                groundNode.removeAllActions()
+            }
         }
         
     }
