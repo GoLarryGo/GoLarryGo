@@ -16,6 +16,8 @@
 		3945D29426004087008965EE /* robotWalkLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3945D29126004087008965EE /* robotWalkLeft.atlas */; };
 		3945D29526004087008965EE /* robotWalkRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3945D29226004087008965EE /* robotWalkRight.atlas */; };
 		3945D2CA2600D8F1008965EE /* larryJump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3945D2C92600D8F1008965EE /* larryJump.atlas */; };
+		3945D2ED2602278D008965EE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D2EC2602278D008965EE /* HomeView.swift */; };
+		3945D2F2260227BD008965EE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D2F1260227BD008965EE /* HomeViewController.swift */; };
 		5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* GroundEntity.swift */; };
 		570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */; };
 		570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */; };
@@ -70,6 +72,8 @@
 		3945D29126004087008965EE /* robotWalkLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = robotWalkLeft.atlas; sourceTree = "<group>"; };
 		3945D29226004087008965EE /* robotWalkRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = robotWalkRight.atlas; sourceTree = "<group>"; };
 		3945D2C92600D8F1008965EE /* larryJump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryJump.atlas; sourceTree = "<group>"; };
+		3945D2EC2602278D008965EE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		3945D2F1260227BD008965EE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5709446925F79F7D001F32DB /* GroundEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundEntity.swift; sourceTree = "<group>"; };
 		570D1B6825FA43CD00A02917 /* EnemyWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyWalkState.swift; sourceTree = "<group>"; };
 		570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWalkState.swift; sourceTree = "<group>"; };
@@ -128,6 +132,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3945D2EA26022770008965EE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3945D2EC2602278D008965EE /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3945D2EB26022777008965EE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3945D2F1260227BD008965EE /* HomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		5759DF2525F77C9300E708E4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				5759DF2525F77C9300E708E4 /* Shared */,
+				3945D2EB26022777008965EE /* Controller */,
+				3945D2EA26022770008965EE /* View */,
 				5759DF2825F77CD400E708E4 /* Scenes */,
 				7B01590425F9B33900DAA2EE /* States */,
 				7B6A1AE525F9B19100E1B9E2 /* Entity-Component */,
@@ -406,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3945D2F2260227BD008965EE /* HomeViewController.swift in Sources */,
 				570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */,
 				570D1C4025FBB1A400A02917 /* JumpCharacterComponent.swift in Sources */,
 				7B1A538B25FF93AC002BC9B2 /* Scenary.swift in Sources */,
@@ -427,6 +450,7 @@
 				5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */,
 				7B6A1A8425F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift in Sources */,
 				3945D20025FF9177008965EE /* CharacterDeadState.swift in Sources */,
+				3945D2ED2602278D008965EE /* HomeView.swift in Sources */,
 				7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */,
 				5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */,
 			);
