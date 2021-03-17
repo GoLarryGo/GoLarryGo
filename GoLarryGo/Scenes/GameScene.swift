@@ -129,8 +129,8 @@ class GameScene: SKScene {
         var sunImage = SKSpriteNode()
                 sunImage = SKSpriteNode(imageNamed: "sun")
                 sunImage.anchorPoint = CGPoint(x: 0, y: 0)
-                sunImage.size = CGSize(width: self.size.width * 0.2, height: self.size.height * 0.25)
-                sunImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+                sunImage.size = CGSize(width: self.size.width * 0.15, height: self.size.height * 0.3)
+        sunImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
                 //sunImage.run(scenery.moveSun(self.size))
                 sunImage.zPosition = ZPositionsCategories.sun
                 sunNode.addChild(sunImage)
