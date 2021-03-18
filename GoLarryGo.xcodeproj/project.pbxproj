@@ -50,6 +50,9 @@
 		EF390EB126023E6F008778F3 /* larryPulando.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAA26023E6F008778F3 /* larryPulando.mp3 */; };
 		EF390EB226023E6F008778F3 /* larryMorrendo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAB26023E6F008778F3 /* larryMorrendo.mp3 */; };
 		EF390EB326023E6F008778F3 /* 03 Chibi Ninja.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAD26023E6F008778F3 /* 03 Chibi Ninja.mp3 */; };
+		EF390EBB260241B8008778F3 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF390EBA260241B8008778F3 /* PauseView.swift */; };
+		EF390EC0260246D8008778F3 /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF390EBF260246D8008778F3 /* PauseViewController.swift */; };
+		EF390ECB26029961008778F3 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF390ECA26029961008778F3 /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +122,9 @@
 		EF390EAA26023E6F008778F3 /* larryPulando.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = larryPulando.mp3; sourceTree = "<group>"; };
 		EF390EAB26023E6F008778F3 /* larryMorrendo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = larryMorrendo.mp3; sourceTree = "<group>"; };
 		EF390EAD26023E6F008778F3 /* 03 Chibi Ninja.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03 Chibi Ninja.mp3"; sourceTree = "<group>"; };
+		EF390EBA260241B8008778F3 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		EF390EBF260246D8008778F3 /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
+		EF390ECA26029961008778F3 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				3945D2EC2602278D008965EE /* HomeView.swift */,
+				EF390EBA260241B8008778F3 /* PauseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				3945D2F1260227BD008965EE /* HomeViewController.swift */,
+				EF390EBF260246D8008778F3 /* PauseViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,6 +178,7 @@
 				7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */,
 				7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */,
 				7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */,
+				EF390ECA26029961008778F3 /* ColorExtension.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -511,16 +520,19 @@
 				5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */,
 				7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */,
 				5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */,
+				EF390EBB260241B8008778F3 /* PauseView.swift in Sources */,
 				7B6D3C3325F65E8500215887 /* GameViewController.swift in Sources */,
 				570D1C3B25FBB0AF00A02917 /* CharacterJumpState.swift in Sources */,
 				3945D20525FF95AB008965EE /* RobotEntity.swift in Sources */,
 				570D1C3325FBA9DA00A02917 /* MoveCharacterComponent.swift in Sources */,
+				EF390ECB26029961008778F3 /* ColorExtension.swift in Sources */,
 				5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */,
 				7B6A1A8425F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift in Sources */,
 				3945D20025FF9177008965EE /* CharacterDeadState.swift in Sources */,
 				3945D2ED2602278D008965EE /* HomeView.swift in Sources */,
 				7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */,
 				5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */,
+				EF390EC0260246D8008778F3 /* PauseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
