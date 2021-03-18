@@ -83,43 +83,69 @@ class PauseView: UIView {
         return button
     }()
     
-    func setUpConstraints() {
-        
+    
+    func setUpCardPauseConstraints() {
         NSLayoutConstraint.activate([
             cardPause.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             cardPause.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             cardPause.widthAnchor.constraint(equalToConstant: 330 ),
             cardPause.heightAnchor.constraint(equalToConstant: 176 ),
-            
+        ])
+    }
+    
+    func setUpButtonCloseConstraints() {
+        NSLayoutConstraint.activate([
             buttonClose.topAnchor.constraint(equalTo: cardPause.topAnchor, constant: 16),
             buttonClose.leftAnchor.constraint(equalTo: cardPause.leftAnchor, constant: 24),
             buttonClose.widthAnchor.constraint(equalToConstant: 40),
             buttonClose.heightAnchor.constraint(equalToConstant: 40),
-            
+        ])
+    }
+    
+    func setUpButtonSoundConstraints() {
+        NSLayoutConstraint.activate([
             buttonSound.topAnchor.constraint(equalTo: cardPause.topAnchor, constant: 32),
             buttonSound.centerXAnchor.constraint(equalTo: cardPause.centerXAnchor),
             buttonSound.widthAnchor.constraint(equalToConstant: 40),
-            buttonSound.heightAnchor.constraint(equalToConstant: 40),
-            
+            buttonSound.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    func setUpButtonMenuConstraints() {
+        NSLayoutConstraint.activate([
             buttonMenu.topAnchor.constraint(equalTo: buttonSound.bottomAnchor, constant: 16),
             buttonMenu.centerXAnchor.constraint(equalTo: cardPause.centerXAnchor),
             buttonMenu.widthAnchor.constraint(equalToConstant: 105),
             buttonMenu.heightAnchor.constraint(equalToConstant: 28),
-            
+        ])
+    }
+    
+    func setUpLabelMenuConstraints() {
+        NSLayoutConstraint.activate([
             labelMenu.centerXAnchor.constraint(equalTo: buttonMenu.centerXAnchor),
             labelMenu.centerYAnchor.constraint(equalTo: buttonMenu.centerYAnchor),
-            
-            buttonResume.topAnchor.constraint(equalTo: buttonMenu.bottomAnchor, constant: 16),
-            buttonResume.centerXAnchor.constraint(equalTo: cardPause.centerXAnchor),
-            buttonResume.widthAnchor.constraint(equalToConstant: 105),
-            buttonResume.heightAnchor.constraint(equalToConstant: 28),
-            
+        ])
+    }
+    
+    func setUpLabelResumeConstraints() {
+        NSLayoutConstraint.activate([
             labelResume.centerXAnchor.constraint(equalTo: buttonResume.centerXAnchor),
             labelResume.centerYAnchor.constraint(equalTo: buttonResume.centerYAnchor)
         ])
     }
     
-
+    
+    
+    func setUpButtonResumeConstraints() {
+        NSLayoutConstraint.activate([
+            buttonResume.topAnchor.constraint(equalTo: buttonMenu.bottomAnchor, constant: 16),
+            buttonResume.centerXAnchor.constraint(equalTo: cardPause.centerXAnchor),
+            buttonResume.widthAnchor.constraint(equalToConstant: 105),
+            buttonResume.heightAnchor.constraint(equalToConstant: 28)
+        ])
+    }
+    
+    
     @objc func soundButtonAction(sender: UIButton) {
         delegate?.soundButtonAction(sender: buttonSound)
     }
@@ -135,8 +161,8 @@ class PauseView: UIView {
     @objc func closeButtonAction(sender: UIButton) {
         delegate?.closeButtonAction(sender: buttonClose)
     }
-
-
+    
+    
     func setUpViewHierarchy(){
         self.addSubview(cardPause)
         cardPause.addSubview(buttonClose)
@@ -146,13 +172,19 @@ class PauseView: UIView {
         cardPause.addSubview(buttonResume)
         buttonResume.addSubview(labelResume)
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .backgroundColor
         setUpViewHierarchy()
-        setUpConstraints()
-
+        setUpCardPauseConstraints()
+        setUpButtonCloseConstraints()
+        setUpButtonSoundConstraints()
+        setUpButtonMenuConstraints()
+        setUpButtonResumeConstraints()
+        setUpLabelResumeConstraints()
+        setUpLabelMenuConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
