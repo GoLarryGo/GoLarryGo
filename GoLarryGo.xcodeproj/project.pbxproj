@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		030F0B5826024F580078E58A /* pixel-arial-11-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */; };
 		030F0B5C26024F5A0078E58A /* pixel-arial-11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */; };
-		037160222603816A004B57C6 /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037160212603816A004B57C6 /* HomeViewControllerTests.swift */; };
+		037160222603816A004B57C6 /* GameViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037160212603816A004B57C6 /* GameViewControllerTests.swift */; };
 		3945D20025FF9177008965EE /* CharacterDeadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D1FF25FF9177008965EE /* CharacterDeadState.swift */; };
 		3945D20525FF95AB008965EE /* RobotEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D20425FF95AB008965EE /* RobotEntity.swift */; };
 		3945D21925FFA921008965EE /* larryWalk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3945D21825FFA921008965EE /* larryWalk.atlas */; };
@@ -71,7 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		037160212603816A004B57C6 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		037160212603816A004B57C6 /* GameViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerTests.swift; sourceTree = "<group>"; };
 		3945D1FF25FF9177008965EE /* CharacterDeadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDeadState.swift; sourceTree = "<group>"; };
 		3945D20425FF95AB008965EE /* RobotEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotEntity.swift; sourceTree = "<group>"; };
 		3945D21825FFA921008965EE /* larryWalk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryWalk.atlas; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				7B6D3C4225F65E8800215887 /* GoLarryGoTests.swift */,
-				037160212603816A004B57C6 /* HomeViewControllerTests.swift */,
+				037160212603816A004B57C6 /* GameViewControllerTests.swift */,
 				7B6D3C4425F65E8800215887 /* Info.plist */,
 			);
 			path = GoLarryGoTests;
@@ -532,7 +532,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B6D3C4325F65E8800215887 /* GoLarryGoTests.swift in Sources */,
-				037160222603816A004B57C6 /* HomeViewControllerTests.swift in Sources */,
+				037160222603816A004B57C6 /* GameViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
