@@ -10,7 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     let homeView = HomeView()
-    var startGameClousure: (() -> Void)?
+    weak var delegate: GameViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,7 @@ class HomeViewController: UIViewController {
     }
 
     @objc func startGame() {
-        startGameClousure?()
+        delegate?.startGame(viewController: self)
     }
-
-
 
 }

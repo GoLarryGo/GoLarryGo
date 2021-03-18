@@ -9,6 +9,10 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+protocol GameViewControllerDelegate: class {
+    func startGame(viewController: UIViewController)
+}
+
 class GameViewController: UIViewController {
 
     var scene: GameScene!
@@ -42,21 +46,22 @@ class GameViewController: UIViewController {
 
     func presentHomeViewController() {
         let homeVC = HomeViewController()
-
-        homeVC.startGameClousure = { [weak self] in
-            self?.scene.isPaused = false
-
-            UIView.animate(withDuration: 0.1, animations: {
-                homeVC.view.alpha = 0.0
-            }, completion: { _ in
-                self?.dismiss(animated: true, completion: nil)
-            })
-
-        }
-
+        homeVC.delegate = self
         present(homeVC, animated: false, completion: nil)
     }
+    
 
 }
 
+extension GameViewController: GameViewControllerDelegate {
+    func startGame(viewController: UIViewController) {
+        self.scene.isPaused = false
 
+        UIView.animate(withDuration: 0.1, animations: {
+            viewController.view.alpha = 0.0
+        }, completion: { _ in
+            viewController.dismiss(animated: true, completion: nil)
+        })
+    }
+
+}
