@@ -8,20 +8,32 @@
 import Foundation
 import UIKit
 
+
+protocol PauseViewButtonActionsDelegate{
+    func soundButtonAction(sender: UIButton)
+    func menuButtonAction(sender: UIButton)
+    func resumeButtonAction(sender: UIButton)
+    func closeButtonAction(sender: UIButton)
+}
+
 class PauseView: UIView {
     
     var controller: PauseViewController?
+    var delegate: PauseViewButtonActionsDelegate?
     
     lazy var cardPause: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cardSmall")
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     lazy var buttonMenu: UIButton = {
         let button = UIButton()
+        button.isEnabled = true
         button.setImage(UIImage(named: "buttonSmall"), for: .normal)
+        button.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -44,21 +56,29 @@ class PauseView: UIView {
     
     lazy var buttonResume: UIButton = {
         let button = UIButton()
+        button.isEnabled = true
         button.setImage(UIImage(named: "buttonSmall"), for: .normal)
+        button.addTarget(self, action: #selector(resumeButtonAction(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     lazy var buttonClose: UIButton = {
         let button = UIButton()
+        button.isUserInteractionEnabled = true
+        button.isEnabled = true
         button.setImage(UIImage(named: "close"), for: .normal)
+        button.addTarget(self, action: #selector(closeButtonAction(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     lazy var buttonSound: UIButton = {
         let button = UIButton()
+        button.isUserInteractionEnabled = true
+        button.isEnabled = true
         button.setImage(UIImage(named: "sound on"), for: .normal)
+        button.addTarget(self, action: #selector(soundButtonAction(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -99,9 +119,26 @@ class PauseView: UIView {
         ])
     }
     
+
+    @objc func soundButtonAction(sender: UIButton) {
+        delegate?.soundButtonAction(sender: buttonSound)
+    }
+    
+    @objc func menuButtonAction(sender: UIButton) {
+        delegate?.menuButtonAction(sender: buttonMenu)
+    }
+    
+    @objc func resumeButtonAction(sender: UIButton) {
+        delegate?.resumeButtonAction(sender: buttonResume)
+    }
+    
+    @objc func closeButtonAction(sender: UIButton) {
+        delegate?.closeButtonAction(sender: buttonClose)
+    }
+
+
     func setUpViewHierarchy(){
         self.addSubview(cardPause)
-        
         cardPause.addSubview(buttonClose)
         cardPause.addSubview(buttonSound)
         cardPause.addSubview(buttonMenu)
