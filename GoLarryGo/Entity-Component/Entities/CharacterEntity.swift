@@ -20,7 +20,7 @@ class CharacterEntity: GKEntity {
         )
         
         addComponent(MoveCharacterComponent())
-        addComponent(JumpCharacterComponent(impulse: 600))
+        addComponent(JumpCharacterComponent(impulse: 100))
     }
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {

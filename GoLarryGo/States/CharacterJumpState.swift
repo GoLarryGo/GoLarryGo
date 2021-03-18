@@ -33,10 +33,15 @@ class CharacterJumpState: GKState {
         })
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func willExit(to nextState: GKState) {
+        super.willExit(to: nextState)
+        //quando ele tiver saindo
+    }
+    
+    /*override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         super.isValidNextState(stateClass)
         return stateClass == CharacterWalkState.self
-    }
+    }*/
 
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)

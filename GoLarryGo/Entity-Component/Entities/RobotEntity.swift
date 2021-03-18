@@ -16,7 +16,8 @@ class RobotEntity: GKEntity {
         
         addComponent(
             PlayerControlComponent(states: [
-                EnemyWalkState(self)
+                RobotWalkState(self),
+                RobotDeadState(self)
         ]))
         
         addComponent(animetedSpriteComponent)

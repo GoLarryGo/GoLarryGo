@@ -34,21 +34,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let categoryRobotPhysic: UInt32 = 1
     
     
-    var playerControlComponent: PlayerControlComponent? {
+    var characterPlayerControlComponent: PlayerControlComponent? {
         character.component(ofType: PlayerControlComponent.self)
+    }
+    
+    var robotPlayerControlComponent: PlayerControlComponent? {
+        robot.component(ofType: PlayerControlComponent.self)
     }
     
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
-        guard playerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
-        playerControlComponent?.jump()
+        guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
+        characterPlayerControlComponent?.jumpCharacter()
     }
     
     override func didMove(to view: SKView) {
-        //physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -1.0)
         physicsWorld.contactDelegate = self
         
-        playerControlComponent?.start()
+        characterPlayerControlComponent?.startCharacter()
+        robotPlayerControlComponent?.startRobot()
         
         self.backgroundColor = .back
         
@@ -76,7 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     override func update(_ currentTime: TimeInterval) {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
-        playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
+        characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
     }
     
@@ -227,11 +232,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 extension GameScene {
     func didBegin(_ contact: SKPhysicsContact) {
-        print("teve contato")
+        
+        
         
         if (contact.bodyA.node?.name == "character" && contact.bodyB.node?.name == "robot")
         || (contact.bodyA.node?.name == "robot" && contact.bodyB.node?.name == "character") {
-            playerControlComponent?.dead()
+            print("teve contato")
+            print(contact.bodyA.node?.position.y, contact.bodyB.node?.position.y)
+            characterPlayerControlComponent?.deadCharacter()
+            robotPlayerControlComponent?.deadRobot()
             setupSpeed(isDead: true)
             for groundNode in groundNodes {
                 groundNode.removeAllActions()
@@ -242,5 +251,10 @@ extension GameScene {
     
     func didEnd(_ contact: SKPhysicsContact) {
         print("acabou contato")
+    }
+    
+    func isDead() {
+        guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
+        
     }
 }
