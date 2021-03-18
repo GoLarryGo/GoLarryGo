@@ -34,7 +34,6 @@
 		7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A538F25FF9A9F002BC9B2 /* ZPositions.swift */; };
 		7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */; };
 		7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */; };
-		7B6A1A3E25F8041E00E1B9E2 /* SunEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */; };
 		7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */; };
 		7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */; };
 		7B6A1A7A25F9A9E300E1B9E2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */; };
@@ -96,7 +95,6 @@
 		7B1A538F25FF9A9F002BC9B2 /* ZPositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZPositions.swift; sourceTree = "<group>"; };
 		7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileRowComponent.swift; sourceTree = "<group>"; };
 		7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
-		7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunEntity.swift; sourceTree = "<group>"; };
 		7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSunComponent.swift; sourceTree = "<group>"; };
 		7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlComponent.swift; sourceTree = "<group>"; };
 		7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */,
 				3945D20425FF95AB008965EE /* RobotEntity.swift */,
 				5709446925F79F7D001F32DB /* GroundEntity.swift */,
-				7B6A1A3D25F8041E00E1B9E2 /* SunEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -506,7 +503,6 @@
 				7B6D3C3125F65E8500215887 /* GameScene.swift in Sources */,
 				7B6A1A7A25F9A9E300E1B9E2 /* Extensions.swift in Sources */,
 				7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */,
-				7B6A1A3E25F8041E00E1B9E2 /* SunEntity.swift in Sources */,
 				570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */,
 				7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */,
 				7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */,
