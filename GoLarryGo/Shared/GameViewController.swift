@@ -36,11 +36,26 @@ class GameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        present(HomeViewController(), animated: false, completion: nil)
+        presentHomeViewController()
 
     }
 
+    func presentHomeViewController() {
+        let homeVC = HomeViewController()
 
+        homeVC.startGameClousure = { [weak self] in
+            self?.scene.isPaused = false
+
+            UIView.animate(withDuration: 0.1, animations: {
+                homeVC.view.alpha = 0.0
+            }, completion: { _ in
+                self?.dismiss(animated: true, completion: nil)
+            })
+
+        }
+
+        present(homeVC, animated: false, completion: nil)
+    }
 
 }
 
