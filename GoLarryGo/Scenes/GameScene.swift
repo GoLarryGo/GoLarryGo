@@ -11,21 +11,35 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var entityManager: EntityManager!
+   
+    //Floor
+    let ground = Ground(numberOfTiles: 120)
+    var groundNodes: [SKSpriteNode] = []
     
+    //Scenery
+    var scenery = Scenery()
     var backNode = SKNode()
     var cloundsNode = SKNode()
     var montainFixNode = SKNode()
     var montainAltNode = SKNode()
     var sunNode = SKNode()
     
-    //Floor
-    let ground = Ground(numberOfTiles: 120)
-    var groundNodes: [SKSpriteNode] = []
-    var numberGround = Int.random(in: 3..<16)
-    
-    var scenery = Scenery()
-    
+    //Update
     private var previousUpdateTime: TimeInterval = TimeInterval()
+    
+    //Points
+    let pointsLabel = SKLabelNode(fontNamed: "PixelArt11")
+    var points: Int = 0 {
+        didSet {
+            pointsLabel.text = "Score: \(points)"
+        }
+    }
+    
+    //Timer
+    var timer: Timer?
+
+    //game over
+    var gameOver: Bool = false
     
     let character = CharacterEntity()
     let robot = RobotEntity()
@@ -50,11 +64,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         playerControlComponent?.start()
         
-        self.backgroundColor = .back
-        
         entityManager = EntityManager(scene: self)
         
         view.addGestureRecognizer(tap)
+        
+        if timer == nil {
+          let timer = Timer(timeInterval: 1.0,
+                            target: self,
+                            selector: #selector(updateTimer),
+                            userInfo: nil,
+                            repeats: true)
+          RunLoop.current.add(timer, forMode: .common)
+          self.timer = timer
+        }
+        
+        //Points
+        pointsLabel.horizontalAlignmentMode = .right
+        pointsLabel.verticalAlignmentMode = .top
+        pointsLabel.color = .white
+        pointsLabel.position = CGPoint(x:frame.maxX-95 ,y:frame.maxY-35)
+        pointsLabel.zPosition = ZPositionsCategories.points
+        self.addChild(pointsLabel)
         
         //Setups
         setupBackground()
@@ -62,15 +92,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupCharacterNodePosition()
         setupRobotNodePosition()
         
-        //SpeedBackgroun
+        //SpeedBackground
         setupSpeed(isDead: false)
         
         //adding move to floor
             for groundNode in groundNodes {
                 groundNode.run(scenery.moveGround(self.size))
-//                if groundNode.position.x < 0 {
-//                    removeFromParent()
-//                }
             }
     }
 
@@ -78,6 +105,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
+        
+        if gameOver == true {
+            print("Game Over!")
+            }
     }
     
     func setupSpeed(isDead: Bool) {
@@ -99,9 +130,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Scroll background
         var backgroundImage = SKSpriteNode()
                 backgroundImage = SKSpriteNode(imageNamed: "back")
-                backgroundImage.anchorPoint = CGPoint(x: 0, y: 0)
                 backgroundImage.size = CGSize(width: self.size.width + 10, height: self.size.height)
-                backgroundImage.position = CGPoint(x: self.size.width, y: 0)
+                backgroundImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
                 backgroundImage.zPosition = ZPositionsCategories.background
                 backNode.addChild(backgroundImage)
         self.addChild(backNode)
@@ -138,19 +168,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 montainAltImage = SKSpriteNode(imageNamed: "montainAlt")
                 montainAltImage.anchorPoint = CGPoint(x: 0, y: 0)
                 montainAltImage.size = CGSize(width: self.size.width * 0.5, height: self.size.height * 0.5)
-                montainAltImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 0)
+                montainAltImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 15)
                 montainAltImage.run(scenery.moveScenery(self.size))
                 montainAltImage.zPosition = ZPositionsCategories.montainAlt
                 montainAltNode.addChild(montainAltImage)
             }
         self.addChild(montainAltNode)
         
-        //Scrool sun
+        //Sun
         var sunImage = SKSpriteNode()
                 sunImage = SKSpriteNode(imageNamed: "sun")
                 sunImage.anchorPoint = CGPoint(x: 0, y: 0)
                 sunImage.size = CGSize(width: self.size.width * 0.15, height: self.size.height * 0.3)
-        sunImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+                sunImage.position = CGPoint(x: self.size.width / 2.5 , y: self.size.height / 2)
                 //sunImage.run(scenery.moveSun(self.size))
                 sunImage.zPosition = ZPositionsCategories.sun
                 sunNode.addChild(sunImage)
@@ -182,6 +212,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.addChild(groundNode)
             }
     }
+
+            @objc func updateTimer() {
+                if let timer = timer {
+                    self.points += Int(timer.timeInterval)
+                }
+            }
     
     func setupCharacterNodePosition() {
         //acessing character from AnimatedSpriteComponents
@@ -214,15 +250,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         entityManager.add(robot)
     }
-    
-    // MARK: - PhysicsBody
-    func setupTopFloor() {
-        let topFloor = SKSpriteNode()
-        topFloor.position = CGPoint(x: size.width/2, y: 30)
-        topFloor.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 30))
-        topFloor.physicsBody?.isDynamic = false
-        addChild(topFloor)
-    }
+
 }
 
 extension GameScene {
@@ -233,11 +261,12 @@ extension GameScene {
         || (contact.bodyA.node?.name == "robot" && contact.bodyB.node?.name == "character") {
             playerControlComponent?.dead()
             setupSpeed(isDead: true)
+            self.timer?.invalidate()
+            gameOver = true
             for groundNode in groundNodes {
                 groundNode.removeAllActions()
             }
         }
-        
     }
     
     func didEnd(_ contact: SKPhysicsContact) {

@@ -16,11 +16,10 @@ enum ZPositionsCategories {
     static let montainAlt:         CGFloat = -3
     static let montainFix:         CGFloat = -2
     static let ground:             CGFloat = -1
+    static let points:             CGFloat = 100
+    static let button:             CGFloat = 101
+    static let card:               CGFloat = 100
 }
 
-// cores
-extension UIColor {
-    static var back: UIColor { return UIColor(red: 210/255, green: 138/255, blue: 134/255, alpha: 1)
-    }
-}
+
 
