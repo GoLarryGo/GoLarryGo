@@ -11,6 +11,8 @@ import GameplayKit
 
 protocol GameViewControllerDelegate: class {
     func startGame(viewController: UIViewController)
+    func resumeGame()
+    func exitGame()
 }
 
 class GameViewController: UIViewController {
@@ -24,7 +26,7 @@ class GameViewController: UIViewController {
         return button
     }()
 
-    var scene: GameScene!
+//    var scene: GameScene!
 
     override func loadView() {
         //super.viewDidLoad()
@@ -46,6 +48,7 @@ class GameViewController: UIViewController {
         view.addSubview(pauseButton)
         setupPauseButton()
         configButton()
+        
     }
 
     override func viewDidLoad() {
@@ -69,6 +72,7 @@ class GameViewController: UIViewController {
     @objc func pauseAction() {
         scene.isPaused = true
         scene.timer?.invalidate()
+        presentPauseViewController()
     }
     
 
@@ -84,9 +88,26 @@ class GameViewController: UIViewController {
         present(homeVC, animated: false, completion: nil)
     }
     
+    func presentPauseViewController() {
+        let pauseViewController = PauseViewController()
+        pauseViewController.delegate = self
+        present(pauseViewController, animated: false, completion: nil)
+    }
+    
 }
 
 extension GameViewController: GameViewControllerDelegate {
+
+    func resumeGame() {
+        self.scene.isPaused = false
+    }
+    
+    func exitGame() {
+        // put scores to zero
+        self.scene.isPaused = true
+        presentHomeViewController()
+    }
+    
     func startGame(viewController: UIViewController) {
         self.scene.isPaused = false
 
