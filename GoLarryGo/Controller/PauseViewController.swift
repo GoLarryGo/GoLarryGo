@@ -19,7 +19,6 @@ class PauseViewController: UIViewController {
         pauseView.delegate = self
         pauseView.delegateTap = self
         self.view = pauseView
-        self.view.isUserInteractionEnabled = true
     }
     
     func dismissPauseView() {
