@@ -62,7 +62,7 @@ class AnimatedSpriteComponent: GKComponent {
         spriteNode.run(
             SKAction.animate(
                 with: animationTextures,
-                timePerFrame: 0.1,
+                timePerFrame: 0.2,
                 resize: false,
                 restore: false
             ),

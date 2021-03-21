@@ -24,8 +24,6 @@ class GameViewController: UIViewController {
         return button
     }()
 
-    var scene: GameScene!
-
     override func loadView() {
         //super.viewDidLoad()
         let view = SKView(frame: UIScreen.main.bounds) //cria uma sk view
@@ -68,7 +66,7 @@ class GameViewController: UIViewController {
     
     @objc func pauseAction() {
         scene.isPaused = true
-        scene.timer?.invalidate()
+        scene.timerScore?.invalidate()
     }
     
 
@@ -89,7 +87,6 @@ class GameViewController: UIViewController {
 extension GameViewController: GameViewControllerDelegate {
     func startGame(viewController: UIViewController) {
         self.scene.isPaused = false
-
         UIView.animate(withDuration: 0.1, animations: {
             viewController.view.alpha = 0.0
         }, completion: { _ in

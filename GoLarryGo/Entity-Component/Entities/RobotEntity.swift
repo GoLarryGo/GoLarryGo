@@ -7,7 +7,7 @@
 import SpriteKit
 import GameplayKit
 
-class RobotEntity: GKEntity {
+class RobotEntity: GKEntity, GenRobotPrototype {
     
     override init() {
         super.init()
@@ -28,6 +28,10 @@ class RobotEntity: GKEntity {
         component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: 16)
         component.spriteNode.physicsBody?.isDynamic = true
         component.spriteNode.physicsBody?.allowsRotation = false
+    }
+    
+    func clone() -> GenRobotPrototype {
+        return RobotEntity()
     }
     
     required init?(coder aDecoder: NSCoder) {
