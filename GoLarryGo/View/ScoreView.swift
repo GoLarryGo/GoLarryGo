@@ -9,8 +9,6 @@ import UIKit
 
 class ScoreView: UIView {
     
-        var controller: ScoreViewController?
-    
     lazy var labelScore: UILabel = {
             let label = UILabel()
             label.font = UIFont(name: "PixelArial11", size: 17)

@@ -15,9 +15,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Floor
     let ground = Ground(numberOfTiles: 120)
     var groundNodes: [SKSpriteNode] = []
-    var numberXPlatform:Int = 3
-    var numberYPlatform:Int = 150
     var platformNodes: [SKSpriteNode] = []
+    var countPlatform:Int = 1
     
     //Scenery
     var scenery = Scenery()
@@ -75,20 +74,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let randomPlatforme = SKAction.run {
-            self.numberXPlatform = Int.random(in: 3..<8)
-            self.numberYPlatform = Int.random(in: 90..<200)
-            self.setupPlatFormePosition()
+            let numberXPlatform = Int.random(in: 5..<12)
+            self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
         }
-        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 3)])))
+        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 1.5)])))
+    }
+    
+    func getPositionY() -> CGFloat {
+        let sequencePositionY: CGFloat = 120
+        countPlatform += 1
+        if countPlatform % 2 == 0 && countPlatform % 3 != 0 && countPlatform % 5 != 0 {
+            return sequencePositionY
+        } else if countPlatform % 2 != 0 && countPlatform % 3 == 0 && countPlatform % 5 != 0 {
+            return sequencePositionY + 50
+        } else if countPlatform % 2 != 0 && countPlatform % 3 != 0 && countPlatform % 5 == 0 {
+            return sequencePositionY + 100
+        } else if countPlatform % 2 == 0 && countPlatform % 3 == 0 && countPlatform % 5 == 0{
+            return sequencePositionY + 150
+        } else {
+            return sequencePositionY
+        }
     }
 
     override func update(_ currentTime: TimeInterval) {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
-        
-        
-        
+    
         if gameOver == true {
             print("Game Over!")
             }
@@ -194,12 +206,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 groundNodes.append(groundNode)
                 self.addChild(groundNode)
             }
-        
-
+    
     }
     
-    func setupPlatFormePosition() {
-        let platform = Platform(numberOfTiles: numberXPlatform)
+    func setupPlatFormPosition(numberTiles: Int, positionY:CGFloat ) {
+        let platform = Platform(numberOfTiles: numberTiles)
         guard let platformTileRowComponent = platform.component(ofType: TileRowComponent.self) else {
             return
         }
@@ -209,7 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let offset = CGFloat(tileCount/2 - index)
                 node.position = CGPoint(
                     x: node.texture!.size().width / 2 * offset + self.size.width,
-                    y: CGFloat(self.numberYPlatform)
+                    y: positionY
                 )
                 return node
         }
@@ -225,7 +236,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.addChild(platformNode)
             }
     }
-    
     
     func setupCharacterNodePosition() {
         //acessing character from AnimatedSpriteComponents

@@ -46,7 +46,6 @@
 		7B6D3C4E25F65E8800215887 /* GoLarryGoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D3C4D25F65E8800215887 /* GoLarryGoUITests.swift */; };
 		7B74CB102600E78400F1BD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */; };
 		7B74CB602603AF7F00F1BD5B /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74CB5F2603AF7F00F1BD5B /* ScoreView.swift */; };
-		7BE4B94026041AC5004E6CD9 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE4B93F26041AC5004E6CD9 /* ScoreViewController.swift */; };
 		7BE4B9752606DCD9004E6CD9 /* PlatformEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE4B9742606DCD9004E6CD9 /* PlatformEntity.swift */; };
 		EF390EAE26023E6F008778F3 /* botao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA726023E6F008778F3 /* botao.mp3 */; };
 		EF390EB026023E6F008778F3 /* roboMorrendo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA926023E6F008778F3 /* roboMorrendo.mp3 */; };
@@ -119,7 +118,6 @@
 		7B6D3C4F25F65E8800215887 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B74CB5F2603AF7F00F1BD5B /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
-		7BE4B93F26041AC5004E6CD9 /* ScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		7BE4B9742606DCD9004E6CD9 /* PlatformEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformEntity.swift; sourceTree = "<group>"; };
 		EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pixel-arial-11-bold.ttf"; sourceTree = "<group>"; };
 		EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pixel-arial-11.ttf"; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 			children = (
 				3945D2F1260227BD008965EE /* HomeViewController.swift */,
 				EF390EBF260246D8008778F3 /* PauseViewController.swift */,
-				7BE4B93F26041AC5004E6CD9 /* ScoreViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -526,7 +523,6 @@
 				7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */,
 				7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */,
 				7BE4B9752606DCD9004E6CD9 /* PlatformEntity.swift in Sources */,
-				7BE4B94026041AC5004E6CD9 /* ScoreViewController.swift in Sources */,
 				5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */,
 				7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */,
 				5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */,
