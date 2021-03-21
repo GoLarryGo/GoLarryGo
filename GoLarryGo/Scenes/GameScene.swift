@@ -15,6 +15,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Floor
     let ground = Ground(numberOfTiles: 120)
     var groundNodes: [SKSpriteNode] = []
+    var numberXPlatform:Int = 3
+    var numberYPlatform:Int = 150
+    var platformNodes: [SKSpriteNode] = []
     
     //Scenery
     var scenery = Scenery()
@@ -67,15 +70,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupSpeed(isDead: false)
         
         //adding move to floor
-            for groundNode in groundNodes {
-                groundNode.run(scenery.moveGround(self.size))
-            }
+        for groundNode in groundNodes {
+            groundNode.run(scenery.moveScenery(self.size))
+        }
+        
+        let randomPlatforme = SKAction.run {
+            self.numberXPlatform = Int.random(in: 3..<8)
+            self.numberYPlatform = Int.random(in: 90..<200)
+            self.setupPlatFormePosition()
+        }
+        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 3)])))
     }
 
     override func update(_ currentTime: TimeInterval) {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         playerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
+        
+        
         
         if gameOver == true {
             print("Game Over!")
@@ -182,7 +194,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 groundNodes.append(groundNode)
                 self.addChild(groundNode)
             }
+        
+
     }
+    
+    func setupPlatFormePosition() {
+        let platform = Platform(numberOfTiles: numberXPlatform)
+        guard let platformTileRowComponent = platform.component(ofType: TileRowComponent.self) else {
+            return
+        }
+        //positioning platform tiles
+        let tileCount = platformTileRowComponent.tileNodes.count
+        let platformTileNodes: [SKSpriteNode] = platformTileRowComponent.tileNodes.enumerated().map { (index, node) in
+                let offset = CGFloat(tileCount/2 - index)
+                node.position = CGPoint(
+                    x: node.texture!.size().width / 2 * offset + self.size.width,
+                    y: CGFloat(self.numberYPlatform)
+                )
+                return node
+        }
+        //adding nodes to scene
+            for platformNode in platformTileNodes {
+                platformNode.zPosition = ZPositionsCategories.ground
+                platformNode.size = CGSize(width: 32, height: 32)
+                platformNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: platformNode.size.width * 2, height: platformNode.size.height * 2))
+                platformNode.physicsBody?.isDynamic = false
+                platformNode.name = "platform"
+                platformNode.run(scenery.movePlatform(self.size))
+                platformNodes.append(platformNode)
+                self.addChild(platformNode)
+            }
+    }
+    
     
     func setupCharacterNodePosition() {
         //acessing character from AnimatedSpriteComponents
