@@ -26,17 +26,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //Update
     private var previousUpdateTime: TimeInterval = TimeInterval()
-    
-    //Points
-    let pointsLabel = SKLabelNode(fontNamed: "PixelArt11")
-    var points: Int = 0 {
-        didSet {
-            pointsLabel.text = "Score: \(points)"
-        }
-    }
-    
-    //Timer
-    var timer: Timer?
 
     //game over
     var gameOver: Bool = false
@@ -67,25 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager = EntityManager(scene: self)
         
         view.addGestureRecognizer(tap)
-        
-        if timer == nil {
-          let timer = Timer(timeInterval: 1.0,
-                            target: self,
-                            selector: #selector(updateTimer),
-                            userInfo: nil,
-                            repeats: true)
-          RunLoop.current.add(timer, forMode: .common)
-          self.timer = timer
-        }
-        
-        //Points
-        pointsLabel.horizontalAlignmentMode = .right
-        pointsLabel.verticalAlignmentMode = .top
-        pointsLabel.color = .white
-        pointsLabel.position = CGPoint(x:frame.maxX-95 ,y:frame.maxY-35)
-        pointsLabel.zPosition = ZPositionsCategories.points
-        self.addChild(pointsLabel)
-        
+
         //Setups
         setupBackground()
         setupFloorPosition()
@@ -212,12 +183,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.addChild(groundNode)
             }
     }
-
-            @objc func updateTimer() {
-                if let timer = timer {
-                    self.points += Int(timer.timeInterval)
-                }
-            }
     
     func setupCharacterNodePosition() {
         //acessing character from AnimatedSpriteComponents
@@ -261,7 +226,7 @@ extension GameScene {
         || (contact.bodyA.node?.name == "robot" && contact.bodyB.node?.name == "character") {
             playerControlComponent?.dead()
             setupSpeed(isDead: true)
-            self.timer?.invalidate()
+            ScoreView.startGame = false
             gameOver = true
             for groundNode in groundNodes {
                 groundNode.removeAllActions()
