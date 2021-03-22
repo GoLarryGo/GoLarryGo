@@ -173,25 +173,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		3945D3752606542A008965EE /* Character */ = {
-			isa = PBXGroup;
-			children = (
-				570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */,
-				570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */,
-				3945D1FF25FF9177008965EE /* CharacterDeadState.swift */,
-			);
-			path = Character;
-			sourceTree = "<group>";
-		};
-		3945D3762606543E008965EE /* Robot */ = {
-			isa = PBXGroup;
-			children = (
-				3945D32926024ED2008965EE /* RobotDeadState.swift */,
-				570D1B6825FA43CD00A02917 /* RobotWalkState.swift */,
-			);
-			path = Robot;
-			sourceTree = "<group>";
-		};
 		5759DF2525F77C9300E708E4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,8 +221,11 @@
 		7B01590425F9B33900DAA2EE /* States */ = {
 			isa = PBXGroup;
 			children = (
-				3945D3762606543E008965EE /* Robot */,
-				3945D3752606542A008965EE /* Character */,
+				3945D32926024ED2008965EE /* RobotDeadState.swift */,
+				570D1B6825FA43CD00A02917 /* RobotWalkState.swift */,
+				570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */,
+				570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */,
+				3945D1FF25FF9177008965EE /* CharacterDeadState.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
