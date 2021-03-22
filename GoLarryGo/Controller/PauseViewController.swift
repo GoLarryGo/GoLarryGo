@@ -11,37 +11,51 @@ import SpriteKit
 
 class PauseViewController: UIViewController {
     
+    weak var delegate: GameViewControllerDelegate?
     override func loadView() {
         super.loadView()
         let pauseView = PauseView()
         pauseView.controller = self
         pauseView.delegate = self
+        pauseView.delegateTap = self
         self.view = pauseView
     }
-
+    
+    func dismissPauseView() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.alpha = 0.0
+        }, completion: nil)
+        self.dismiss(animated: false, completion: nil)
+    }
+    
 }
 
 extension PauseViewController: PauseViewButtonActionsDelegate {
     
     func soundButtonAction(sender: UIButton) {
-        print("a")
+
     }
     
     func menuButtonAction(sender: UIButton) {
-//       go to menu
-        print("b")
+        dismissPauseView()
+        delegate?.exitGame()
     }
-
+    
     func resumeButtonAction(sender: UIButton) {
-//     go back to the game
-        print("c")
+        dismissPauseView()
+        delegate?.resumeGame()
     }
-
+    
     func closeButtonAction(sender: UIButton) {
-//       go back to the game
-        print("d")
+        dismissPauseView()
+        delegate?.resumeGame()
     }
-
     
 }
 
+extension PauseViewController: PauseViewTapDelegate {
+    func dismissPauseScreen() {
+        dismissPauseView()
+        delegate?.resumeGame()
+    }
+}
