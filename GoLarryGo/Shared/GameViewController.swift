@@ -80,7 +80,7 @@ class GameViewController: UIViewController {
 
     @objc func pauseAction() {
         scene.isPaused = true
-        scene.timer?.invalidate()
+        scoreView.timer?.invalidate()
         presentPauseViewController()
     }
     
