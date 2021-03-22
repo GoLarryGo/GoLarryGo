@@ -71,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupRobotNodePosition()
         
         //SpeedBackground
-        setupSpeed(isDead: true)
+        setupSpeed(isDead: false)
         
         //adding move to floor
 
