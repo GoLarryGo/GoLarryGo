@@ -57,6 +57,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         scene.isPaused = true
+        scene.presentGameOver = presentGameOverViewController
     }
     func setUpLabelScoreConstraints() {
         NSLayoutConstraint.activate([
@@ -100,6 +101,10 @@ class GameViewController: UIViewController {
         let pauseViewController = PauseViewController()
         pauseViewController.delegate = self
         present(pauseViewController, animated: false, completion: nil)
+    }
+    
+    func presentGameOverViewController() {
+        print("Entrou")
     }
     
 }

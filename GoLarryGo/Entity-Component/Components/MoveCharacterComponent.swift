@@ -17,7 +17,7 @@ class MoveCharacterComponent: GKComponent {
         self.entity?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode
     }
     
-    init(velocity: CGFloat = 3) {
+    init(velocity: CGFloat = 2) {
         self.velocity = velocity
         super.init()
     }
