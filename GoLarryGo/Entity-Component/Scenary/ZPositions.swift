@@ -17,8 +17,6 @@ enum ZPositionsCategories {
     static let montainFix:         CGFloat = -2
     static let ground:             CGFloat = -1
     static let points:             CGFloat = 100
-    static let button:             CGFloat = 101
-    static let card:               CGFloat = 100
 }
 
 

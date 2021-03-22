@@ -134,8 +134,6 @@ class PauseView: UIView {
         ])
     }
     
-    
-    
     func setUpButtonResumeConstraints() {
         NSLayoutConstraint.activate([
             buttonResume.topAnchor.constraint(equalTo: buttonMenu.bottomAnchor, constant: 16),
