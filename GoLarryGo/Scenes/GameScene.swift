@@ -15,6 +15,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Floor
     let ground = Ground(numberOfTiles: 120)
     var groundNodes: [SKSpriteNode] = []
+    var platformNodes: [SKSpriteNode] = []
+    var countPlatform:Int = 1
     
     //Scenery
     var scenery = Scenery()
@@ -26,17 +28,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //Update
     private var previousUpdateTime: TimeInterval = TimeInterval()
-    
-    //Points
-    let pointsLabel = SKLabelNode(fontNamed: "PixelArt11")
-    var points: Int = 0 {
-        didSet {
-            pointsLabel.text = "Score: \(points)"
-        }
-    }
-    
-    //Timer
-    var timer: Timer?
 
     //game over
     var gameOver: Bool = false
@@ -72,25 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager = EntityManager(scene: self)
         
         view.addGestureRecognizer(tap)
-        
-        if timer == nil {
-          let timer = Timer(timeInterval: 1.0,
-                            target: self,
-                            selector: #selector(updateTimer),
-                            userInfo: nil,
-                            repeats: true)
-          RunLoop.current.add(timer, forMode: .common)
-          self.timer = timer
-        }
-        
-        //Points
-        pointsLabel.horizontalAlignmentMode = .right
-        pointsLabel.verticalAlignmentMode = .top
-        pointsLabel.color = .white
-        pointsLabel.position = CGPoint(x:frame.maxX-95 ,y:frame.maxY-35)
-        pointsLabel.zPosition = ZPositionsCategories.points
-        self.addChild(pointsLabel)
-        
+
         //Setups
         setupBackground()
         setupFloorPosition()
@@ -101,9 +74,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupSpeed(isDead: true)
         
         //adding move to floor
-//            for groundNode in groundNodes {
-//                groundNode.run(scenery.moveGround(self.size))
-//            }
+
+        for groundNode in groundNodes {
+            groundNode.run(scenery.moveScenery(self.size))
+        }
+        
+        let randomPlatforme = SKAction.run {
+            let numberXPlatform = Int.random(in: 5..<12)
+            self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
+        }
+        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 1.5)])))
+    }
+    
+    func getPositionY() -> CGFloat {
+        let sequencePositionY: CGFloat = 120
+        countPlatform += 1
+        if countPlatform % 2 == 0 && countPlatform % 3 != 0 && countPlatform % 5 != 0 {
+            return sequencePositionY
+        } else if countPlatform % 2 != 0 && countPlatform % 3 == 0 && countPlatform % 5 != 0 {
+            return sequencePositionY + 50
+        } else if countPlatform % 2 != 0 && countPlatform % 3 != 0 && countPlatform % 5 == 0 {
+            return sequencePositionY + 100
+        } else if countPlatform % 2 == 0 && countPlatform % 3 == 0 && countPlatform % 5 == 0{
+            return sequencePositionY + 150
+        } else {
+            return sequencePositionY
+        }
     }
     
     var activeMoveScenery: Bool = false
@@ -111,19 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
-        
-        
-        guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode,
-              let characterMoveComponent = character.component(ofType: MoveCharacterComponent.self) else {return}
-        if characterSpriteNode.position.x > (view?.center.x)! && activeMoveScenery == false {
-            characterMoveComponent.halt()
-            setupSpeed(isDead: false)
-            for groundNode in groundNodes {
-                groundNode.run(scenery.moveGround(self.size))
-            }
-            activeMoveScenery = true
-        }
-        
+
         if gameOver == true {
             print("Game Over!")
         }
@@ -231,13 +215,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 groundNodes.append(groundNode)
                 self.addChild(groundNode)
             }
+    
     }
-
-            @objc func updateTimer() {
-                if let timer = timer {
-                    self.points += Int(timer.timeInterval)
-                }
+    
+    func setupPlatFormPosition(numberTiles: Int, positionY:CGFloat ) {
+        let platform = Platform(numberOfTiles: numberTiles)
+        guard let platformTileRowComponent = platform.component(ofType: TileRowComponent.self) else {
+            return
+        }
+        //positioning platform tiles
+        let tileCount = platformTileRowComponent.tileNodes.count
+        let platformTileNodes: [SKSpriteNode] = platformTileRowComponent.tileNodes.enumerated().map { (index, node) in
+                let offset = CGFloat(tileCount/2 - index)
+                node.position = CGPoint(
+                    x: node.texture!.size().width / 2 * offset + self.size.width,
+                    y: positionY
+                )
+                return node
+        }
+        //adding nodes to scene
+            for platformNode in platformTileNodes {
+                platformNode.zPosition = ZPositionsCategories.ground
+                platformNode.size = CGSize(width: 32, height: 32)
+                platformNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: platformNode.size.width * 2, height: platformNode.size.height * 2))
+                platformNode.physicsBody?.isDynamic = false
+                platformNode.name = "platform"
+                platformNode.run(scenery.movePlatform(self.size))
+                platformNodes.append(platformNode)
+                self.addChild(platformNode)
             }
+    }
     
     func setupCharacterNodePosition() {
         //acessing character from AnimatedSpriteComponents
@@ -290,25 +297,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 extension GameScene {
     func didBegin(_ contact: SKPhysicsContact) {
         
-        guard let nodeA = contact.bodyA.node,
-              let nodeB = contact.bodyB.node else {return}
-        
-        if nodeA.name == "character" && nodeB.name == "robot" {
-            print("teve contato conditinal 1 - A: \(nodeA.position.y) [] B: \(nodeB.position.y)")
-            if nodeA.position.y > nodeB.position.y {
-                robotPlayerControlComponent?.deadRobot()
-            } else {
-                characterPlayerControlComponent?.deadCharacter()
-                stopScenery()
-            }
-        }
-        if nodeA.name == "robot" && nodeB.name == "character" {
-            print("teve contato conditional 2 - A: \(nodeA.position.y) [] B: \(nodeB.position.y)")
-            if nodeB.position.y > nodeA.position.y {
-                robotPlayerControlComponent?.deadRobot()
-            } else {
-                characterPlayerControlComponent?.deadCharacter()
-                stopScenery()
+
+        if (contact.bodyA.node?.name == "character" && contact.bodyB.node?.name == "robot")
+        || (contact.bodyA.node?.name == "robot" && contact.bodyB.node?.name == "character") {
+            robotPlayerControlComponent?.deadRobot()
+            setupSpeed(isDead: true)
+            ScoreView.startGame = false
+            gameOver = true
+            for groundNode in groundNodes {
+                groundNode.removeAllActions()
             }
         }
     }
@@ -319,7 +316,6 @@ extension GameScene {
     
     func stopScenery() {
         setupSpeed(isDead: true)
-        self.timer?.invalidate()
         gameOver = true
         for groundNode in groundNodes {
             groundNode.removeAllActions()
