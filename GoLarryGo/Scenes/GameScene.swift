@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //Timer
-    var timerScore: Timer?
+    var timer: Timer?
 
     //game over
     var gameOver: Bool = false
@@ -73,14 +73,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         view.addGestureRecognizer(tap)
         
-        if timerScore == nil {
+        if timer == nil {
           let timer = Timer(timeInterval: 1.0,
                             target: self,
                             selector: #selector(updateTimer),
                             userInfo: nil,
                             repeats: true)
           RunLoop.current.add(timer, forMode: .common)
-          self.timerScore = timer
+          self.timer = timer
         }
         
         //Points
@@ -234,7 +234,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
             @objc func updateTimer() {
-                if let timer = timerScore {
+                if let timer = timer {
                     self.points += Int(timer.timeInterval)
                 }
             }
@@ -319,7 +319,7 @@ extension GameScene {
     
     func stopScenery() {
         setupSpeed(isDead: true)
-        self.timerScore?.invalidate()
+        self.timer?.invalidate()
         gameOver = true
         for groundNode in groundNodes {
             groundNode.removeAllActions()

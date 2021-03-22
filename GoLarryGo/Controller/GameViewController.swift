@@ -66,7 +66,7 @@ class GameViewController: UIViewController {
     
     @objc func pauseAction() {
         scene.isPaused = true
-        scene.timerScore?.invalidate()
+        scene.timer?.invalidate()
     }
     
 
