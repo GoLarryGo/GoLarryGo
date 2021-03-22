@@ -7,7 +7,7 @@
 import SpriteKit
 import GameplayKit
 
-class RobotEntity: GKEntity, GenRobotPrototype {
+class RobotEntity: GKEntity {
     
     override init() {
         super.init()
@@ -30,8 +30,10 @@ class RobotEntity: GKEntity, GenRobotPrototype {
         component.spriteNode.physicsBody?.allowsRotation = false
     }
     
-    func clone() -> GenRobotPrototype {
-        return RobotEntity()
+    override func copy(with zone: NSZone? = nil) -> Any {
+        let prototype = type(of: self).init()
+        print("Values defined in BaseClass have been cloned!")
+        return prototype
     }
     
     required init?(coder aDecoder: NSCoder) {

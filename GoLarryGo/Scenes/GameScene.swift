@@ -62,8 +62,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         characterPlayerControlComponent?.jumpCharacter()
     }
     
-    let metal = GenMetal()
-    
     override func didMove(to view: SKView) {
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.0)
         physicsWorld.contactDelegate = self
@@ -108,15 +106,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            }
     }
     
-    func setupMetal() {
-        let metalNodes: [SKSpriteNode] = metal.gerarPlat(position: CGPoint(x: size.width, y: 150))!
-        for node in metalNodes {
-            addChild(node)
-            let width = size.width + (node.size.width * 20)
-            node.run(scenery.moveGround(CGSize(width: width, height: size.height)))
-        }
-    }
-    
     var activeMoveScenery: Bool = false
     override func update(_ currentTime: TimeInterval) {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
@@ -132,7 +121,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for groundNode in groundNodes {
                 groundNode.run(scenery.moveGround(self.size))
             }
-            setupMetal()
             activeMoveScenery = true
         }
         
@@ -281,6 +269,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         robotSpriteNode.name = "robot"
         
         entityManager.add(robot)
+    }
+    
+    func configureRobotCloneNodePosition(entity: RobotEntity, size: CGSize, position: CGPoint) {
+        //acessing character from AnimatedSpriteComponents
+        guard let robotSpriteNode = entity.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        
+        //positioning character
+        robotSpriteNode.position = position
+        robotSpriteNode.size = size
+        
+        robotSpriteNode.physicsBody?.categoryBitMask = 2
+        robotSpriteNode.physicsBody?.contactTestBitMask = 1
+        
+        robotSpriteNode.name = "robot"
     }
 
 }

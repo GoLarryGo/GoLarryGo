@@ -22,7 +22,6 @@
 		3945D2ED2602278D008965EE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D2EC2602278D008965EE /* HomeView.swift */; };
 		3945D2F2260227BD008965EE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D2F1260227BD008965EE /* HomeViewController.swift */; };
 		3945D32A26024ED2008965EE /* RobotDeadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D32926024ED2008965EE /* RobotDeadState.swift */; };
-		3945D37F2606793A008965EE /* GenRobot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D37E2606793A008965EE /* GenRobot.swift */; };
 		5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* GroundEntity.swift */; };
 		570D1B6925FA43CD00A02917 /* RobotWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1B6825FA43CD00A02917 /* RobotWalkState.swift */; };
 		570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */; };
@@ -88,7 +87,6 @@
 		3945D2EC2602278D008965EE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3945D2F1260227BD008965EE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3945D32926024ED2008965EE /* RobotDeadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotDeadState.swift; sourceTree = "<group>"; };
-		3945D37E2606793A008965EE /* GenRobot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenRobot.swift; sourceTree = "<group>"; };
 		5709446925F79F7D001F32DB /* GroundEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundEntity.swift; sourceTree = "<group>"; };
 		570D1B6825FA43CD00A02917 /* RobotWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotWalkState.swift; sourceTree = "<group>"; };
 		570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWalkState.swift; sourceTree = "<group>"; };
@@ -194,14 +192,6 @@
 			path = Robot;
 			sourceTree = "<group>";
 		};
-		3945D37D260678CD008965EE /* Prototype */ = {
-			isa = PBXGroup;
-			children = (
-				3945D37E2606793A008965EE /* GenRobot.swift */,
-			);
-			path = Prototype;
-			sourceTree = "<group>";
-		};
 		5759DF2525F77C9300E708E4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,7 +272,6 @@
 		7B6A1AE525F9B19100E1B9E2 /* Entity-Component */ = {
 			isa = PBXGroup;
 			children = (
-				3945D37D260678CD008965EE /* Prototype */,
 				7B1A537D25FF934D002BC9B2 /* Scenary */,
 				5759DF2625F77CA200E708E4 /* Entities */,
 				5759DF2725F77CAD00E708E4 /* Components */,
@@ -544,7 +533,6 @@
 				7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */,
 				570D1B6925FA43CD00A02917 /* RobotWalkState.swift in Sources */,
 				7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */,
-				3945D37F2606793A008965EE /* GenRobot.swift in Sources */,
 				3945D32A26024ED2008965EE /* RobotDeadState.swift in Sources */,
 				7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */,
 				7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */,
