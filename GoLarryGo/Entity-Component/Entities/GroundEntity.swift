@@ -10,9 +10,9 @@ import GameplayKit
 
 class Ground: GKEntity {
 
-    init(numberOfTiles: Int) {
+    init(numberOfTiles: Int, assetName: String = "ground") {
         super.init()
-        self.addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: "ground"))
+        self.addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: assetName))
     }
 
     required init?(coder: NSCoder) {

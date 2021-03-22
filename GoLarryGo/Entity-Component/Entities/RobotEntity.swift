@@ -16,7 +16,8 @@ class RobotEntity: GKEntity {
         
         addComponent(
             PlayerControlComponent(states: [
-                EnemyWalkState(self)
+                RobotWalkState(self),
+                RobotDeadState(self)
         ]))
         
         addComponent(animetedSpriteComponent)
@@ -27,6 +28,12 @@ class RobotEntity: GKEntity {
         component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: 16)
         component.spriteNode.physicsBody?.isDynamic = true
         component.spriteNode.physicsBody?.allowsRotation = false
+    }
+    
+    override func copy(with zone: NSZone? = nil) -> Any {
+        let prototype = type(of: self).init()
+        print("Values defined in BaseClass have been cloned!")
+        return prototype
     }
     
     required init?(coder aDecoder: NSCoder) {

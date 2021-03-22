@@ -14,7 +14,6 @@ class PlayerControlComponent: GKComponent {
 
     init(states: [GKState]) {
         self.stateMachine = GKStateMachine(states: states)
-        stateMachine.enter(EnemyWalkState.self)
         //self.stateMachine.enter(CharacterWalkState.self)
         super.init()
     }
@@ -23,21 +22,28 @@ class PlayerControlComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func start() {
+    func startCharacter() {
         guard stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(CharacterWalkState.self)
     }
     
-    func jump() {
+    func jumpCharacter() {
         guard stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         stateMachine.enter(CharacterJumpState.self)
     }
     
-    func dead() {
+    func deadCharacter() {
         stateMachine.enter(CharacterDeadState.self)
     }
-
-
+    
+    func startRobot() {
+        stateMachine.enter(RobotWalkState.self)
+    }
+    
+    func deadRobot() {
+        stateMachine.enter(RobotDeadState.self)
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         self.entity?.component(ofType: MoveCharacterComponent.self)?.update(deltaTime: seconds)
