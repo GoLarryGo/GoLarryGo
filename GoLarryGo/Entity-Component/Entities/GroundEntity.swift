@@ -12,7 +12,8 @@ class Ground: GKEntity {
 
     init(numberOfTiles: Int, assetName: String = "ground") {
         super.init()
-        self.addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: assetName))
+        addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: assetName))
+        addComponent(PlayerControlComponent(states: []))
     }
 
     required init?(coder: NSCoder) {

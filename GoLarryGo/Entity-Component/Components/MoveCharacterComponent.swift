@@ -30,6 +30,10 @@ class MoveCharacterComponent: GKComponent {
         self.walk = false
     }
     
+    func startMove() {
+        self.walk = true
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         if walk {
