@@ -20,7 +20,6 @@ class GameOverView: UIView {
         let label = UILabel()
         label.font = UIFont(name: "PixelArial11Bold", size: 17)
         label.textColor = UIColor.white
-        label.text = "Score 500"
         return label
     }()
 
