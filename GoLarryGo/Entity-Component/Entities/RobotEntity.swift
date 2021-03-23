@@ -13,7 +13,7 @@ class RobotEntity: GKEntity {
         super.init()
         // Utiliza o componente AnimatedSpriteComponent para gerar o sprite da entidade
         let animetedSpriteComponent = AnimatedSpriteComponent(atlasName: "robotWalkLeft")
-        
+        animetedSpriteComponent.spriteNode.size = CGSize(width: 64, height: 64)
         addComponent(
             PlayerControlComponent(states: [
                 RobotWalkState(self),
@@ -25,7 +25,9 @@ class RobotEntity: GKEntity {
     }
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {
-        component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: 16)
+        //component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: component.spriteNode.size.height/2)
+        let sizeComponent = CGSize(width: component.spriteNode.size.width * 0.9, height: component.spriteNode.size.height * 0.9)
+        component.spriteNode.physicsBody = SKPhysicsBody(texture: component.spriteNode.texture!, size: sizeComponent)
         component.spriteNode.physicsBody?.isDynamic = true
         component.spriteNode.physicsBody?.allowsRotation = false
     }
