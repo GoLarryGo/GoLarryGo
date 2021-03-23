@@ -13,8 +13,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entityManager: EntityManager!
     var presentGameOver: (() -> Void)?
     //Floor
-    let ground = Ground(numberOfTiles: 120)
-    var groundNodes: [SKSpriteNode] = []
+    let ground = Ground(numberOfTiles: 80)
+    //var groundNodes: [SKSpriteNode] = []
     var platformNodes: [SKSpriteNode] = []
     var countPlatform:Int = 1
     
@@ -44,6 +44,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         robot.component(ofType: PlayerControlComponent.self)
     }
     
+    var sceneryPlayerControlComponent: PlayerControlComponent? {
+        ground.component(ofType: PlayerControlComponent.self)
+    }
+    
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
@@ -66,16 +70,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupFloorPosition()
         setupCharacterNodePosition()
         setupRobotNodePosition()
-        
-        //SpeedBackground
-        setupSpeed(isDead: false)
-        
+ 
         //adding move to floor
-
-        for groundNode in groundNodes {
-            groundNode.run(scenery.moveScenery(self.size))
-        }
-        
         let randomPlatforme = SKAction.run {
             let numberXPlatform = Int.random(in: 5..<12)
             self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
@@ -103,22 +99,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
+        sceneryPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
+        
+        guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
+        guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode,
+              let characterMove = character.component(ofType: MoveCharacterComponent.self) else {return}
+        if characterSpriteNode.position.x > size.width / 2 {
+            if !activeMoveScenery {
+                setupSpeed(isDead: false)
+                activeMoveScenery = true
+            }
+            characterMove.halt()
+        } else {
+            activeMoveScenery = false
+            setupSpeed(isDead: true)
+            characterMove.startMove()
+        }
     }
 
-    
-    
     func setupSpeed(isDead: Bool) {
+        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else { return }
         if isDead {
             backNode.speed = 0
             montainFixNode.speed = 0
             montainAltNode.speed = 0
             cloundsNode.speed = 0
+            groundTileRowComponent.stopMove()
         } else {
             backNode.speed = 1
             montainFixNode.speed = 0.5
             montainAltNode.speed = 0.5
             cloundsNode.speed = 1
+            groundTileRowComponent.startMove()
         }
     }
     
@@ -190,25 +203,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         //initial positioning ground tiles
         let tileCount = groundTileRowComponent.tileNodes.count
-        let groundTileNodes: [SKSpriteNode] = groundTileRowComponent.tileNodes.enumerated().map { (index, node) in
+        groundTileRowComponent.tileNodes = groundTileRowComponent.tileNodes.enumerated().map { (index, node) in
                 let offset = CGFloat(tileCount/2 - index)
                 node.position = CGPoint(
                     x: node.texture!.size().width / 2 * offset,
                     y: 15
                 )
+                node.zPosition = ZPositionsCategories.ground
+                node.size = CGSize(width: 32, height: 32)
+                node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
+                node.physicsBody?.isDynamic = false
+                node.name = "ground"
+                self.addChild(node)
                 return node
         }
-        //adding nodes to scene
-            for groundNode in groundTileNodes {
-                groundNode.zPosition = ZPositionsCategories.ground
-                groundNode.size = CGSize(width: 32, height: 32)
-                groundNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: groundNode.size.width, height: groundNode.size.height))
-                groundNode.physicsBody?.isDynamic = false
-                groundNode.name = "ground"
-                groundNodes.append(groundNode)
-                self.addChild(groundNode)
-            }
-    
     }
     
     func setupPlatFormPosition(numberTiles: Int, positionY:CGFloat ) {
@@ -260,7 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let robotSpriteNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         
         //positioning character
-        robotSpriteNode.position = CGPoint(x: 500, y: 60)
+        robotSpriteNode.position = CGPoint(x: 400, y: 60)
         robotSpriteNode.size = CGSize(width: 64, height: 64)
         
         robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic
@@ -322,9 +330,6 @@ extension GameScene {
         characterPlayerControlComponent?.deadCharacter()
         setupSpeed(isDead: true)
         ScoreView.startGame = false
-        for groundNode in groundNodes {
-            groundNode.removeAllActions()
-        }
         let gameOverRun = SKAction.run {
             guard let gameOver = self.presentGameOver else {return}
             gameOver()

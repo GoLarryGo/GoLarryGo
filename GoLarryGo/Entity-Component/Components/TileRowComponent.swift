@@ -9,7 +9,7 @@ import Foundation
 import GameplayKit
 
 class TileRowComponent: GKComponent {
-
+    var move: Bool = false
     let numberOfTiles: Int
     var tileNodes: [SKSpriteNode] = []
 
@@ -23,6 +23,29 @@ class TileRowComponent: GKComponent {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func stopMove() {
+        self.move = false
+    }
+    
+    func startMove() {
+        self.move = true
+    }
+    
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
+        if move {
+            var i = 0
+            for node in tileNodes {
+                node.position.x -= 1
+                let offset = CGFloat(tileNodes.count/2 - i)
+                if node.position.x < 32 * offset {
+                    node.position.x += 1000
+                }
+                i += 1
+            }
+        }
     }
 
 }
