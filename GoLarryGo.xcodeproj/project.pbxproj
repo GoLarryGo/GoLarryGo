@@ -10,6 +10,9 @@
 		030F0B5826024F580078E58A /* pixel-arial-11-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */; };
 		030F0B5C26024F5A0078E58A /* pixel-arial-11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */; };
 		037160222603816A004B57C6 /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037160212603816A004B57C6 /* HomeViewControllerTests.swift */; };
+		03858BCB2608D6F5008740F5 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03858BCA2608D6F5008740F5 /* GameOverViewController.swift */; };
+		03F69B012608D8A000B50F44 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F69B002608D8A000B50F44 /* GameOverView.swift */; };
+		03F69B062608D97400B50F44 /* SmallMenuComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F69B052608D97400B50F44 /* SmallMenuComponent.swift */; };
 		3945D20025FF9177008965EE /* CharacterDeadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D1FF25FF9177008965EE /* CharacterDeadState.swift */; };
 		3945D20525FF95AB008965EE /* RobotEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D20425FF95AB008965EE /* RobotEntity.swift */; };
 		3945D21925FFA921008965EE /* larryWalk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3945D21825FFA921008965EE /* larryWalk.atlas */; };
@@ -77,6 +80,9 @@
 
 /* Begin PBXFileReference section */
 		037160212603816A004B57C6 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		03858BCA2608D6F5008740F5 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		03F69B002608D8A000B50F44 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		03F69B052608D97400B50F44 /* SmallMenuComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMenuComponent.swift; sourceTree = "<group>"; };
 		3945D1FF25FF9177008965EE /* CharacterDeadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDeadState.swift; sourceTree = "<group>"; };
 		3945D20425FF95AB008965EE /* RobotEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotEntity.swift; sourceTree = "<group>"; };
 		3945D21825FFA921008965EE /* larryWalk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = larryWalk.atlas; sourceTree = "<group>"; };
@@ -164,6 +170,8 @@
 				3945D2EC2602278D008965EE /* HomeView.swift */,
 				EF390EBA260241B8008778F3 /* PauseView.swift */,
 				7B74CB5F2603AF7F00F1BD5B /* ScoreView.swift */,
+				03F69B002608D8A000B50F44 /* GameOverView.swift */,
+				03F69B052608D97400B50F44 /* SmallMenuComponent.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -174,6 +182,7 @@
 				7B6D3C3225F65E8500215887 /* GameViewController.swift */,
 				3945D2F1260227BD008965EE /* HomeViewController.swift */,
 				EF390EBF260246D8008778F3 /* PauseViewController.swift */,
+				03858BCA2608D6F5008740F5 /* GameOverViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -516,6 +525,7 @@
 			files = (
 				3945D2F2260227BD008965EE /* HomeViewController.swift in Sources */,
 				570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */,
+				03858BCB2608D6F5008740F5 /* GameOverViewController.swift in Sources */,
 				570D1C4025FBB1A400A02917 /* JumpCharacterComponent.swift in Sources */,
 				7B1A538B25FF93AC002BC9B2 /* Scenary.swift in Sources */,
 				7B6D3C3125F65E8500215887 /* GameScene.swift in Sources */,
@@ -526,6 +536,7 @@
 				3945D32A26024ED2008965EE /* RobotDeadState.swift in Sources */,
 				7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */,
 				7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */,
+				03F69B062608D97400B50F44 /* SmallMenuComponent.swift in Sources */,
 				7BE4B9752606DCD9004E6CD9 /* PlatformEntity.swift in Sources */,
 				5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */,
 				7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */,
@@ -543,6 +554,7 @@
 				7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */,
 				7B74CB602603AF7F00F1BD5B /* ScoreView.swift in Sources */,
 				5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */,
+				03F69B012608D8A000B50F44 /* GameOverView.swift in Sources */,
 				EF390EC0260246D8008778F3 /* PauseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
