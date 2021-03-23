@@ -268,7 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let robotSpriteNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         
         //positioning character
-        robotSpriteNode.position = CGPoint(x: 500, y: 60)
+        robotSpriteNode.position = CGPoint(x: 400, y: 60)
         robotSpriteNode.size = CGSize(width: 64, height: 64)
         
         robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic

@@ -45,10 +45,6 @@ class TileRowComponent: GKComponent {
                 }
                 i += 1
             }
-        } else {
-            for node in tileNodes {
-                node.position.x -= 0
-            }
         }
     }
 
