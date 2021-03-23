@@ -36,10 +36,18 @@ class GameOverView: UIView {
         setupScoreLabel()
         setupSmallCard()
     }
+
     override func draw(_ rect: CGRect) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        addGestureRecognizer(tapGesture)
+        
         setupViewHierarchy()
         setupConstraints()
         smallCard.draw(CGRect())
+    }
+
+    @objc func dismissKeyboard() {
+        endEditing(true)
     }
 }
 

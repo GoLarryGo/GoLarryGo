@@ -24,4 +24,24 @@ class GameOverViewController: UIViewController {
         view = gameOverView
         gameOverView.scoreLabel.text = "Score \(score)"
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+
+    @objc func keyboardWillAppear() {
+        if view.frame.origin.y >= 0 {
+            view.frame.origin.y -= 150
+        }
+    }
+
+    @objc func keyboardWillDisappear() {
+        view.frame.origin.y += 150
+    }
+
 }
+
+//extension GameOverViewController:  {
+//
+//}

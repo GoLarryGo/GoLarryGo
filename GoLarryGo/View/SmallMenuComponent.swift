@@ -22,6 +22,13 @@ class SmallMenuComponent: UIView {
         textField.placeholder = "TextField"
         textField.backgroundColor = .white
         textField.textColor = UIColor(hue: 0, saturation: 3/100, brightness: 2/100, alpha: 1)
+
+        textField.font = UIFont(name: "PixelArial11", size: 14)
+
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 2))
+        textField.leftViewMode = .always
+        textField.leftView = paddingView
+
         return textField
     }()
 
