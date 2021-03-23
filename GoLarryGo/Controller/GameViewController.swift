@@ -104,7 +104,7 @@ class GameViewController: UIViewController {
     }
     
     func presentGameOverViewController() {
-        print("Entrou")
+        present(GameOverViewController(), animated: true)
     }
     
 }
