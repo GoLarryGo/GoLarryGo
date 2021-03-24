@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         window.makeKeyAndVisible()
         
+        UserDefaultsConfiguration.sharedUserDefaultConfig.hasOnboarded()
         return true
     }
 

@@ -83,6 +83,8 @@ class GameViewController: UIViewController {
         scene.isPaused = true
         scoreView.timer?.invalidate()
         presentPauseViewController()
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
+        AVAudioPlayerManager.sharedPlayerManager.pauseSound(of: .soundtrack)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,6 +114,7 @@ class GameViewController: UIViewController {
 extension GameViewController: GameViewControllerDelegate {
 
     func resumeGame() {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
         self.scene.isPaused = false
     }
     
@@ -119,6 +122,7 @@ extension GameViewController: GameViewControllerDelegate {
         // put scores to zero
         self.scene.isPaused = true
         presentHomeViewController()
+        AVAudioPlayerManager.sharedPlayerManager.stopSound(of: .soundtrack)
     }
     
     func startGame(viewController: UIViewController) {
@@ -129,6 +133,7 @@ extension GameViewController: GameViewControllerDelegate {
         }, completion: { _ in
             viewController.dismiss(animated: true, completion: nil)
         })
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
     }
 
 }

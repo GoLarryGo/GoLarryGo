@@ -6,12 +6,19 @@
 //
 import UIKit
 
+protocol SoundButtonActionDelegate: class {
+    func soundButtonTapped(sender: UIButton)
+}
+
 class HomeView: UIView {
+    
+    weak var delegate: SoundButtonActionDelegate?
     
     lazy var soundButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "sound on"), for: .normal)
+        SoundButtonHelper.sharedSoundButtonState.setButtonImage(button: button)
+        button.addTarget(self, action: #selector(soundButtonTapped(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -78,6 +85,10 @@ class HomeView: UIView {
             startLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
             startLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
+    }
+    
+    @objc func soundButtonTapped(sender: UIButton) {
+        delegate?.soundButtonTapped(sender: soundButton)
     }
 
 }
