@@ -105,7 +105,10 @@ class GameViewController: UIViewController {
     
     func presentGameOverViewController() {
         let score = scoreView.score
-        present(GameOverViewController(score: score), animated: true)
+        let viewController = GameOverViewController(score: score)
+        viewController.delegate = self
+
+        present(viewController, animated: true)
     }
     
 }

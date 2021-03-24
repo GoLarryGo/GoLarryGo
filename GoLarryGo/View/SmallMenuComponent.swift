@@ -57,6 +57,9 @@ class SmallMenuComponent: UIView {
     }
 
     override func draw(_ rect: CGRect) {
+        imageViewButtonMenu.isUserInteractionEnabled = true
+        imageViewButtonRestart.isUserInteractionEnabled = true
+
         setupViewHierarchy()
         setupConstraints()
     }

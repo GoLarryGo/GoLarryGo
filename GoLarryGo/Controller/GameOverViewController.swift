@@ -8,6 +8,7 @@
 import UIKit
 class GameOverViewController: UIViewController {
     let gameOverView = GameOverView()
+    weak var delegate: GameViewControllerDelegate?
 
     let score: Int
 
@@ -22,6 +23,9 @@ class GameOverViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        gameOverView.smallCard.buttonMenu.addTarget(self, action: #selector(presentMenuViewController), for: .touchDown)
+
         view = gameOverView
         gameOverView.delegate = self
         gameOverView.smallCard.scoreLabel.text = "Score \(score)"
@@ -30,11 +34,12 @@ class GameOverViewController: UIViewController {
 }
 
 extension GameOverViewController: GameOverViewDelegate {
-    func presentMenuViewController() {
+    @objc func presentMenuViewController() {
         UIView.animate(withDuration: 0.1, animations: {
             self.view.alpha = 0.0
         }, completion: nil)
         self.dismiss(animated: false, completion: nil)
+        delegate?.exitGame()
         
     }
 
