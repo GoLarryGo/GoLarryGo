@@ -13,7 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entityManager: EntityManager!
     var presentGameOver: (() -> Void)?
     //Floor
-    let ground = Ground(numberOfTiles: 1000)
+    let ground = Ground(numberOfTiles: 80)
     //var groundNodes: [SKSpriteNode] = []
     var platformNodes: [SKSpriteNode] = []
     var countPlatform:Int = 1
