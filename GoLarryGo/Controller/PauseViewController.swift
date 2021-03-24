@@ -33,7 +33,8 @@ class PauseViewController: UIViewController {
 extension PauseViewController: PauseViewButtonActionsDelegate {
     
     func soundButtonAction(sender: UIButton) {
-
+        SoundButtonHelper.sharedSoundButtonState.changeSoundButtonState()
+        SoundButtonHelper.sharedSoundButtonState.setButtonImage(button: sender)
     }
     
     func menuButtonAction(sender: UIButton) {
