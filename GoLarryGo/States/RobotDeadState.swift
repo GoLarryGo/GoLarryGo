@@ -27,7 +27,7 @@ class RobotDeadState: GKState {
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
         print("robot dead")
-        
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
         animatedSpriteComponent?.setAnimationSingle(atlasName: "robotDead")
         animatedSpriteComponent?.spriteNode.removeAllActions()
         //moveComponent?.halt()
