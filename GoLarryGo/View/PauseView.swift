@@ -20,13 +20,22 @@ protocol PauseViewTapDelegate: class {
 }
 
 class PauseView: UIView {
-    
+    var tap: UITapGestureRecognizer?
     var controller: PauseViewController?
     weak var delegate: PauseViewButtonActionsDelegate?
     weak var delegateTap: PauseViewTapDelegate?
 
+    lazy var viewForTap: UIView = {
+        let view = UIView(frame: frame)
+        view.isUserInteractionEnabled = true
+        view.backgroundColor = .backgroundColor
+        tap = UITapGestureRecognizer(target: self, action: #selector(dismissPauseScreen))
+        view.addGestureRecognizer(tap!)
+        return view
+    }()
+    
     lazy var cardPause: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(frame: CGRect(x: self.frame.midX, y: self.frame.midY, width: 330, height: 176))
         imageView.image = UIImage(named: "cardSmall")
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -35,6 +44,7 @@ class PauseView: UIView {
     lazy var buttonMenu: UIButton = {
         let button = UIButton()
         button.isEnabled = true
+        button.isUserInteractionEnabled = true
         button.setImage(UIImage(named: "buttonSmall"), for: .normal)
         button.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
         return button
@@ -82,6 +92,15 @@ class PauseView: UIView {
         return button
     }()
     
+    func setUpViewForTapConstraints() {
+        viewForTap.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewForTap.topAnchor.constraint(equalTo: self.topAnchor),
+            viewForTap.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            viewForTap.leftAnchor.constraint(equalTo: self.leftAnchor),
+            viewForTap.rightAnchor.constraint(equalTo: self.rightAnchor),
+        ])
+    }
     func setUpCardPauseConstraints() {
         cardPause.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -169,6 +188,7 @@ class PauseView: UIView {
     }
     
     func setUpViewHierarchy(){
+        self.addSubview(viewForTap)
         self.addSubview(cardPause)
         cardPause.addSubview(buttonClose)
         cardPause.addSubview(buttonSound)
@@ -177,14 +197,12 @@ class PauseView: UIView {
         cardPause.addSubview(buttonResume)
         buttonResume.addSubview(labelResume)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .backgroundColor
         self.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissPauseScreen))
-        self.addGestureRecognizer(tap)
         setUpViewHierarchy()
+        setUpViewForTapConstraints()
         setUpCardPauseConstraints()
         setUpButtonCloseConstraints()
         setUpButtonSoundConstraints()
