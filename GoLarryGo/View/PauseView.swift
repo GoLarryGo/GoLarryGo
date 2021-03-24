@@ -25,8 +25,6 @@ class PauseView: UIView {
     weak var delegate: PauseViewButtonActionsDelegate?
     weak var delegateTap: PauseViewTapDelegate?
 
-
-
     lazy var cardPause: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cardSmall")
@@ -79,7 +77,7 @@ class PauseView: UIView {
         let button = UIButton()
         button.isUserInteractionEnabled = true
         button.isEnabled = true
-        button.setImage(UIImage(named: "sound on"), for: .normal)
+        SoundButtonHelper.sharedSoundButtonState.setButtonImage(button: button)
         button.addTarget(self, action: #selector(soundButtonAction(sender:)), for: .touchUpInside)
         return button
     }()
