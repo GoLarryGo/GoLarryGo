@@ -83,6 +83,7 @@ class GameViewController: UIViewController {
         scene.isPaused = true
         scoreView.timer?.invalidate()
         presentPauseViewController()
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
         AVAudioPlayerManager.sharedPlayerManager.pauseSound(of: .soundtrack)
     }
     

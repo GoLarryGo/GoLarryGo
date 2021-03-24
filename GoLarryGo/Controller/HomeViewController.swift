@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: SoundButtonActionDelegate {
     func soundButtonTapped(sender: UIButton) {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
         SoundButtonHelper.sharedSoundButtonState.changeSoundButtonState()
         SoundButtonHelper.sharedSoundButtonState.setButtonImage(button: sender)
     }
