@@ -8,6 +8,7 @@
 import UIKit
 class GameOverViewController: UIViewController {
     let gameOverView = GameOverView()
+
     let score: Int
 
     init(score: Int) {
@@ -22,26 +23,19 @@ class GameOverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = gameOverView
-        gameOverView.scoreLabel.text = "Score \(score)"
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-
-    @objc func keyboardWillAppear() {
-        if view.frame.origin.y >= 0 {
-            view.frame.origin.y -= 150
-        }
-    }
-
-    @objc func keyboardWillDisappear() {
-        view.frame.origin.y += 150
+        gameOverView.delegate = self
+        gameOverView.smallCard.scoreLabel.text = "Score \(score)"
     }
 
 }
 
-//extension GameOverViewController:  {
-//
-//}
+extension GameOverViewController: GameOverViewDelegate {
+    func presentMenuViewController() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.alpha = 0.0
+        }, completion: nil)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
+
+}
