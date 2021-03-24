@@ -23,8 +23,7 @@ class AVAudioPlayerManager: NSObject {
     
     // Given the URL of a sound file, either create or reuse an audio player
     private func player(url : URL) -> AVAudioPlayer? {
-        print(audioPlayers.count)
-
+        
         // Try and find a player that can be reused and is not playing
         let availablePlayers = audioPlayers.filter { (player) -> Bool in
             return  player.url == url
