@@ -27,6 +27,7 @@ class CharacterJumpState: GKState {
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
         print("larry jump")
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .jumpingLarry)
         animatedSpriteComponent?.setAnimationSingle(atlasName: "larryJump")
         jumpComponent?.jump(completion: {
             self.stateMachine?.enter(CharacterWalkState.self)
