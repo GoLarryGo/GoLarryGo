@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = homeView
-
+        homeView.delegate = self
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startGame))
         homeView.addGestureRecognizer(tapRecognizer)
     }
@@ -24,4 +24,13 @@ class HomeViewController: UIViewController {
         delegate?.startGame(viewController: self)
     }
 
+}
+
+extension HomeViewController: SoundButtonActionDelegate {
+    func soundButtonTapped(sender: UIButton) {
+        SoundButtonHelper.sharedSoundButtonState.changeSoundButtonState()
+        SoundButtonHelper.sharedSoundButtonState.setButtonImage(button: sender)
+    }
+    
+    
 }
