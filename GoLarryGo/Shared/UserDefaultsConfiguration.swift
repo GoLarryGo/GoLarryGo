@@ -26,21 +26,15 @@ class UserDefaultsConfiguration {
     }
     
     func hasOnboarded(){
-    
+        // as a pattern the not specificated bool will return false
         let isFirstLaunch = UserDefaultsConfiguration.defaults.bool(forKey: "com.patriciasampaiosiqueira.GoLarryGo.FirstLaunch.WasLaunchedBefore")
 
-        if isFirstLaunch {
-//            defaults.set(true, forKey: "sound")
+        if !isFirstLaunch {
+            setSoundToTrue()
             print(UserDefaultsConfiguration.defaults.bool(forKey: "com.patriciasampaiosiqueira.GoLarryGo.FirstLaunch.WasLaunchedBefore"))
+             UserDefaultsConfiguration.defaults.set(true, forKey: "com.patriciasampaiosiqueira.GoLarryGo.FirstLaunch.WasLaunchedBefore")
         }
-        
-        else {
-           setSoundToTrue()
-           print(UserDefaultsConfiguration.defaults.bool(forKey: "com.patriciasampaiosiqueira.GoLarryGo.FirstLaunch.WasLaunchedBefore"))
-            UserDefaultsConfiguration.defaults.set(true, forKey: "com.patriciasampaiosiqueira.GoLarryGo.FirstLaunch.WasLaunchedBefore")
-            
-        }
-
+    
 }
     
 }
