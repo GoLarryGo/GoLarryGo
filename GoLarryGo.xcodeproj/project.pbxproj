@@ -53,6 +53,9 @@
 		EF390EBB260241B8008778F3 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF390EBA260241B8008778F3 /* PauseView.swift */; };
 		EF390EC0260246D8008778F3 /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF390EBF260246D8008778F3 /* PauseViewController.swift */; };
 		EF390ECB26029961008778F3 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF390ECA26029961008778F3 /* ColorExtension.swift */; };
+		EF77CF2A2608CD21006A60B2 /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77CF292608CD21006A60B2 /* AudioPlayerManager.swift */; };
+		EF77CF2F2608CE8E006A60B2 /* UserDefaultsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77CF2E2608CE8E006A60B2 /* UserDefaultsConfiguration.swift */; };
+		EF77CF84260ABDDF006A60B2 /* SoundButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77CF83260ABDDF006A60B2 /* SoundButtonHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +128,9 @@
 		EF390EBA260241B8008778F3 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
 		EF390EBF260246D8008778F3 /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
 		EF390ECA26029961008778F3 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		EF77CF292608CD21006A60B2 /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
+		EF77CF2E2608CE8E006A60B2 /* UserDefaultsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfiguration.swift; sourceTree = "<group>"; };
+		EF77CF83260ABDDF006A60B2 /* SoundButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundButtonHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +185,9 @@
 				7B6A1A7925F9A9E300E1B9E2 /* Extensions.swift */,
 				7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */,
 				EF390ECA26029961008778F3 /* ColorExtension.swift */,
+				EF77CF292608CD21006A60B2 /* AudioPlayerManager.swift */,
+				EF77CF2E2608CE8E006A60B2 /* UserDefaultsConfiguration.swift */,
+				EF77CF83260ABDDF006A60B2 /* SoundButtonHelper.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -505,11 +514,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF77CF2F2608CE8E006A60B2 /* UserDefaultsConfiguration.swift in Sources */,
 				3945D2F2260227BD008965EE /* HomeViewController.swift in Sources */,
 				570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */,
 				570D1C4025FBB1A400A02917 /* JumpCharacterComponent.swift in Sources */,
 				7B1A538B25FF93AC002BC9B2 /* Scenary.swift in Sources */,
 				7B6D3C3125F65E8500215887 /* GameScene.swift in Sources */,
+				EF77CF2A2608CD21006A60B2 /* AudioPlayerManager.swift in Sources */,
 				7B6A1A7A25F9A9E300E1B9E2 /* Extensions.swift in Sources */,
 				7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */,
 				570D1B6925FA43CD00A02917 /* EnemyWalkState.swift in Sources */,
@@ -532,6 +543,7 @@
 				7B6D3C2B25F65E8500215887 /* AppDelegate.swift in Sources */,
 				5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */,
 				EF390EC0260246D8008778F3 /* PauseViewController.swift in Sources */,
+				EF77CF84260ABDDF006A60B2 /* SoundButtonHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
