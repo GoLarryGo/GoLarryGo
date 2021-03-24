@@ -28,15 +28,15 @@ class CharacterJumpState: GKState {
         super.didEnter(from: previousState)
         print("larry jump")
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .jumpingLarry)
-        animatedSpriteComponent?.setAnimationSingle(atlasName: "larryJump")
+        animatedSpriteComponent?.setAnimation(atlasName: "larryJump")
         jumpComponent?.jump(completion: {
             self.stateMachine?.enter(CharacterWalkState.self)
         })
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        super.isValidNextState(stateClass)
-        return stateClass == CharacterWalkState.self
+    override func willExit(to nextState: GKState) {
+        super.willExit(to: nextState)
+        //quando ele tiver saindo
     }
 
     override func update(deltaTime seconds: TimeInterval) {

@@ -17,7 +17,7 @@ class MoveCharacterComponent: GKComponent {
         self.entity?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode
     }
     
-    init(velocity: CGFloat = 1) {
+    init(velocity: CGFloat = 2) {
         self.velocity = velocity
         super.init()
     }
@@ -28,6 +28,10 @@ class MoveCharacterComponent: GKComponent {
     
     func halt() {
         self.walk = false
+    }
+    
+    func startMove() {
+        self.walk = true
     }
     
     override func update(deltaTime seconds: TimeInterval) {

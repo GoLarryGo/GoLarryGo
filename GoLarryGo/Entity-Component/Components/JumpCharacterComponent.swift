@@ -24,11 +24,13 @@ class JumpCharacterComponent: GKComponent {
     }
 
     func jump(completion: @escaping () -> Void = { }) {
+        
         let sequence = SKAction.sequence([
-            SKAction.move(by: CGVector(dx: 0, dy: impulse), duration: 0.75),
-            SKAction.move(by: CGVector(dx: 0, dy: -impulse), duration: 0.75)
+            SKAction.move(by: CGVector(dx: 0, dy: impulse), duration: 0.4),
+            SKAction.move(by: CGVector(dx: 0, dy: -impulse), duration: 0.4)
         ])
-        sequence.duration = 1.5
+        print(impulse)
+        sequence.duration = 0.8
         sequence.timingMode = .easeIn
         
         //animatedSpriteComponent?.setAnimationSingle(atlasName: "larryJump")

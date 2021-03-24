@@ -137,7 +137,7 @@ class PauseView: UIView {
             labelResume.centerYAnchor.constraint(equalTo: buttonResume.centerYAnchor)
         ])
     }
-     
+
     func setUpButtonResumeConstraints() {
         buttonResume.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

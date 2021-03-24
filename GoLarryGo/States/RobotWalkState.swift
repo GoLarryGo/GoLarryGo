@@ -9,28 +9,28 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-enum EnemyDirection: String {
+enum RobotDirection: String {
     case left = "roboWalkLeft"
     case right = "roboWalkRight"
     case none
 }
 
-class EnemyWalkLeftState: EnemyWalkState {
-    override var direction: EnemyDirection {
+class RobotWalkLeftState: RobotWalkState {
+    override var direction: RobotDirection {
         .left
     }
 }
 
-class EnemyWalkRightState: EnemyWalkState {
-    override var direction: EnemyDirection {
+class RobotWalkRightState: RobotWalkState {
+    override var direction: RobotDirection {
         .right
     }
 }
 
-class EnemyWalkState: GKState {
+class RobotWalkState: GKState {
     var entity: GKEntity
     
-    var direction: EnemyDirection {
+    var direction: RobotDirection {
         .none
     }
     
@@ -47,7 +47,7 @@ class EnemyWalkState: GKState {
         super.didEnter(from: previousState)
         print("walkState")
 
-        animatedSpriteComponent?.setAnimation(atlasName: "roboWalkLeft")
+        animatedSpriteComponent?.setAnimation(atlasName: "robotWalkLeft")
         //walkComponent?.walk(direction: direction)
     }
 
