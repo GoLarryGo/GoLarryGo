@@ -15,7 +15,6 @@ class RobotDeadState: GKState {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
     
-    
     init(_ entity: GKEntity){
         self.entity = entity
         super.init()
@@ -24,7 +23,7 @@ class RobotDeadState: GKState {
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
         print("robot dead")
-        
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
         animatedSpriteComponent?.setAnimationSingle(atlasName: "robotDead")
         animatedSpriteComponent?.spriteNode.removeAllActions()
     }

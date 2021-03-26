@@ -33,20 +33,25 @@ class PauseViewController: UIViewController {
 extension PauseViewController: PauseViewButtonActionsDelegate {
     
     func soundButtonAction(sender: UIButton) {
-
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
+        SoundButtonHelper.sharedSoundButtonState.changeSoundButtonState()
+        SoundButtonHelper.sharedSoundButtonState.setButtonImage(button: sender)
     }
     
     func menuButtonAction(sender: UIButton) {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
         dismissPauseView()
         delegate?.exitGame()
     }
     
     func resumeButtonAction(sender: UIButton) {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
         dismissPauseView()
         delegate?.resumeGame()
     }
     
     func closeButtonAction(sender: UIButton) {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
         dismissPauseView()
         delegate?.resumeGame()
     }
