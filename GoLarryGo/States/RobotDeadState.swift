@@ -15,9 +15,6 @@ class RobotDeadState: GKState {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
     
-//    var moveComponent: MoveCharacterComponent? {
-//        self.entity.component(ofType: MoveCharacterComponent.self)
-//    }
     
     init(_ entity: GKEntity){
         self.entity = entity
@@ -30,7 +27,6 @@ class RobotDeadState: GKState {
         
         animatedSpriteComponent?.setAnimationSingle(atlasName: "robotDead")
         animatedSpriteComponent?.spriteNode.removeAllActions()
-        //moveComponent?.halt()
     }
     
     override func update(deltaTime seconds: TimeInterval) {

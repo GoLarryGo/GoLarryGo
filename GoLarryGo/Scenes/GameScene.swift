@@ -122,8 +122,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setupSpeed(isDead: true)
             characterMove.startMove()
         }
-        
-        //testContact = false
     }
 
     func setupSpeed(isDead: Bool) {
