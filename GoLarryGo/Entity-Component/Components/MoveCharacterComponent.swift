@@ -10,7 +10,7 @@ import UIKit
 
 class MoveCharacterComponent: GKComponent {
     
-    var walk: Bool = true
+    var walk: Bool = false
     var velocity: CGFloat
     
     var spriteNode: SKSpriteNode? {
@@ -38,8 +38,6 @@ class MoveCharacterComponent: GKComponent {
         super.update(deltaTime: seconds)
         if walk {
             spriteNode?.position.x += velocity
-        } else {
-            spriteNode?.position.x += 0
         }
     }
 }

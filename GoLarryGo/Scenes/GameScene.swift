@@ -48,10 +48,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.component(ofType: PlayerControlComponent.self)
     }
     
+    var testContact = false
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
-        characterPlayerControlComponent?.jumpCharacter()
+        if testContact {
+            characterPlayerControlComponent?.jumpCharacter()
+        }
     }
     
     override func didMove(to view: SKView) {
@@ -70,7 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupFloorPosition()
         setupCharacterNodePosition()
         setupRobotNodePosition()
- 
+        
         //adding move to floor
         let randomPlatforme = SKAction.run {
             let numberXPlatform = Int.random(in: 5..<12)
@@ -105,12 +108,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode,
               let characterMove = character.component(ofType: MoveCharacterComponent.self) else {return}
-        if characterSpriteNode.position.x > size.width / 2 {
+        print("Larry - \(characterSpriteNode.position.x) : Frame - \(frame.midX)")
+        if characterSpriteNode.position.x > frame.midX {
+            characterSpriteNode.position.x = frame.midX
             if !activeMoveScenery {
                 setupSpeed(isDead: false)
                 activeMoveScenery = true
+                characterMove.halt()
             }
-            characterMove.halt()
         } else {
             activeMoveScenery = false
             setupSpeed(isDead: true)
@@ -251,7 +256,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //acessing character from AnimatedSpriteComponents
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         //positioning character
-        characterSpriteNode.position = CGPoint(x: 50, y: 60)
+        characterSpriteNode.position = CGPoint(x: 50, y: 360)
         characterSpriteNode.size = CGSize(width: 64, height: 64)
         
         characterSpriteNode.physicsBody?.categoryBitMask = categoryCharacterPhysic
@@ -268,7 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let robotSpriteNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         
         //positioning character
-        robotSpriteNode.position = CGPoint(x: 400, y: 60)
+        robotSpriteNode.position = CGPoint(x: 600, y: 60)
         robotSpriteNode.size = CGSize(width: 64, height: 64)
         
         robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic
@@ -287,7 +292,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         robotSpriteNode.position = position
         robotSpriteNode.size = size
         
-        robotSpriteNode.physicsBody?.categoryBitMask = 2
+        robotSpriteNode.physicsBody?.categoryBitMask = 1
         robotSpriteNode.physicsBody?.contactTestBitMask = 1
         
         robotSpriteNode.name = "robot"
@@ -298,6 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 extension GameScene {
     func didBegin(_ contact: SKPhysicsContact) {
         
+
         guard let nodeA = contact.bodyA.node,
               let nodeB = contact.bodyB.node else {return}
         
@@ -320,10 +326,26 @@ extension GameScene {
                 stopGame()
             }
         }
+        if nodeA.name == "character" && nodeB.name == "ground" ||
+        nodeA.name == "character" && nodeB.name == "platform" ||
+        nodeB.name == "character" && nodeA.name == "ground" ||
+        nodeB.name == "character" && nodeA.name == "platform"{
+            print("iniciou contato")
+            testContact = true
+        }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
-        //print("acabou contato")
+        guard let nodeA = contact.bodyA.node,
+              let nodeB = contact.bodyB.node else {return}
+        
+        if nodeA.name == "character" && nodeB.name == "ground" ||
+        nodeA.name == "character" && nodeB.name == "platform" ||
+        nodeB.name == "character" && nodeA.name == "ground" ||
+        nodeB.name == "character" && nodeA.name == "platform"{
+            print("cabou contato")
+            testContact = false
+        }
     }
     
     func stopGame() {

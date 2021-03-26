@@ -16,9 +16,9 @@ class CharacterWalkState: GKState {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
 
-    var moveComponent: MoveCharacterComponent? {
+    /*var moveComponent: MoveCharacterComponent? {
         self.entity.component(ofType: MoveCharacterComponent.self)
-    }
+    }*/
 
     init(_ entity: GKEntity){
         self.entity = entity
