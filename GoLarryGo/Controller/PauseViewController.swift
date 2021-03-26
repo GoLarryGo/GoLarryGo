@@ -25,6 +25,7 @@ class PauseViewController: UIViewController {
         UIView.animate(withDuration: 0.1, animations: {
             self.view.alpha = 0.0
         }, completion: nil)
+        ScoreView.startGame = true
         self.dismiss(animated: false, completion: nil)
     }
     
