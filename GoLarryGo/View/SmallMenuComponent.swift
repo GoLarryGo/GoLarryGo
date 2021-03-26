@@ -9,20 +9,19 @@ import UIKit
 
 class SmallMenuComponent: UIView {
 
-    let nicknameTextLabel: UILabel = {
+    let gameOverTextLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "PixelArial11", size: 17)
+        label.font = UIFont(name: "PixelArial11", size: 30)
+        label.text = "Game Over"
         label.textColor = UIColor(hue: 0, saturation: 3/100, brightness: 2/100, alpha: 1)
-        label.text = "Nickname"
         return label
     }()
 
-    let textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "TextField"
-        textField.backgroundColor = .white
-        textField.textColor = UIColor(hue: 0, saturation: 3/100, brightness: 2/100, alpha: 1)
-        return textField
+    let scoreLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "PixelArial11", size: 17)
+        label.textColor = UIColor(hue: 0, saturation: 3/100, brightness: 2/100, alpha: 1)
+        return label
     }()
 
     let backgroundImageView: UIImageView = {
@@ -32,38 +31,42 @@ class SmallMenuComponent: UIView {
         return imageView
     }()
 
-    lazy var buttonSave: UIButton = buttonFactory(buttonTitle: "Salvar")
-    lazy var buttonCancel: UIButton = buttonFactory(buttonTitle: "Cancelar")
+    lazy var buttonRestart: UIButton = buttonFactory(buttonTitle: "Restart")
+    lazy var buttonMenu: UIButton = buttonFactory(buttonTitle: "Menu")
 
-    lazy var imageViewSaveButton = UIImageView(image: UIImage(named: "buttonSmall"))
-    lazy var imageViewCancelButton = UIImageView(image: UIImage(named: "buttonSmall"))
+    lazy var imageViewButtonRestart = UIImageView(image: UIImage(named: "buttonSmall"))
+    lazy var imageViewButtonMenu = UIImageView(image: UIImage(named: "buttonSmall"))
 
     func setupViewHierarchy() {
         addSubview(backgroundImageView)
-        addSubview(nicknameTextLabel)
-        addSubview(textField)
-        addSubview(imageViewSaveButton)
-        addSubview(imageViewCancelButton)
-        addSubview(buttonSave)
-        addSubview(buttonCancel)
+        addSubview(gameOverTextLabel)
+        addSubview(scoreLabel)
+        addSubview(imageViewButtonRestart)
+        addSubview(imageViewButtonMenu)
+        addSubview(buttonRestart)
+        addSubview(buttonMenu)
     }
 
     func setupConstraints() {
         setupBackgroundImageView()
-        setupNicknameTextLabel()
-        setupTextField()
+        setupGameOverTextLabel()
+        setupScoreLabel()
         setupImageViewButtons()
-        setupButtonSave()
-        setupButtonCancel()
+        setupButtonRestart()
+        setupButtonMenu()
     }
 
     override func draw(_ rect: CGRect) {
+        imageViewButtonMenu.isUserInteractionEnabled = true
+        imageViewButtonRestart.isUserInteractionEnabled = true
+
         setupViewHierarchy()
         setupConstraints()
     }
 }
 
 extension SmallMenuComponent {
+
     func setupBackgroundImageView() {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -75,63 +78,61 @@ extension SmallMenuComponent {
         ])
     }
 
-    func setupNicknameTextLabel() {
-        nicknameTextLabel.translatesAutoresizingMaskIntoConstraints = false
+    func setupGameOverTextLabel() {
+        gameOverTextLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            nicknameTextLabel.topAnchor.constraint(equalTo: topAnchor,constant: 13),
-            nicknameTextLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            gameOverTextLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            gameOverTextLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 
-    func setupTextField() {
-        textField.translatesAutoresizingMaskIntoConstraints = false
+    func setupScoreLabel() {
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: nicknameTextLabel.bottomAnchor, constant: 17),
-            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textField.widthAnchor.constraint(equalToConstant: 169),
-            textField.heightAnchor.constraint(equalToConstant: 28)
+            scoreLabel.topAnchor.constraint(equalTo: gameOverTextLabel.bottomAnchor, constant: 12),
+            scoreLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 
     func setupImageViewButtons() {
-        imageViewSaveButton.translatesAutoresizingMaskIntoConstraints = false
-        imageViewCancelButton.translatesAutoresizingMaskIntoConstraints = false
+        imageViewButtonRestart.translatesAutoresizingMaskIntoConstraints = false
+        imageViewButtonMenu.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            imageViewSaveButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 17),
-            imageViewSaveButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19),
-            imageViewSaveButton.widthAnchor.constraint(equalToConstant: 105),
-            imageViewSaveButton.heightAnchor.constraint(equalToConstant: 28),
+            imageViewButtonRestart.leftAnchor.constraint(equalTo: buttonRestart.leftAnchor),
+            imageViewButtonRestart.bottomAnchor.constraint(equalTo: buttonRestart.bottomAnchor),
+            imageViewButtonRestart.topAnchor.constraint(equalTo: buttonRestart.topAnchor),
+            imageViewButtonRestart.rightAnchor.constraint(equalTo: buttonRestart.rightAnchor),
 
-            imageViewCancelButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -17),
-            imageViewCancelButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19),
-            imageViewCancelButton.widthAnchor.constraint(equalToConstant: 105),
-            imageViewCancelButton.heightAnchor.constraint(equalToConstant: 28)
+            imageViewButtonMenu.leftAnchor.constraint(equalTo: buttonMenu.leftAnchor),
+            imageViewButtonMenu.bottomAnchor.constraint(equalTo: buttonMenu.bottomAnchor),
+            imageViewButtonMenu.topAnchor.constraint(equalTo: buttonMenu.topAnchor),
+            imageViewButtonMenu.rightAnchor.constraint(equalTo: buttonMenu.rightAnchor),
         ])
     }
 
 
-    func setupButtonSave() {
-        buttonSave.translatesAutoresizingMaskIntoConstraints = false
+    func setupButtonRestart() {
+        buttonRestart.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            buttonSave.leftAnchor.constraint(equalTo: leftAnchor, constant: 17),
-            buttonSave.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19),
-            buttonSave.widthAnchor.constraint(equalToConstant: 105),
-            buttonSave.heightAnchor.constraint(equalToConstant: 28)
+            buttonRestart.leftAnchor.constraint(equalTo: leftAnchor, constant: 42),
+            buttonRestart.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            buttonRestart.widthAnchor.constraint(equalToConstant: 105),
+            buttonRestart.heightAnchor.constraint(equalToConstant: 28)
         ])
     }
 
-    func setupButtonCancel() {
-        buttonCancel.translatesAutoresizingMaskIntoConstraints = false
+    func setupButtonMenu() {
+        buttonMenu.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            buttonCancel.rightAnchor.constraint(equalTo: rightAnchor, constant: -17),
-            buttonCancel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19),
-            buttonCancel.widthAnchor.constraint(equalToConstant: 105),
-            buttonCancel.heightAnchor.constraint(equalToConstant: 28)
+            buttonMenu.rightAnchor.constraint(equalTo: rightAnchor, constant: -42),
+            buttonMenu.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            buttonMenu.widthAnchor.constraint(equalToConstant: 105),
+            buttonMenu.heightAnchor.constraint(equalToConstant: 28)
         ])
     }
 }
@@ -147,7 +148,6 @@ extension SmallMenuComponent {
         button.setAttributedTitle(NSAttributedString(string: buttonTitle,
                                                      attributes: attributes),
                                                      for: .normal)
-        button.setTitle("Slava", for: .normal)
         return button
     }
 

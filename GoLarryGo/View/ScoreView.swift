@@ -47,9 +47,7 @@ class ScoreView: UIView {
     
     @objc func updateTimer() {
         if let timer = timer {
-            if ScoreView.startGame == false {
-                score = 0
-            } else {
+            if ScoreView.startGame {
                 score += Int(timer.timeInterval)
             }
             print(score)
