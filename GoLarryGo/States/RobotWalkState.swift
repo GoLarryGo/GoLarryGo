@@ -37,6 +37,10 @@ class RobotWalkState: GKState {
     var animatedSpriteComponent: AnimatedSpriteComponent? {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
+    
+    var walkComponent: MoveRobotComponent? {
+        self.entity.component(ofType: MoveRobotComponent.self)
+    }
 
     init(_ entity: GKEntity){
         self.entity = entity
@@ -48,7 +52,7 @@ class RobotWalkState: GKState {
         print("walkState")
 
         animatedSpriteComponent?.setAnimation(atlasName: "robotWalkLeft")
-        //walkComponent?.walk(direction: direction)
+        walkComponent?.startMove(direction: direction)
     }
 
     override func update(deltaTime seconds: TimeInterval) {

@@ -17,10 +17,13 @@ class RobotEntity: GKEntity {
         addComponent(
             PlayerControlComponent(states: [
                 RobotWalkState(self),
+                RobotWalkRightState(self),
+                RobotWalkLeftState(self),
                 RobotDeadState(self)
         ]))
         
         addComponent(animetedSpriteComponent)
+        addComponent(MoveRobotComponent())
         setupPhysicsBody(component: animetedSpriteComponent)
     }
     

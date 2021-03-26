@@ -63,7 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         characterPlayerControlComponent?.startCharacter()
-        robotPlayerControlComponent?.startRobot()
+        robotPlayerControlComponent?.startRobotLeft()
         
         entityManager = EntityManager(scene: self)
         
@@ -104,6 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         sceneryPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
+        robotPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
         
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
@@ -257,7 +258,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //acessing character from AnimatedSpriteComponents
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         //positioning character
-        characterSpriteNode.position = CGPoint(x: 50, y: 360)
+        characterSpriteNode.position = CGPoint(x: 50, y: 60)
         characterSpriteNode.size = CGSize(width: 64, height: 64)
         
         characterSpriteNode.physicsBody?.categoryBitMask = categoryCharacterPhysic
@@ -274,7 +275,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let robotSpriteNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
         
         //positioning character
-        robotSpriteNode.position = CGPoint(x: 600, y: 60)
+        robotSpriteNode.position = CGPoint(x: 1000, y: 60)
         robotSpriteNode.size = CGSize(width: 64, height: 64)
         
         robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic
