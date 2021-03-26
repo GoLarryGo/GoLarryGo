@@ -24,17 +24,12 @@ class JumpCharacterComponent: GKComponent {
     }
 
     func jump(completion: @escaping () -> Void = { }) {
-        
-        let sequence = SKAction.sequence([
-            SKAction.move(by: CGVector(dx: 0, dy: impulse), duration: 0.4),
-            SKAction.move(by: CGVector(dx: 0, dy: -impulse), duration: 0.4)
-        ])
-        print(impulse)
+        let jumpAction = SKAction.run {
+            self.animatedSpriteComponent?.spriteNode.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 30))
+        }
+        let sequence = SKAction.sequence([jumpAction])
         sequence.duration = 0.8
         sequence.timingMode = .easeIn
-        
-        //animatedSpriteComponent?.setAnimationSingle(atlasName: "larryJump")
-        //animatedSpriteComponent?.spriteNode.physicsBody?.applyImpulse(CGVector(dx: 2, dy: 20))
         animatedSpriteComponent?.spriteNode.run(sequence, completion: completion)
     }
 }

@@ -11,7 +11,7 @@ import SpriteKit
 class Scenery {
     
     func movePlatform(_ size: CGSize) -> SKAction {
-        let move = SKAction.moveTo(x: -size.width, duration: 8)
+        let move = SKAction.moveTo(x: -size.width, duration: 15)
         let remove = SKAction.removeFromParent()
         let sequence = SKAction.sequence([move, remove])
         return sequence

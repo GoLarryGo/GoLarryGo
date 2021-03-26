@@ -48,17 +48,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.component(ofType: PlayerControlComponent.self)
     }
     
-    var testContact = false
+    var characterContactGround = false
     lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
     @objc func jumpTap(_ sender: UITapGestureRecognizer) {
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
-        if testContact {
+        if characterContactGround {
+            characterContactGround = false
             characterPlayerControlComponent?.jumpCharacter()
         }
     }
     
     override func didMove(to view: SKView) {
-        physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.0)
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
         physicsWorld.contactDelegate = self
         
         characterPlayerControlComponent?.startCharacter()
@@ -79,7 +80,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let numberXPlatform = Int.random(in: 5..<12)
             self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
         }
-        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 1.5)])))
+        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 5.0)])))
     }
     
     func getPositionY() -> CGFloat {
@@ -331,7 +332,11 @@ extension GameScene {
         nodeB.name == "character" && nodeA.name == "ground" ||
         nodeB.name == "character" && nodeA.name == "platform"{
             print("iniciou contato")
-            testContact = true
+            characterContactGround = true
+        }
+        if nodeA.name == "character" && nodeB.name == "topPlatform" ||
+            nodeA.name == "topPlatform" && nodeB.name == "character" {
+            print("entrouu")
         }
     }
     
@@ -339,12 +344,10 @@ extension GameScene {
         guard let nodeA = contact.bodyA.node,
               let nodeB = contact.bodyB.node else {return}
         
-        if nodeA.name == "character" && nodeB.name == "ground" ||
-        nodeA.name == "character" && nodeB.name == "platform" ||
-        nodeB.name == "character" && nodeA.name == "ground" ||
-        nodeB.name == "character" && nodeA.name == "platform"{
+        if  nodeA.name == "character" && nodeB.name == "platform" ||
+            nodeB.name == "character" && nodeA.name == "platform" {
             print("cabou contato")
-            testContact = false
+            characterContactGround = false
         }
     }
     

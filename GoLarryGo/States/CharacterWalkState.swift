@@ -16,10 +16,6 @@ class CharacterWalkState: GKState {
         self.entity.component(ofType: AnimatedSpriteComponent.self)
     }
 
-    /*var moveComponent: MoveCharacterComponent? {
-        self.entity.component(ofType: MoveCharacterComponent.self)
-    }*/
-
     init(_ entity: GKEntity){
         self.entity = entity
         super.init()
@@ -30,12 +26,10 @@ class CharacterWalkState: GKState {
         print("larry")
 
         animatedSpriteComponent?.setAnimation(atlasName: "larryWalk")
-        //moveComponent?.
     }
     
     override func willExit(to nextState: GKState) {
         super.willExit(to: nextState)
-        //quando ele tiver saindo
     }
 
     override func update(deltaTime seconds: TimeInterval) {

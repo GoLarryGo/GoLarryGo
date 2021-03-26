@@ -26,7 +26,7 @@ class RobotEntity: GKEntity {
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {
         //component.spriteNode.physicsBody = SKPhysicsBody(circleOfRadius: component.spriteNode.size.height/2)
-        let sizeComponent = CGSize(width: component.spriteNode.size.width/2, height: component.spriteNode.size.height)
+        let sizeComponent = CGSize(width: component.spriteNode.size.width/2, height: component.spriteNode.size.height * 0.8)
         component.spriteNode.physicsBody = SKPhysicsBody(texture: component.spriteNode.texture!, size: sizeComponent)
         component.spriteNode.physicsBody?.isDynamic = true
         component.spriteNode.physicsBody?.allowsRotation = false
