@@ -54,7 +54,10 @@ class AnimatedSpriteComponent: GKComponent {
         )
     }
     
-    func setAnimationSingle(atlasName: String) {
+    func setAnimationSingle(atlasName: String, direction: Bool? = false) {
+        if direction! {
+            spriteNode.xScale = -1
+        }
         spriteNode.removeAllActions()
         self.animationAtlas = SKTextureAtlas(named: atlasName)
         self.spriteNode.texture = animationTextures.first!
@@ -62,7 +65,7 @@ class AnimatedSpriteComponent: GKComponent {
         spriteNode.run(
             SKAction.animate(
                 with: animationTextures,
-                timePerFrame: 0.2,
+                timePerFrame: 0.1,
                 resize: false,
                 restore: false
             ),

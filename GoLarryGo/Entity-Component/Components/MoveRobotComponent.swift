@@ -40,7 +40,7 @@ class MoveRobotComponent: GKComponent {
         if walk == .left {
             spriteNode?.position.x -= velocity
         } else if walk == .right {
-            spriteNode?.xScale *= -1
+            spriteNode?.xScale = -1
             spriteNode?.position.x -= velocity
         }
     }

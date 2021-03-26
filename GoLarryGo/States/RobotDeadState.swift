@@ -24,7 +24,7 @@ class RobotDeadState: GKState {
         super.didEnter(from: previousState)
         print("robot dead")
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
-        animatedSpriteComponent?.setAnimationSingle(atlasName: "robotDead")
+        animatedSpriteComponent?.setAnimationSingle(atlasName: "robotDead", direction: true)
         animatedSpriteComponent?.spriteNode.removeAllActions()
     }
     

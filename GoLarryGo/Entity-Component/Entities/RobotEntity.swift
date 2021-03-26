@@ -23,7 +23,7 @@ class RobotEntity: GKEntity {
         ]))
         
         addComponent(animetedSpriteComponent)
-        addComponent(MoveRobotComponent())
+        addComponent(MoveRobotComponent(velocity: 1))
         setupPhysicsBody(component: animetedSpriteComponent)
     }
     
