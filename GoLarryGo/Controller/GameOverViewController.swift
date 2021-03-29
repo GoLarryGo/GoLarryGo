@@ -35,6 +35,7 @@ class GameOverViewController: UIViewController {
 
 extension GameOverViewController: GameOverViewDelegate {
     @objc func presentMenuViewController() {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
         UIView.animate(withDuration: 0.1, animations: {
             self.view.alpha = 0.0
         }, completion: nil)
