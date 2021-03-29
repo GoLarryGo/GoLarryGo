@@ -25,8 +25,11 @@ class CharacterEntity: GKEntity {
     }
     
     func setupPhysicsBody(component: AnimatedSpriteComponent) {
-        let sizeComponent = CGSize(width: component.spriteNode.size.width/2 , height: component.spriteNode.size.height * 0.7)
-        component.spriteNode.physicsBody = SKPhysicsBody(rectangleOf: sizeComponent)
+    
+        let sizeComponent = CGSize(width: component.spriteNode.size.width/2 , height: component.spriteNode.size.height + 6)
+        
+        component.spriteNode.physicsBody = SKPhysicsBody(texture: component.spriteNode.texture!, size: sizeComponent)
+
         component.spriteNode.physicsBody?.isDynamic = true
         component.spriteNode.physicsBody?.allowsRotation = false
         component.spriteNode.physicsBody?.affectedByGravity = true
