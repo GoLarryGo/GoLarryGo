@@ -326,6 +326,7 @@ extension GameScene {
                                 guard let component = robot.component(ofType: AnimatedSpriteComponent.self) else {return}
                                 if nodeB.isEqual(to: component.spriteNode) {
                                     component.setAnimationSingle(atlasName: "robotDead", direction: true)
+                                    AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
                                     component.spriteNode.removeAllActions()
                                     nodeRobot.run(SKAction.wait(forDuration: 0.15)) {
                                         component.spriteNode.removeFromParent()
