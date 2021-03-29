@@ -13,6 +13,7 @@ protocol GameViewControllerDelegate: class {
     func startGame(viewController: UIViewController)
     func resumeGame()
     func exitGame()
+    func restartGame()
 }
 
 class GameViewController: UIViewController {
@@ -116,6 +117,14 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: GameViewControllerDelegate {
+    
+    func reset() {
+        scene.removeAllChildren()
+        scene.removeAllActions()
+        scene.removeFromParent()
+        loadView()
+        viewDidLoad()
+    }
 
     func resumeGame() {
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
@@ -124,7 +133,9 @@ extension GameViewController: GameViewControllerDelegate {
     
     func exitGame() {
         // put scores to zero
-        self.scene.isPaused = true
+        reset()
+        ScoreView.startGame = false
+        scoreView.score = 0
         presentHomeViewController()
         AVAudioPlayerManager.sharedPlayerManager.stopSound(of: .soundtrack)
     }
@@ -138,6 +149,13 @@ extension GameViewController: GameViewControllerDelegate {
             viewController.dismiss(animated: true, completion: nil)
         })
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
+    }
+    
+    func restartGame() {
+        reset()
+        scoreView.score = 0
+        ScoreView.startGame = true
+        scene.isPaused = false
     }
 
 }

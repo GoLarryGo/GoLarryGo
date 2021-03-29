@@ -73,11 +73,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         generateRobot()
         
         //adding move to floor
-        let randomPlatforme = SKAction.run {
-            let numberXPlatform = Int.random(in: 5..<12)
-            self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
-        }
-        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 5.0)])))
+//        let randomPlatforme = SKAction.run {
+//            let numberXPlatform = Int.random(in: 5..<12)
+//            self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
+//        }
+//        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 5.0)])))
     }
     
     func getPositionY() -> CGFloat {
@@ -282,7 +282,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             moveCloneRobot.startMove(direction: .left)
             self.robotClones.append(cloneRobot)
         }
-        self.run(SKAction.repeatForever(SKAction.sequence([generate, SKAction.wait(forDuration: 7.0)])))
+        self.run(SKAction.repeatForever(SKAction.sequence([generate, SKAction.wait(forDuration: 5.0)])))
     }
     
     func configureRobotCloneNodePosition(entity: RobotEntity, position: CGPoint) {

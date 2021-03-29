@@ -16,7 +16,7 @@ class RobotEntity: GKEntity {
         animetedSpriteComponent.spriteNode.size = CGSize(width: 64, height: 64)
 
         addComponent(animetedSpriteComponent)
-        addComponent(MoveRobotComponent(velocity: 8))
+        addComponent(MoveRobotComponent(velocity: 15))
         setupPhysicsBody(component: animetedSpriteComponent)
     }
     
