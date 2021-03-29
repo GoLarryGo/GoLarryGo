@@ -35,22 +35,10 @@ class PlayerControlComponent: GKComponent {
         stateMachine.enter(CharacterDeadState.self)
     }
     
-    func startRobotLeft() {
-        stateMachine.enter(RobotWalkLeftState.self)
-    }
-    
-    func startRobotRight() {
-        stateMachine.enter(RobotWalkRightState.self)
-    }
-    
-    func deadRobot() {
-        stateMachine.enter(RobotDeadState.self)
-    }
-    
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         self.entity?.component(ofType: MoveCharacterComponent.self)?.update(deltaTime: seconds)
         self.entity?.component(ofType: TileRowComponent.self)?.update(deltaTime: seconds)
-        self.entity?.component(ofType: MoveRobotComponent.self)?.update(deltaTime: seconds)
     }
+    
 }

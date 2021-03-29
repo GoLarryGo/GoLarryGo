@@ -9,6 +9,12 @@ import SpriteKit
 import GameplayKit
 import UIKit
 
+enum RobotDirection: String {
+    case left = "roboWalkLeft"
+    case right = "roboWalkRight"
+    case none
+}
+
 class MoveRobotComponent: GKComponent {
     
     var walk: RobotDirection = .none
@@ -18,7 +24,7 @@ class MoveRobotComponent: GKComponent {
         self.entity?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode
     }
     
-    init(velocity: CGFloat = 2) {
+    init(velocity: CGFloat = 8) {
         self.velocity = velocity
         super.init()
     }
@@ -27,21 +33,20 @@ class MoveRobotComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func halt() {
-        self.walk = .none
-    }
-    
     func startMove(direction: RobotDirection) {
-        self.walk = direction
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        super.update(deltaTime: seconds)
-        if walk == .left {
-            spriteNode?.position.x -= velocity
+        spriteNode?.removeAllActions()
+        
+        guard let spriteComponent = self.entity?.component(ofType:  AnimatedSpriteComponent.self) else {return}
+        spriteComponent.setAnimation(atlasName: "robotWalkLeft")
+        
+        if direction == .left {
+            let move = SKAction.moveBy(x: -velocity, y: 0, duration: 0.1)
+            spriteNode?.run(SKAction.repeatForever(move))
         } else if walk == .right {
+            let move = SKAction.moveBy(x: velocity, y: 0, duration: 0.1)
             spriteNode?.xScale = -1
-            spriteNode?.position.x -= velocity
+            spriteNode?.run(SKAction.repeatForever(move))
         }
     }
+    
 }

@@ -10,13 +10,12 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var activeDead = false
+    var isActiveRobotDead = false
     
     var entityManager: EntityManager!
     var presentGameOver: (() -> Void)?
     //Floor
     let ground = Ground(numberOfTiles: 80)
-    //var groundNodes: [SKSpriteNode] = []
     var platformNodes: [SKSpriteNode] = []
     var countPlatform:Int = 1
     
@@ -42,10 +41,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         character.component(ofType: PlayerControlComponent.self)
     }
     
-    var robotPlayerControlComponent: PlayerControlComponent? {
-        robot.component(ofType: PlayerControlComponent.self)
-    }
-    
     var sceneryPlayerControlComponent: PlayerControlComponent? {
         ground.component(ofType: PlayerControlComponent.self)
     }
@@ -65,7 +60,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         characterPlayerControlComponent?.startCharacter()
-        robotPlayerControlComponent?.startRobotLeft()
         
         entityManager = EntityManager(scene: self)
         
@@ -75,14 +69,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBackground()
         setupFloorPosition()
         setupCharacterNodePosition()
-        setupRobotNodePosition()
+        
+        generateRobot()
         
         //adding move to floor
         let randomPlatforme = SKAction.run {
             let numberXPlatform = Int.random(in: 5..<12)
             self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
         }
-        //self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 5.0)])))
+        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 5.0)])))
     }
     
     func getPositionY() -> CGFloat {
@@ -106,13 +101,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         sceneryPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
-        robotPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
         
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode,
               let characterMove = character.component(ofType: MoveCharacterComponent.self) else {return}
-        print("Larry - \(characterSpriteNode.position.x) : Frame - \(frame.midX)")
         if characterSpriteNode.position.x > frame.midX {
             characterSpriteNode.position.x = frame.midX
             if !activeMoveScenery {
@@ -124,6 +117,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             activeMoveScenery = false
             setupSpeed(isDead: true)
             characterMove.startMove()
+        }
+        
+        if robotClones.count > 5 {
+            guard let node = robotClones.first?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+            robotClones.removeFirst()
+            node.removeFromParent()
         }
     }
 
@@ -272,34 +271,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager.add(character)
     }
     
-    func setupRobotNodePosition() {
-        //acessing character from AnimatedSpriteComponents
-        guard let robotSpriteNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-        
-        //positioning character
-        robotSpriteNode.position = CGPoint(x: 1000, y: 60)
-        robotSpriteNode.size = CGSize(width: 64, height: 64)
-        
-        robotSpriteNode.physicsBody?.categoryBitMask = categoryRobotPhysic
-        robotSpriteNode.physicsBody?.contactTestBitMask = categoryCharacterPhysic
-        
-        robotSpriteNode.name = "robot"
-        
-        entityManager.add(robot)
+    //MARK: - Generate Robot Clone
+    var robotClones: [RobotEntity] = []
+    
+    func generateRobot() {
+        let generate = SKAction.run {
+            let cloneRobot: RobotEntity = self.robot.copy() as! RobotEntity
+            self.configureRobotCloneNodePosition(entity: cloneRobot, position: CGPoint(x: 1000, y: 60))
+            guard let moveCloneRobot = cloneRobot.component(ofType: MoveRobotComponent.self) else {return}
+            moveCloneRobot.startMove(direction: .left)
+            self.robotClones.append(cloneRobot)
+        }
+        self.run(SKAction.repeatForever(SKAction.sequence([generate, SKAction.wait(forDuration: 7.0)])))
     }
     
-    func configureRobotCloneNodePosition(entity: RobotEntity, size: CGSize, position: CGPoint) {
-        //acessing character from AnimatedSpriteComponents
+    func configureRobotCloneNodePosition(entity: RobotEntity, position: CGPoint) {
         guard let robotSpriteNode = entity.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-        
-        //positioning character
         robotSpriteNode.position = position
-        robotSpriteNode.size = size
-        
         robotSpriteNode.physicsBody?.categoryBitMask = 1
         robotSpriteNode.physicsBody?.contactTestBitMask = 1
-        
         robotSpriteNode.name = "robot"
+        addChild(robotSpriteNode)
     }
 
 }
@@ -312,49 +304,48 @@ extension GameScene {
         guard let nodeA = contact.bodyA.node,
               let nodeB = contact.bodyB.node else {return}
         
+        var nodeCharacter = SKNode()
+        var nodeRobot = SKNode()
         if nodeA.name == "character" && nodeB.name == "robot" {
-            print("nodeA: \(nodeA.position.y)    nodeB: \(nodeB.position.y + 5)")
-            if nodeA.position.y > nodeB.position.y + 5 {
-                if !self.activeDead {
-                    self.activeDead = true
-                    robotPlayerControlComponent?.deadRobot()
-                    nodeB.run(SKAction.wait(forDuration: 0.5)) {
-                        self.entityManager.remove(self.robot)
-                        self.activeDead = false
-                    }
+            nodeCharacter = nodeA
+            nodeRobot = nodeB
+        } else if nodeA.name == "robot" && nodeB.name == "character" {
+            nodeCharacter = nodeB
+            nodeRobot = nodeA
+        }
+        
+        if  nodeA.name == "character" && nodeB.name == "robot" ||
+            nodeA.name == "robot" && nodeB.name == "character" {
+            
+            print("nodeA: \(nodeA.position.y)    nodeB: \(nodeB.position.y + 32)")
+            if !self.isActiveRobotDead {
+                if nodeCharacter.position.y > nodeRobot.position.y + 32 {
+                    
+                        self.isActiveRobotDead = true
+                            robotClones.forEach { robot in
+                                guard let component = robot.component(ofType: AnimatedSpriteComponent.self) else {return}
+                                if nodeB.isEqual(to: component.spriteNode) {
+                                    component.setAnimationSingle(atlasName: "robotDead", direction: true)
+                                    component.spriteNode.removeAllActions()
+                                    nodeRobot.run(SKAction.wait(forDuration: 0.15)) {
+                                        component.spriteNode.removeFromParent()
+                                        self.isActiveRobotDead = false
+                                    }
+                                }
+                            }
+                    
+                } else {
+                    stopGame()
                 }
-            } else {
-                guard robotPlayerControlComponent?.stateMachine.currentState?.classForCoder != RobotDeadState.self else { return }
-                stopGame()
             }
         }
         
-        if nodeA.name == "robot" && nodeB.name == "character" {
-            print("nodeA: \(nodeA.position.y)    nodeB: \(nodeB.position.y + 5)")
-            if nodeB.position.y > nodeA.position.y + 5 {
-                if !self.activeDead {
-                    self.activeDead = true
-                    robotPlayerControlComponent?.deadRobot()
-                    nodeA.run(SKAction.wait(forDuration: 0.5)) {
-                        self.entityManager.remove(self.robot)
-                        self.activeDead = false
-                    }
-                }
-            } else {
-                guard robotPlayerControlComponent?.stateMachine.currentState?.classForCoder != RobotDeadState.self else { return }
-                stopGame()
-            }
-        }
-        if nodeA.name == "character" && nodeB.name == "ground" ||
-        nodeA.name == "character" && nodeB.name == "platform" ||
-        nodeB.name == "character" && nodeA.name == "ground" ||
-        nodeB.name == "character" && nodeA.name == "platform"{
-            print("iniciou contato")
-            characterContactGround = true
-        }
-        if nodeA.name == "character" && nodeB.name == "topPlatform" ||
-            nodeA.name == "topPlatform" && nodeB.name == "character" {
-            print("entrouu")
+        if  nodeA.name == "character" && nodeB.name == "ground"     ||
+            nodeA.name == "character" && nodeB.name == "platform"   ||
+            nodeB.name == "character" && nodeA.name == "ground"     ||
+            nodeB.name == "character" && nodeA.name == "platform" {
+                print("iniciou contato")
+                characterContactGround = true
         }
     }
     
@@ -364,8 +355,8 @@ extension GameScene {
         
         if  nodeA.name == "character" && nodeB.name == "platform" ||
             nodeB.name == "character" && nodeA.name == "platform" {
-            print("cabou contato")
-            characterContactGround = false
+                print("cabou contato")
+                characterContactGround = false
         }
     }
     
@@ -375,10 +366,13 @@ extension GameScene {
         ScoreView.startGame = false
         let gameOverRun = SKAction.run {
             guard let gameOver = self.presentGameOver else {return}
+            self.isPaused = true
             gameOver()
         }
         self.run(SKAction.sequence([SKAction.wait(forDuration: 1.0), gameOverRun]))
-        guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
-        robotMove.halt()
+        robotClones.forEach { robot in
+            guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
+            robotMove.startMove(direction: .none)
+        }
     }
 }
