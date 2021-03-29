@@ -25,7 +25,8 @@ class GameOverViewController: UIViewController {
         super.viewDidLoad()
 
         gameOverView.smallCard.buttonMenu.addTarget(self, action: #selector(presentMenuViewController), for: .touchDown)
-
+        gameOverView.smallCard.buttonRestart.addTarget(self, action: #selector(presentRestartViewController), for: .touchDown)
+        
         view = gameOverView
         gameOverView.delegate = self
         gameOverView.smallCard.scoreLabel.text = "Score \(score)"
@@ -42,6 +43,14 @@ extension GameOverViewController: GameOverViewDelegate {
         self.dismiss(animated: false, completion: nil)
         delegate?.exitGame()
         
+    }
+    @objc func presentRestartViewController() {
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.alpha = 0.0
+        }, completion: nil)
+        self.dismiss(animated: false, completion: nil)
+        delegate?.restartGame()
     }
 
 }

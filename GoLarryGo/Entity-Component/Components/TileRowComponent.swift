@@ -38,7 +38,7 @@ class TileRowComponent: GKComponent {
         if move {
             var i = 0
             for node in tileNodes {
-                node.position.x -= 1
+                node.position.x -= 2
                 let offset = CGFloat(tileNodes.count/2 - i)
                 if node.position.x < 32 * offset {
                     node.position.x += 1000
