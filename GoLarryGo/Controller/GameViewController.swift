@@ -124,6 +124,7 @@ extension GameViewController: GameViewControllerDelegate {
         scene.removeFromParent()
         loadView()
         viewDidLoad()
+        AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
     }
 
     func resumeGame() {
