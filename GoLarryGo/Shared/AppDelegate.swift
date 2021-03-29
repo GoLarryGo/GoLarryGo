@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
     }
     
-    var orientationLock = UIInterfaceOrientationMask.all
+    var orientationLock = UIInterfaceOrientationMask.landscape
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
