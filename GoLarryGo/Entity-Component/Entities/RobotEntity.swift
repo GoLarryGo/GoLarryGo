@@ -14,13 +14,9 @@ class RobotEntity: GKEntity {
         // Utiliza o componente AnimatedSpriteComponent para gerar o sprite da entidade
         let animetedSpriteComponent = AnimatedSpriteComponent(atlasName: "robotWalkLeft")
         animetedSpriteComponent.spriteNode.size = CGSize(width: 64, height: 64)
-        addComponent(
-            PlayerControlComponent(states: [
-                RobotWalkState(self),
-                RobotDeadState(self)
-        ]))
-        
+
         addComponent(animetedSpriteComponent)
+        addComponent(MoveRobotComponent(velocity: 8))
         setupPhysicsBody(component: animetedSpriteComponent)
     }
     
