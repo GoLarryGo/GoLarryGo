@@ -100,6 +100,7 @@ class AVAudioPlayerManager: NSObject {
     // stop specific sound
     func stopSound(of players: Players) {
         player(url: getSoundURL(of: players))?.stop()
+        player(url: getSoundURL(of: players))?.currentTime = 0
     }
     
     // stop all sounds
