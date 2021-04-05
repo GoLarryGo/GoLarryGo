@@ -46,14 +46,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var characterContactGround = false
-    lazy var tap = UITapGestureRecognizer(target: self, action: #selector(jumpTap))
-    @objc func jumpTap(_ sender: UITapGestureRecognizer) {
-        guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
-        if characterContactGround {
-            characterContactGround = false
-            characterPlayerControlComponent?.jumpCharacter()
-        }
-    }
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
@@ -62,8 +54,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         characterPlayerControlComponent?.startCharacter()
         
         entityManager = EntityManager(scene: self)
-        
-        view.addGestureRecognizer(tap)
 
         //Setups
         setupBackground()
@@ -298,6 +288,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 
 extension GameScene {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterJumpState.self else { return }
+        if characterContactGround {
+            characterContactGround = false
+            characterPlayerControlComponent?.jumpCharacter()
+        }
+    }
     
     func didBegin(_ contact: SKPhysicsContact) {
 
