@@ -13,6 +13,7 @@ class Platform: GKEntity {
     init(numberOfTiles: Int) {
         super.init()
         self.addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: "metal"))
+        self.addComponent(MovePlatformComponent(velocity: 10))
     }
 
     required init?(coder: NSCoder) {
