@@ -39,6 +39,7 @@ class PlayerControlComponent: GKComponent {
         super.update(deltaTime: seconds)
         self.entity?.component(ofType: MoveCharacterComponent.self)?.update(deltaTime: seconds)
         self.entity?.component(ofType: TileRowComponent.self)?.update(deltaTime: seconds)
+        self.entity?.component(ofType: MoveScenaryComponent.self)?.update(deltaTime: seconds)
     }
     
 }
