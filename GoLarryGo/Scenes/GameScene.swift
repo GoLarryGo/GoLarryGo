@@ -26,8 +26,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scenery = Scenery()
     var backNode = SKNode()
     var cloundsNode = SKNode()
-    var montainFixNode = SKNode()
-    var montainAltNode = SKNode()
     var sunNode = SKNode()
     
     //Update
@@ -35,17 +33,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let character = CharacterEntity()
     let robot = RobotEntity()
+    let scenaryEntity = ScenaryEntity()
     
     let categoryCharacterPhysic: UInt32 = 1
     let categoryRobotPhysic: UInt32 = 1
-    
     
     var characterPlayerControlComponent: PlayerControlComponent? {
         character.component(ofType: PlayerControlComponent.self)
     }
     
-    var sceneryPlayerControlComponent: PlayerControlComponent? {
+    var groundPlayerControlComponent: PlayerControlComponent? {
         ground.component(ofType: PlayerControlComponent.self)
+    }
+    
+    var scenaryPlayerControlComponent: PlayerControlComponent? {
+        scenaryEntity.component(ofType: PlayerControlComponent.self)
     }
     
     var characterContactGround = false
@@ -62,9 +64,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Setups
         setupBackground()
+        setupScenary()
+        addNodesScenary()
         setupFloorPosition()
         setupCharacterNodePosition()
-        
         generateRobot()
         
         //adding move to floor
@@ -108,7 +111,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
-        sceneryPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
+        groundPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
+        scenaryPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
         
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
@@ -132,22 +136,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             robotClones.removeFirst()
             node.removeFromParent()
         }
+        
+        guard let tilesScenary = scenaryEntity.component(ofType: TileRowComponent.self),
+              let moveScenary = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
+        
+        if tilesScenary.tileNodes.first?.position.x == size.width {
+            moveScenary.stopMove()
+            tilesScenary.tileNodes.first?.position.x -= 1
+            setupScenary()
+            moveScenary.startMove()
+        }
     }
     
     func setupSpeed(isDead: Bool) {
-        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else { return }
+        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self),
+              let scenaryMoveComponent = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         if isDead {
             backNode.speed = 0
-            montainFixNode.speed = 0
-            montainAltNode.speed = 0
             cloundsNode.speed = 0
             groundTileRowComponent.stopMove()
+            scenaryMoveComponent.stopMove()
         } else {
             backNode.speed = 1
-            montainFixNode.speed = 0.5
-            montainAltNode.speed = 0.5
             cloundsNode.speed = 1
             groundTileRowComponent.startMove()
+            scenaryMoveComponent.startMove()
         }
     }
     
@@ -175,32 +188,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         self.addChild(cloundsNode)
         
-        //Scrool montainFix
-        var montainFixImage = SKSpriteNode()
-        for i in 0..<2 {
-            montainFixImage = SKSpriteNode(imageNamed: "montainFix")
-            montainFixImage.anchorPoint = CGPoint(x: 0, y: 0)
-            montainFixImage.size = CGSize(width: self.size.width, height: self.size.height * 0.4)
-            montainFixImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 0)
-            montainFixImage.run(scenery.moveScenery(self.size))
-            montainFixImage.zPosition = ZPositionsCategories.montainFix
-            montainFixNode.addChild(montainFixImage)
-        }
-        self.addChild(montainFixNode)
-        
-        //Scrool montainAlt
-        var montainAltImage = SKSpriteNode()
-        for i in 0..<2 {
-            montainAltImage = SKSpriteNode(imageNamed: "montainAlt")
-            montainAltImage.anchorPoint = CGPoint(x: 0, y: 0)
-            montainAltImage.size = CGSize(width: self.size.width * 0.5, height: self.size.height * 0.5)
-            montainAltImage.position = CGPoint(x: self.size.width * CGFloat(i), y: 15)
-            montainAltImage.run(scenery.moveScenery(self.size))
-            montainAltImage.zPosition = ZPositionsCategories.montainAlt
-            montainAltNode.addChild(montainAltImage)
-        }
-        self.addChild(montainAltNode)
-        
         //Sun
         var sunImage = SKSpriteNode()
         sunImage = SKSpriteNode(imageNamed: "sun")
@@ -211,6 +198,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sunImage.zPosition = ZPositionsCategories.sun
         sunNode.addChild(sunImage)
         self.addChild(sunNode)
+    }
+    
+    func setupScenary() {
+        guard let scenaryTileRowComponent = scenaryEntity.component(ofType: TileRowComponent.self) else { return }
+        
+        let tileCount = scenaryTileRowComponent.tileNodes.count
+        scenaryTileRowComponent.tileNodes = scenaryTileRowComponent.tileNodes.enumerated().map { (index, node) in
+                let offset = CGFloat(tileCount/2 - index)
+                node.position = CGPoint(
+                    x: (size.width - 5) * offset ,
+                    y: size.height / 4
+                )
+                node.size = CGSize(width: size.width, height: size.height * 0.5)
+                node.zPosition = ZPositionsCategories.montainFix
+                return node
+        }
+    }
+    
+    func addNodesScenary() {
+        guard let scenaryTileRowComponent = scenaryEntity.component(ofType: TileRowComponent.self) else { return }
+        scenaryTileRowComponent.tileNodes.forEach { node in
+            addChild(node)
+        }
     }
     
     func setupFloorPosition() {
@@ -331,7 +341,7 @@ extension GameScene {
         if  nodeA.name == "character" && nodeB.name == "robot" ||
                 nodeA.name == "robot" && nodeB.name == "character" {
             
-            print("nodeA: \(nodeA.position.y)    nodeB: \(nodeB.position.y + 32)")
+            //print("nodeA: \(nodeA.position.y)    nodeB: \(nodeB.position.y + 32)")
             if !self.isActiveRobotDead {
                 if nodeCharacter.position.y > nodeRobot.position.y + 32 {
                     
@@ -356,11 +366,11 @@ extension GameScene {
         }
         
         if  nodeA.name == "character" && nodeB.name == "ground"     ||
-                nodeA.name == "character" && nodeB.name == "platform"   ||
-                nodeB.name == "character" && nodeA.name == "ground"     ||
-                nodeB.name == "character" && nodeA.name == "platform" {
-            print("iniciou contato")
-            characterContactGround = true
+            nodeA.name == "character" && nodeB.name == "platform"   ||
+            nodeB.name == "character" && nodeA.name == "ground"     ||
+            nodeB.name == "character" && nodeA.name == "platform" {
+               // print("iniciou contato")
+                characterContactGround = true
         }
     }
     
@@ -369,9 +379,9 @@ extension GameScene {
               let nodeB = contact.bodyB.node else {return}
         
         if  nodeA.name == "character" && nodeB.name == "platform" ||
-                nodeB.name == "character" && nodeA.name == "platform" {
-            print("cabou contato")
-            characterContactGround = false
+            nodeB.name == "character" && nodeA.name == "platform" {
+                //print("cabou contato")
+                characterContactGround = false
         }
     }
     

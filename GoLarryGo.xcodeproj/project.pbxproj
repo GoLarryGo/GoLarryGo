@@ -32,11 +32,12 @@
 		570D1C3B25FBB0AF00A02917 /* CharacterJumpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */; };
 		570D1C4025FBB1A400A02917 /* JumpCharacterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */; };
 		5759DF2A25F77D2F00E708E4 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */; };
-		5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF2E25F77D4900E708E4 /* VisualComponent.swift */; };
 		5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759DF3825F77DEB00E708E4 /* EntityManager.swift */; };
 		7B1A538B25FF93AC002BC9B2 /* Scenary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A538A25FF93AC002BC9B2 /* Scenary.swift */; };
 		7B1A539025FF9A9F002BC9B2 /* ZPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A538F25FF9A9F002BC9B2 /* ZPositions.swift */; };
 		7B1A53A125FFD6DA002BC9B2 /* TileRowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */; };
+		7B2D7883261C800400B43462 /* ScenaryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D7882261C800400B43462 /* ScenaryEntity.swift */; };
+		7B2D7888261C877900B43462 /* MoveScenaryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D7887261C877900B43462 /* MoveScenaryComponent.swift */; };
 		7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */; };
 		7B6A1A7025F8611900E1B9E2 /* MoveSunComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */; };
 		7B6A1A7525F9A9B800E1B9E2 /* PlayerControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */; };
@@ -105,11 +106,12 @@
 		570D1C3A25FBB0AF00A02917 /* CharacterJumpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterJumpState.swift; sourceTree = "<group>"; };
 		570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpCharacterComponent.swift; sourceTree = "<group>"; };
 		5759DF2925F77D2F00E708E4 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
-		5759DF2E25F77D4900E708E4 /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		5759DF3825F77DEB00E708E4 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		7B1A538A25FF93AC002BC9B2 /* Scenary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenary.swift; sourceTree = "<group>"; };
 		7B1A538F25FF9A9F002BC9B2 /* ZPositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZPositions.swift; sourceTree = "<group>"; };
 		7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileRowComponent.swift; sourceTree = "<group>"; };
+		7B2D7882261C800400B43462 /* ScenaryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenaryEntity.swift; sourceTree = "<group>"; };
+		7B2D7887261C877900B43462 /* MoveScenaryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveScenaryComponent.swift; sourceTree = "<group>"; };
 		7B6A1A0D25F7AEEA00E1B9E2 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSunComponent.swift; sourceTree = "<group>"; };
 		7B6A1A7425F9A9B800E1B9E2 /* PlayerControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlComponent.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				3945D20425FF95AB008965EE /* RobotEntity.swift */,
 				5709446925F79F7D001F32DB /* GroundEntity.swift */,
 				7BE4B9742606DCD9004E6CD9 /* PlatformEntity.swift */,
+				7B2D7882261C800400B43462 /* ScenaryEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -227,11 +230,11 @@
 				7B6A1A8325F9AB8900E1B9E2 /* AnimatedSpriteComponent.swift */,
 				570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */,
 				570D1C3F25FBB1A400A02917 /* JumpCharacterComponent.swift */,
-				5759DF2E25F77D4900E708E4 /* VisualComponent.swift */,
 				7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */,
 				7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */,
 				39D0E724260E12CD00BF8897 /* MoveRobotComponent.swift */,
 				39EE9564261B4E6000809FE2 /* MovePlatformComponent.swift */,
+				7B2D7887261C877900B43462 /* MoveScenaryComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -550,9 +553,10 @@
 				7BE4B9752606DCD9004E6CD9 /* PlatformEntity.swift in Sources */,
 				5759DF3925F77DEB00E708E4 /* EntityManager.swift in Sources */,
 				7B6A1A0E25F7AEEA00E1B9E2 /* AppUtility.swift in Sources */,
-				5759DF2F25F77D4900E708E4 /* VisualComponent.swift in Sources */,
 				EF390EBB260241B8008778F3 /* PauseView.swift in Sources */,
+				7B2D7883261C800400B43462 /* ScenaryEntity.swift in Sources */,
 				7B6D3C3325F65E8500215887 /* GameViewController.swift in Sources */,
+				7B2D7888261C877900B43462 /* MoveScenaryComponent.swift in Sources */,
 				570D1C3B25FBB0AF00A02917 /* CharacterJumpState.swift in Sources */,
 				3945D20525FF95AB008965EE /* RobotEntity.swift in Sources */,
 				570D1C3325FBA9DA00A02917 /* MoveCharacterComponent.swift in Sources */,
