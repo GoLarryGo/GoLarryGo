@@ -19,6 +19,12 @@ class HomeViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startGame))
         homeView.addGestureRecognizer(tapRecognizer)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+
+            GameViewController.isHomeViewPresenting = false
+        }
 
     @objc func startGame() {
         delegate?.startGame(viewController: self)

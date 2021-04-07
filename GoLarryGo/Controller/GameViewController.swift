@@ -18,7 +18,8 @@ protocol GameViewControllerDelegate: class {
 
 class GameViewController: UIViewController {
     
-    var scene: GameScene!
+    static var isHomeViewPresenting: Bool = false
+    static var scene: GameScene!
     let scoreView = ScoreView()
     
     lazy var pauseButton: UIButton = {
@@ -32,13 +33,13 @@ class GameViewController: UIViewController {
         //super.viewDidLoad()
         let view = SKView(frame: UIScreen.main.bounds) //cria uma sk view
         
-        scene = GameScene(size: view.bounds.size) //cria a scene que vai ser apresentada
+        GameViewController.scene = GameScene(size: view.bounds.size) //cria a scene que vai ser apresentada
 
         // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFit
+        GameViewController.scene.scaleMode = .aspectFit
 
         // Present the scene
-        view.presentScene(scene)
+        view.presentScene(GameViewController.scene)
         view.ignoresSiblingOrder = true
         view.showsFPS = true
         view.showsNodeCount = true
@@ -57,8 +58,9 @@ class GameViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        scene.isPaused = true
-        scene.presentGameOver = presentGameOverViewController
+        GameViewController.scene.isPaused = true
+        GameViewController.scene.presentGameOver = presentGameOverViewController
+        GameViewController.scene.pauseAction = pauseAction
     }
     func setUpLabelScoreConstraints() {
         NSLayoutConstraint.activate([
@@ -81,7 +83,7 @@ class GameViewController: UIViewController {
     }
 
     @objc func pauseAction() {
-        scene.isPaused = true
+        GameViewController.scene.isPaused = true
         ScoreView.startGame = false
         presentPauseViewController()
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .buttonSound)
@@ -95,10 +97,12 @@ class GameViewController: UIViewController {
     }
 
     func presentHomeViewController() {
-        let homeVC = HomeViewController()
-        homeVC.delegate = self
-        present(homeVC, animated: false, completion: nil)
-    }
+            let homeVC = HomeViewController()
+            homeVC.delegate = self
+            present(homeVC, animated: false, completion: {
+                GameViewController.isHomeViewPresenting = true
+            })
+        }
     
     func presentPauseViewController() {
         let pauseViewController = PauseViewController()
@@ -119,9 +123,9 @@ class GameViewController: UIViewController {
 extension GameViewController: GameViewControllerDelegate {
     
     func reset() {
-        scene.removeAllChildren()
-        scene.removeAllActions()
-        scene.removeFromParent()
+        GameViewController.scene.removeAllChildren()
+        GameViewController.scene.removeAllActions()
+        GameViewController.scene.removeFromParent()
         loadView()
         viewDidLoad()
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
@@ -129,7 +133,7 @@ extension GameViewController: GameViewControllerDelegate {
 
     func resumeGame() {
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .soundtrack)
-        self.scene.isPaused = false
+        GameViewController.scene.isPaused = false
     }
     
     func exitGame() {
@@ -142,7 +146,8 @@ extension GameViewController: GameViewControllerDelegate {
     }
     
     func startGame(viewController: UIViewController) {
-        scene.isPaused = false
+        GameViewController.scene.isPaused = false
+        GameViewController.scene.customIsPaused = false
         ScoreView.startGame = true
         UIView.animate(withDuration: 0.1, animations: {
             viewController.view.alpha = 0.0
@@ -156,7 +161,7 @@ extension GameViewController: GameViewControllerDelegate {
         reset()
         scoreView.score = 0
         ScoreView.startGame = true
-        scene.isPaused = false
+        GameViewController.scene.isPaused = false
     }
 
 }
