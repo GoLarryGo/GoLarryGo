@@ -25,6 +25,7 @@
 		3945D2ED2602278D008965EE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D2EC2602278D008965EE /* HomeView.swift */; };
 		3945D2F2260227BD008965EE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D2F1260227BD008965EE /* HomeViewController.swift */; };
 		39D0E725260E12CD00BF8897 /* MoveRobotComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D0E724260E12CD00BF8897 /* MoveRobotComponent.swift */; };
+		39EE9565261B4E6000809FE2 /* MovePlatformComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EE9564261B4E6000809FE2 /* MovePlatformComponent.swift */; };
 		5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709446925F79F7D001F32DB /* GroundEntity.swift */; };
 		570D1C2E25FBA96400A02917 /* CharacterWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */; };
 		570D1C3325FBA9DA00A02917 /* MoveCharacterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */; };
@@ -97,6 +98,7 @@
 		3945D2EC2602278D008965EE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3945D2F1260227BD008965EE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		39D0E724260E12CD00BF8897 /* MoveRobotComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveRobotComponent.swift; sourceTree = "<group>"; };
+		39EE9564261B4E6000809FE2 /* MovePlatformComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePlatformComponent.swift; sourceTree = "<group>"; };
 		5709446925F79F7D001F32DB /* GroundEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundEntity.swift; sourceTree = "<group>"; };
 		570D1C2D25FBA96400A02917 /* CharacterWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWalkState.swift; sourceTree = "<group>"; };
 		570D1C3225FBA9DA00A02917 /* MoveCharacterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCharacterComponent.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				7B6A1A6F25F8611900E1B9E2 /* MoveSunComponent.swift */,
 				7B1A53A025FFD6DA002BC9B2 /* TileRowComponent.swift */,
 				39D0E724260E12CD00BF8897 /* MoveRobotComponent.swift */,
+				39EE9564261B4E6000809FE2 /* MovePlatformComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				7B74CB602603AF7F00F1BD5B /* ScoreView.swift in Sources */,
 				5709446A25F79F7D001F32DB /* GroundEntity.swift in Sources */,
 				03F69B012608D8A000B50F44 /* GameOverView.swift in Sources */,
+				39EE9565261B4E6000809FE2 /* MovePlatformComponent.swift in Sources */,
 				EF390EC0260246D8008778F3 /* PauseViewController.swift in Sources */,
 				EF77CF84260ABDDF006A60B2 /* SoundButtonHelper.swift in Sources */,
 			);

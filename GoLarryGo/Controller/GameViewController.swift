@@ -41,8 +41,11 @@ class GameViewController: UIViewController {
         // Present the scene
         view.presentScene(GameViewController.scene)
         view.ignoresSiblingOrder = true
+
+        #if DEBUG
         view.showsFPS = true
         view.showsNodeCount = true
+        #endif
         
         self.view = view
         
