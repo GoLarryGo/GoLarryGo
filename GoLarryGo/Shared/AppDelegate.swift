@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
+        // keep game paused when come back from background 
+        GameViewController.scene.isPaused = true
+        GameViewController.scene.customIsPaused = true
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -43,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+       
     }
     
     var orientationLock = UIInterfaceOrientationMask.landscape

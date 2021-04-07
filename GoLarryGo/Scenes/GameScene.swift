@@ -10,6 +10,10 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var customIsPaused: Bool = false
+    var homeViewController: UIViewController?
+    var pauseAction: (()-> Void)?
+    
     var isActiveRobotDead = false
     
     var entityManager: EntityManager!
@@ -55,7 +59,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         characterPlayerControlComponent?.startCharacter()
         
         entityManager = EntityManager(scene: self)
-
+        
+//        view.addGestureRecognizer(tap)
+        
         //Setups
         setupBackground()
         setupScenary()
@@ -88,8 +94,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
     var activeMoveScenery: Bool = false
     override func update(_ currentTime: TimeInterval) {
+        
+        // Pause controll
+        if self.customIsPaused {
+            isPaused = true
+            if !GameViewController.isHomeViewPresenting {
+                pauseAction?()
+                customIsPaused = false
+            }
+            
+            return
+        }
+        
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         groundPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
@@ -128,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             moveScenary.startMove()
         }
     }
-
+    
     func setupSpeed(isDead: Bool) {
         guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self),
               let scenaryMoveComponent = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
@@ -149,35 +168,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func setupBackground() {
         //Scroll background
         var backgroundImage = SKSpriteNode()
-                backgroundImage = SKSpriteNode(imageNamed: "back")
-                backgroundImage.size = CGSize(width: self.size.width + 10, height: self.size.height)
-                backgroundImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-                backgroundImage.zPosition = ZPositionsCategories.background
-                backNode.addChild(backgroundImage)
+        backgroundImage = SKSpriteNode(imageNamed: "back")
+        backgroundImage.size = CGSize(width: self.size.width + 10, height: self.size.height)
+        backgroundImage.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        backgroundImage.zPosition = ZPositionsCategories.background
+        backNode.addChild(backgroundImage)
         self.addChild(backNode)
         
         //Scrool clounds
         var cloundsImage = SKSpriteNode()
-            for i in 0..<2 {
-                cloundsImage = SKSpriteNode(imageNamed: "clouds")
-                cloundsImage.anchorPoint = CGPoint(x: 0, y: 0)
-                cloundsImage.size = CGSize(width: self.size.width, height: self.size.height * 0.35)
-                cloundsImage.position = CGPoint(x: self.size.width * CGFloat(i), y: self.size.height * 0.5)
-                cloundsImage.run(scenery.moveScenery(self.size))
-                cloundsImage.zPosition = ZPositionsCategories.clounds
-                cloundsNode.addChild(cloundsImage)
-            }
+        for i in 0..<2 {
+            cloundsImage = SKSpriteNode(imageNamed: "clouds")
+            cloundsImage.anchorPoint = CGPoint(x: 0, y: 0)
+            cloundsImage.size = CGSize(width: self.size.width, height: self.size.height * 0.35)
+            cloundsImage.position = CGPoint(x: self.size.width * CGFloat(i), y: self.size.height * 0.5)
+            cloundsImage.run(scenery.moveScenery(self.size))
+            cloundsImage.zPosition = ZPositionsCategories.clounds
+            cloundsNode.addChild(cloundsImage)
+        }
         self.addChild(cloundsNode)
         
         //Sun
         var sunImage = SKSpriteNode()
-                sunImage = SKSpriteNode(imageNamed: "sun")
-                sunImage.anchorPoint = CGPoint(x: 0, y: 0)
-                sunImage.size = CGSize(width: self.size.width * 0.15, height: self.size.height * 0.3)
-                sunImage.position = CGPoint(x: self.size.width / 2.5 , y: self.size.height / 2)
-                //sunImage.run(scenery.moveSun(self.size))
-                sunImage.zPosition = ZPositionsCategories.sun
-                sunNode.addChild(sunImage)
+        sunImage = SKSpriteNode(imageNamed: "sun")
+        sunImage.anchorPoint = CGPoint(x: 0, y: 0)
+        sunImage.size = CGSize(width: self.size.width * 0.15, height: self.size.height * 0.3)
+        sunImage.position = CGPoint(x: self.size.width / 2.5 , y: self.size.height / 2)
+        //sunImage.run(scenery.moveSun(self.size))
+        sunImage.zPosition = ZPositionsCategories.sun
+        sunNode.addChild(sunImage)
         self.addChild(sunNode)
     }
     
@@ -211,18 +230,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //initial positioning ground tiles
         let tileCount = groundTileRowComponent.tileNodes.count
         groundTileRowComponent.tileNodes = groundTileRowComponent.tileNodes.enumerated().map { (index, node) in
-                let offset = CGFloat(tileCount/2 - index)
-                node.position = CGPoint(
-                    x: node.texture!.size().width / 2 * offset,
-                    y: 15
-                )
-                node.zPosition = ZPositionsCategories.ground
-                node.size = CGSize(width: 32, height: 32)
-                node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
-                node.physicsBody?.isDynamic = false
-                node.name = "ground"
-                self.addChild(node)
-                return node
+            let offset = CGFloat(tileCount/2 - index)
+            node.position = CGPoint(
+                x: node.texture!.size().width / 2 * offset,
+                y: 15
+            )
+            node.zPosition = ZPositionsCategories.ground
+            node.size = CGSize(width: 32, height: 32)
+            node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
+            node.physicsBody?.isDynamic = false
+            node.name = "ground"
+            self.addChild(node)
+            return node
         }
     }
     
@@ -249,6 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return node
         }
         movePlatform.startMove()
+
     }
     
     func setupCharacterNodePosition() {
@@ -289,7 +309,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         robotSpriteNode.name = "robot"
         addChild(robotSpriteNode)
     }
-
+    
 }
 
 
@@ -304,7 +324,7 @@ extension GameScene {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-
+        
         guard let nodeA = contact.bodyA.node,
               let nodeB = contact.bodyB.node else {return}
         
@@ -319,25 +339,25 @@ extension GameScene {
         }
         
         if  nodeA.name == "character" && nodeB.name == "robot" ||
-            nodeA.name == "robot" && nodeB.name == "character" {
+                nodeA.name == "robot" && nodeB.name == "character" {
             
             //print("nodeA: \(nodeA.position.y)    nodeB: \(nodeB.position.y + 32)")
             if !self.isActiveRobotDead {
                 if nodeCharacter.position.y > nodeRobot.position.y + 32 {
                     
-                        self.isActiveRobotDead = true
-                            robotClones.forEach { robot in
-                                guard let component = robot.component(ofType: AnimatedSpriteComponent.self) else {return}
-                                if nodeB.isEqual(to: component.spriteNode) {
-                                    component.setAnimationSingle(atlasName: "robotDead", direction: true)
-                                    AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
-                                    component.spriteNode.removeAllActions()
-                                    nodeRobot.run(SKAction.wait(forDuration: 0.15)) {
-                                        component.spriteNode.removeFromParent()
-                                        self.isActiveRobotDead = false
-                                    }
-                                }
+                    self.isActiveRobotDead = true
+                    robotClones.forEach { robot in
+                        guard let component = robot.component(ofType: AnimatedSpriteComponent.self) else {return}
+                        if nodeB.isEqual(to: component.spriteNode) {
+                            component.setAnimationSingle(atlasName: "robotDead", direction: true)
+                            AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
+                            component.spriteNode.removeAllActions()
+                            nodeRobot.run(SKAction.wait(forDuration: 0.15)) {
+                                component.spriteNode.removeFromParent()
+                                self.isActiveRobotDead = false
                             }
+                        }
+                    }
                     
                 } else {
                     stopGame()
