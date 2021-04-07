@@ -11,6 +11,7 @@
 		030F0B5C26024F5A0078E58A /* pixel-arial-11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */; };
 		037160222603816A004B57C6 /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037160212603816A004B57C6 /* HomeViewControllerTests.swift */; };
 		03858BCB2608D6F5008740F5 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03858BCA2608D6F5008740F5 /* GameOverViewController.swift */; };
+		03BEE7B7261DEEAC0053D879 /* robotIdle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 03BEE7B6261DEEAC0053D879 /* robotIdle.atlas */; };
 		03F69B012608D8A000B50F44 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F69B002608D8A000B50F44 /* GameOverView.swift */; };
 		03F69B062608D97400B50F44 /* SmallMenuComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F69B052608D97400B50F44 /* SmallMenuComponent.swift */; };
 		3945D20025FF9177008965EE /* CharacterDeadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D1FF25FF9177008965EE /* CharacterDeadState.swift */; };
@@ -85,6 +86,7 @@
 /* Begin PBXFileReference section */
 		037160212603816A004B57C6 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
 		03858BCA2608D6F5008740F5 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		03BEE7B6261DEEAC0053D879 /* robotIdle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = robotIdle.atlas; sourceTree = "<group>"; };
 		03F69B002608D8A000B50F44 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		03F69B052608D97400B50F44 /* SmallMenuComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMenuComponent.swift; sourceTree = "<group>"; };
 		3945D1FF25FF9177008965EE /* CharacterDeadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDeadState.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 		7B6A1A2525F7BC3200E1B9E2 /* AssetsAtlas */ = {
 			isa = PBXGroup;
 			children = (
+				03BEE7B6261DEEAC0053D879 /* robotIdle.atlas */,
 				3945D2C92600D8F1008965EE /* larryJump.atlas */,
 				3945D29026004087008965EE /* robotDead.atlas */,
 				3945D29126004087008965EE /* robotWalkLeft.atlas */,
@@ -498,6 +501,7 @@
 				EF390EB126023E6F008778F3 /* larryPulando.mp3 in Resources */,
 				3945D2CA2600D8F1008965EE /* larryJump.atlas in Resources */,
 				030F0B5826024F580078E58A /* pixel-arial-11-bold.ttf in Resources */,
+				03BEE7B7261DEEAC0053D879 /* robotIdle.atlas in Resources */,
 				3945D22625FFA972008965EE /* larryDying.atlas in Resources */,
 				3945D29526004087008965EE /* robotWalkRight.atlas in Resources */,
 				030F0B5C26024F5A0078E58A /* pixel-arial-11.ttf in Resources */,
