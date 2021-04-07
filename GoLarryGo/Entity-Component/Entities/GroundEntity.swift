@@ -13,6 +13,7 @@ class Ground: GKEntity {
     init(numberOfTiles: Int, assetName: String = "ground") {
         super.init()
         addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: assetName))
+        addComponent(MoveScenaryComponent(velocity: 2))
         addComponent(PlayerControlComponent(states: []))
     }
 
