@@ -67,8 +67,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupScenary()
         addNodesScenary()
         setupFloorPosition()
+        addNodesFloor()
         setupCharacterNodePosition()
-        generateRobot()
+        //generateRobot()
         
         //adding move to floor
         let randomPlatforme = SKAction.run {
@@ -142,24 +143,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if tilesScenary.tileNodes.first?.position.x == size.width {
             moveScenary.stopMove()
-            tilesScenary.tileNodes.first?.position.x -= 1
             setupScenary()
             moveScenary.startMove()
+        }
+        
+        guard let tilesGround = ground.component(ofType: TileRowComponent.self),
+              let moveGround = ground.component(ofType: MoveScenaryComponent.self) else { return }
+        
+        if (tilesGround.tileNodes.first?.position.x)! <= size.width {
+            moveGround.stopMove()
+            setupFloorPosition()
+            moveGround.startMove()
         }
     }
     
     func setupSpeed(isDead: Bool) {
-        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self),
+        guard let groundMoveComponent = ground.component(ofType: MoveScenaryComponent.self),
               let scenaryMoveComponent = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         if isDead {
             backNode.speed = 0
             cloundsNode.speed = 0
-            groundTileRowComponent.stopMove()
+            groundMoveComponent.stopMove()
             scenaryMoveComponent.stopMove()
         } else {
             backNode.speed = 1
             cloundsNode.speed = 1
-            groundTileRowComponent.startMove()
+            groundMoveComponent.startMove()
             scenaryMoveComponent.startMove()
         }
     }
@@ -194,7 +203,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sunImage.anchorPoint = CGPoint(x: 0, y: 0)
         sunImage.size = CGSize(width: self.size.width * 0.15, height: self.size.height * 0.3)
         sunImage.position = CGPoint(x: self.size.width / 2.5 , y: self.size.height / 2)
-        //sunImage.run(scenery.moveSun(self.size))
         sunImage.zPosition = ZPositionsCategories.sun
         sunNode.addChild(sunImage)
         self.addChild(sunNode)
@@ -223,10 +231,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func setupFloorPosition() {
-        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else {
-            return
+    func addNodesFloor() {
+        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else { return }
+        groundTileRowComponent.tileNodes.forEach { node in
+            addChild(node)
         }
+    }
+    
+    func setupFloorPosition() {
+        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else { return }
         //initial positioning ground tiles
         let tileCount = groundTileRowComponent.tileNodes.count
         groundTileRowComponent.tileNodes = groundTileRowComponent.tileNodes.enumerated().map { (index, node) in
@@ -240,7 +253,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
             node.physicsBody?.isDynamic = false
             node.name = "ground"
-            self.addChild(node)
             return node
         }
     }
@@ -369,7 +381,6 @@ extension GameScene {
             nodeA.name == "character" && nodeB.name == "platform"   ||
             nodeB.name == "character" && nodeA.name == "ground"     ||
             nodeB.name == "character" && nodeA.name == "platform" {
-               // print("iniciou contato")
                 characterContactGround = true
         }
     }
@@ -380,7 +391,6 @@ extension GameScene {
         
         if  nodeA.name == "character" && nodeB.name == "platform" ||
             nodeB.name == "character" && nodeA.name == "platform" {
-                //print("cabou contato")
                 characterContactGround = false
         }
     }

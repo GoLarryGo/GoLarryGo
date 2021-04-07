@@ -26,7 +26,6 @@ class CharacterDeadState: GKState {
 
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
-        print("larry dead")
         AVAudioPlayerManager.sharedPlayerManager.stopSound(of: .soundtrack)
         AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingLarry)
         animatedSpriteComponent?.setAnimationSingle(atlasName: "larryDead")

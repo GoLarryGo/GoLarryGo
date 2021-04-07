@@ -50,7 +50,6 @@ class ScoreView: UIView {
             if ScoreView.startGame {
                 score += Int(timer.timeInterval)
             }
-            print(score)
         }
     }
 
