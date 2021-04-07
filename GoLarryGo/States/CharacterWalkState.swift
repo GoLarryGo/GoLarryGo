@@ -23,7 +23,6 @@ class CharacterWalkState: GKState {
 
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
-        print("larry")
 
         animatedSpriteComponent?.setAnimation(atlasName: "larryWalk")
     }
