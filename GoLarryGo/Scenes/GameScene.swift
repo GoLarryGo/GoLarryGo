@@ -19,7 +19,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entityManager: EntityManager!
     var presentGameOver: (() -> Void)?
     //Floor
-    let ground = Ground(numberOfTiles: 80)
     var countPlatform:Int = 1
     
     //Scenery
@@ -27,6 +26,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backNode = SKNode()
     var cloundsNode = SKNode()
     var sunNode = SKNode()
+    
+    //MARK: - Generate Robot Clone
+    var robotClones: [RobotEntity] = []
+    var platformsClones: [Platform] = []
+    var grounds: [GroundEntity] = []
     
     //Update
     private var previousUpdateTime: TimeInterval = TimeInterval()
@@ -40,10 +44,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var characterPlayerControlComponent: PlayerControlComponent? {
         character.component(ofType: PlayerControlComponent.self)
-    }
-    
-    var groundPlayerControlComponent: PlayerControlComponent? {
-        ground.component(ofType: PlayerControlComponent.self)
     }
     
     var scenaryPlayerControlComponent: PlayerControlComponent? {
@@ -60,41 +60,122 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         entityManager = EntityManager(scene: self)
         
-//        view.addGestureRecognizer(tap)
-        
         //Setups
         setupBackground()
         setupScenary()
         addNodesScenary()
-        setupFloorPosition()
-        addNodesFloor()
+        setupGroundPosition()
         setupCharacterNodePosition()
-        //generateRobot()
-        
-        //adding move to floor
-        let randomPlatforme = SKAction.run {
-            let numberXPlatform = Int.random(in: 5..<12)
-            self.setupPlatFormPosition(numberTiles: numberXPlatform, positionY: self.getPositionY() )
-        }
-        self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 5.0)])))
     }
     
-    func getPositionY() -> CGFloat {
-        let sequencePositionY: CGFloat = 120
-        countPlatform += 1
-        if countPlatform % 2 == 0 && countPlatform % 3 != 0 && countPlatform % 5 != 0 {
-            return sequencePositionY
-        } else if countPlatform % 2 != 0 && countPlatform % 3 == 0 && countPlatform % 5 != 0 {
-            return sequencePositionY + 50
-        } else if countPlatform % 2 != 0 && countPlatform % 3 != 0 && countPlatform % 5 == 0 {
-            return sequencePositionY + 100
-        } else if countPlatform % 2 == 0 && countPlatform % 3 == 0 && countPlatform % 5 == 0{
-            return sequencePositionY + 150
-        } else {
-            return sequencePositionY
+    //MARK: - Initial logic of randomization
+    var activeOne = false
+    func platformCasesTests() {
+        if !activeOne {
+            activeOne = true
+            //adding move to floor
+            let randomPlatforme = SKAction.run {
+                self.randomCasesPlatformsAndRobot()
+            }
+            self.run(SKAction.repeatForever(SKAction.sequence([randomPlatforme, SKAction.wait(forDuration: 15.0)])))
         }
     }
     
+    func randomCasesPlatformsAndRobot() {
+        let numberXPlatform = Int.random(in: 8..<10)
+        let random = Int.random(in: 1...5)
+        self.casesPlatformsAndRobot(random: random, numberTiles: numberXPlatform)
+    }
+    
+    func hideGroundPlatform(numberTiles: Int, first: CGFloat) {
+        var countTile = 0
+        grounds.forEach { block in
+            guard let node = block.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+            if (node.position.x >= first && countTile < numberTiles * 32) {
+                countTile += 32
+                node.isHidden = true
+                node.physicsBody = nil
+            }
+        }
+    }
+    
+    func casesPlatformsAndRobot(random: Int, numberTiles: Int) {
+        switch random {
+        case 1:
+            let robotPosition = CGPoint(x: (size.width + CGFloat(numberTiles / 2 * 32)), y: 170.0)
+            robotAndPlatformTypeOne(robotPosition: robotPosition, numberTiles: numberTiles, platformHeigth: 120.0)
+            hideGroundPlatform(numberTiles: numberTiles, first: size.width)
+            break
+        case 2:
+            var robotPosition = CGPoint(x: (size.width + CGFloat(numberTiles / 2 * 32)), y: 70.0)
+            if Int.random(in: 1...2) == 1 {
+                robotAndPlatformTypeOne(robotPosition: robotPosition, numberTiles: numberTiles, platformHeigth: 120.0)
+            } else {
+                robotPosition.x = (size.width + CGFloat(numberTiles * 32))
+                robotAndPlatformTypeTwo(robotPosition: robotPosition, numberTiles: numberTiles, platformHeigth: 120.0)
+            }
+            break
+        case 3:
+            let robotPosition = CGPoint(x: (size.width + CGFloat(numberTiles / 2 * 32)), y: 70.0)
+            robotAndPlatformTypeOne(robotPosition: robotPosition, numberTiles: numberTiles, platformHeigth: 120.0)
+            
+            robotAndPlatformTypeOne(robotPosition: nil, numberTiles: numberTiles, platformHeigth: 200.0, platformBegin: CGFloat(numberTiles * 30))
+            hideGroundPlatform(numberTiles: numberTiles, first: CGFloat(numberTiles * 30) + size.width)
+            break
+        case 4:
+            let robotPosition = CGPoint(x: (size.width + CGFloat(numberTiles / 2 * 32)), y: 70.0)
+            robotAndPlatformTypeOne(robotPosition: robotPosition, numberTiles: numberTiles, platformHeigth: 120.0)
+            
+            let robotPosition2 = CGPoint(x: (size.width + CGFloat(numberTiles * 29)), y: 170.0)
+            robotAndPlatformTypeOne(robotPosition: robotPosition2, numberTiles: numberTiles, platformHeigth: 200.0, platformBegin: CGFloat(numberTiles * 30))
+            break
+        case 5:
+            robotAndPlatformTypeOne(robotPosition: nil, numberTiles: numberTiles, platformHeigth: 120.0)
+            
+            robotAndPlatformTypeOne(robotPosition: nil, numberTiles: numberTiles, platformHeigth: 200.0, platformBegin: CGFloat(numberTiles * 30))
+            hideGroundPlatform(numberTiles: numberTiles, first: CGFloat(numberTiles * 30) + size.width)
+            break
+        default: break
+        }
+    }
+    
+    func robotConfigure(robot: RobotEntity, position: CGPoint, reverse: Bool = false) {
+        guard let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else { fatalError() }
+        robotNode.physicsBody?.isDynamic = true
+        if reverse {
+            robotNode.xScale = -1
+        }
+        robotNode.position = position
+        robotNode.physicsBody?.categoryBitMask = 1
+        robotNode.physicsBody?.contactTestBitMask = 1
+        robotNode.name = "robot"
+        addChild(robotNode)
+    }
+    
+    func robotAndPlatformTypeOne(robotPosition: CGPoint?, numberTiles: Int, platformHeigth: CGFloat, platformBegin: CGFloat = 0) {
+        let platform = Platform(numberOfTiles: numberTiles)
+        setupPlatFormPosition(platform: platform, positionY: platformHeigth, begin: platformBegin)
+        guard let robotPosition = robotPosition else {return}
+        let robot = RobotEntity(name: "robotIdle")
+        robotConfigure(robot: robot, position: robotPosition, reverse: true)
+        guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
+        robotMove.changeVelocity(velocity: 10.0)
+        robotMove.startMove(direction: .left, robotType: "robotIdle")
+        robotClones.append(robot)
+    }
+    
+    func robotAndPlatformTypeTwo(robotPosition: CGPoint?, numberTiles: Int, platformHeigth: CGFloat, platformBegin: CGFloat = 0) {
+        let platform = Platform(numberOfTiles: numberTiles)
+        setupPlatFormPosition(platform: platform, positionY: platformHeigth, begin: platformBegin)
+        guard let robotPosition = robotPosition else {return}
+        let robot = RobotEntity(name: "robotWalkLeft")
+        robotConfigure(robot: robot, position: robotPosition)
+        guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
+        robotMove.changeVelocity(velocity: 15.0)
+        robotMove.startMove(direction: .left)
+        robotClones.append(robot)
+    }
+    //MARK: - End logic of randomization
     
     var activeMoveScenery: Bool = false
     override func update(_ currentTime: TimeInterval) {
@@ -112,19 +193,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let timeSincePreviousUpdate = currentTime - previousUpdateTime
         characterPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
-        groundPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         scenaryPlayerControlComponent?.update(deltaTime: timeSincePreviousUpdate)
         previousUpdateTime = currentTime
         
         guard characterPlayerControlComponent?.stateMachine.currentState?.classForCoder != CharacterDeadState.self else { return }
         guard let characterSpriteNode = character.component(ofType: AnimatedSpriteComponent.self)?.spriteNode,
               let characterMove = character.component(ofType: MoveCharacterComponent.self) else {return}
-        if characterSpriteNode.position.x > frame.midX {
+        if characterSpriteNode.position.x + 2 >= frame.midX {
             characterSpriteNode.position.x = frame.midX
             if !activeMoveScenery {
                 setupSpeed(isDead: false)
                 activeMoveScenery = true
                 characterMove.halt()
+                platformCasesTests()
             }
         } else {
             activeMoveScenery = false
@@ -138,6 +219,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             node.removeFromParent()
         }
         
+        if platformsClones.count > 4 {
+            guard let nodes = platformsClones.first?.component(ofType: TileRowComponent.self)?.tileNodes else {return}
+            platformsClones.removeFirst()
+            nodes.forEach { node in
+                node.removeFromParent()
+            }
+        }
+        
+        guard let node = grounds.first?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        if node.position.x < -32 {
+            grounds.removeFirst()
+            addNewBlock(activeMove: true)
+            node.removeFromParent()
+        }
+        
         guard let tilesScenary = scenaryEntity.component(ofType: TileRowComponent.self),
               let moveScenary = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         
@@ -147,29 +243,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             moveScenary.startMove()
         }
         
-        guard let tilesGround = ground.component(ofType: TileRowComponent.self),
-              let moveGround = ground.component(ofType: MoveScenaryComponent.self) else { return }
-        
-        if (tilesGround.tileNodes.first?.position.x)! <= size.width {
-            moveGround.stopMove()
-            setupFloorPosition()
-            moveGround.startMove()
-        }
     }
     
     func setupSpeed(isDead: Bool) {
-        guard let groundMoveComponent = ground.component(ofType: MoveScenaryComponent.self),
-              let scenaryMoveComponent = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
+        guard let scenaryMoveComponent = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         if isDead {
             backNode.speed = 0
             cloundsNode.speed = 0
-            groundMoveComponent.stopMove()
             scenaryMoveComponent.stopMove()
+            moveGroundStop()
         } else {
             backNode.speed = 1
             cloundsNode.speed = 1
-            groundMoveComponent.startMove()
             scenaryMoveComponent.startMove()
+            moveGroundStart()
         }
     }
     
@@ -215,7 +302,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scenaryTileRowComponent.tileNodes = scenaryTileRowComponent.tileNodes.enumerated().map { (index, node) in
                 let offset = CGFloat(tileCount/2 - index)
                 node.position = CGPoint(
-                    x: (size.width - 5) * offset ,
+                    x: (size.width - 5) * offset,
                     y: size.height / 4
                 )
                 node.size = CGSize(width: size.width, height: size.height * 0.5)
@@ -231,56 +318,78 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func addNodesFloor() {
-        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else { return }
-        groundTileRowComponent.tileNodes.forEach { node in
-            addChild(node)
+    
+    //MARK: - Initial Setup Ground
+    func setupGroundPosition() {
+        for _ in 0..<80 {
+            addNewBlock()
         }
     }
     
-    func setupFloorPosition() {
-        guard let groundTileRowComponent = ground.component(ofType: TileRowComponent.self) else { return }
-        //initial positioning ground tiles
-        let tileCount = groundTileRowComponent.tileNodes.count
-        groundTileRowComponent.tileNodes = groundTileRowComponent.tileNodes.enumerated().map { (index, node) in
-            let offset = CGFloat(tileCount/2 - index)
-            node.position = CGPoint(
-                x: node.texture!.size().width / 2 * offset,
-                y: 15
-            )
-            node.zPosition = ZPositionsCategories.ground
-            node.size = CGSize(width: 32, height: 32)
-            node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
-            node.physicsBody?.isDynamic = false
-            node.name = "ground"
-            return node
+    func addNewBlock(activeMove: Bool = false) {
+        let block = GroundEntity()
+        guard let node = block.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        node.zPosition = ZPositionsCategories.ground
+        node.size = CGSize(width: 32, height: 32)
+        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
+        node.physicsBody?.isDynamic = false
+        node.name = "ground"
+        
+        node.position = CGPoint(
+            x: grounds.count * 32,
+            y: 15
+        )
+        
+        if activeMove {
+            guard let move = block.component(ofType: MoveGroundComponent.self) else {return}
+            move.startMove()
+        }
+        
+        grounds.append(block)
+        addChild(node)
+    }
+    
+    func moveGroundStart() {
+        grounds.forEach { block in
+            guard let moveBlock = block.component(ofType: MoveGroundComponent.self) else {return}
+            moveBlock.startMove()
         }
     }
     
-    func setupPlatFormPosition(numberTiles: Int, positionY:CGFloat ) {
-        let platform = Platform(numberOfTiles: numberTiles)
-        guard let platformTileRowComponent = platform.component(ofType: TileRowComponent.self),
-              let movePlatform = platform.component(ofType: MovePlatformComponent.self)else {
-            return
+    func moveGroundStop() {
+        grounds.forEach { block in
+            guard let moveBlock = block.component(ofType: MoveGroundComponent.self) else {return}
+            moveBlock.stopMove()
         }
-        //positioning platform tiles
-        let tileCount = platformTileRowComponent.tileNodes.count
-        platformTileRowComponent.tileNodes = platformTileRowComponent.tileNodes.enumerated().map { (index, node) in
-                let offset = CGFloat(tileCount/2 - index)
+    }
+    //MARK: - End Setup Ground
+    
+    func setupPlatFormPosition(platform: Platform, positionY: CGFloat, begin: CGFloat = 0.0) {
+        
+            guard let platformTileRowComponent = platform.component(ofType: TileRowComponent.self),
+                  let movePlatform = platform.component(ofType: MovePlatformComponent.self)else {return}
+            
+            var incrementXPositionPlataform = self.size.width + begin
+            platformTileRowComponent.tileNodes = platformTileRowComponent.tileNodes.enumerated().map { (index, node) in
+                
                 node.position = CGPoint(
-                    x: node.texture!.size().width / 2 * offset + self.size.width,
+                    x: incrementXPositionPlataform ,
                     y: positionY
                 )
-            node.zPosition = ZPositionsCategories.ground
-            node.size = CGSize(width: 32, height: 32)
-            node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
-            node.physicsBody?.isDynamic = false
-            node.name = "platform"
-            self.addChild(node)
-            return node
-        }
-        movePlatform.startMove()
+                incrementXPositionPlataform += node.texture!.size().width/2
+                
+                node.zPosition = ZPositionsCategories.ground
+                node.size = CGSize(width: 32, height: 32)
+                node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
+                node.physicsBody?.isDynamic = false
+                node.name = "platform"
+                self.addChild(node)
+                
+                return node
+            }
 
+            movePlatform.startMove()
+            platformsClones.append(platform)
     }
     
     func setupCharacterNodePosition() {
@@ -298,30 +407,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         entityManager.add(character)
     }
-    
-    //MARK: - Generate Robot Clone
-    var robotClones: [RobotEntity] = []
-    
-    func generateRobot() {
-        let generate = SKAction.run {
-            let cloneRobot: RobotEntity = self.robot.copy() as! RobotEntity
-            self.configureRobotCloneNodePosition(entity: cloneRobot, position: CGPoint(x: 1000, y: 60))
-            guard let moveCloneRobot = cloneRobot.component(ofType: MoveRobotComponent.self) else {return}
-            moveCloneRobot.startMove(direction: .left)
-            self.robotClones.append(cloneRobot)
-        }
-        self.run(SKAction.repeatForever(SKAction.sequence([generate, SKAction.wait(forDuration: 5.0)])))
-    }
-    
-    func configureRobotCloneNodePosition(entity: RobotEntity, position: CGPoint) {
-        guard let robotSpriteNode = entity.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-        robotSpriteNode.position = position
-        robotSpriteNode.physicsBody?.categoryBitMask = 1
-        robotSpriteNode.physicsBody?.contactTestBitMask = 1
-        robotSpriteNode.name = "robot"
-        addChild(robotSpriteNode)
-    }
-    
 }
 
 
@@ -405,9 +490,14 @@ extension GameScene {
             gameOver()
         }
         self.run(SKAction.sequence([SKAction.wait(forDuration: 1.0), gameOverRun]))
+        platformsClones.forEach { platform in
+            guard let platformMove = platform.component(ofType: MovePlatformComponent.self) else {return}
+            platformMove.stopMove()
+        }
         robotClones.forEach { robot in
             guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
             robotMove.startMove(direction: .none)
         }
+        
     }
 }
