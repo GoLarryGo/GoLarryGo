@@ -24,6 +24,12 @@ class MovePlatformComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func stopMove() {
+        tileRowComponent.tileNodes.forEach { node in
+            node.removeAllActions()
+        }
+    }
+    
     func startMove() {
         tileRowComponent.tileNodes.forEach { node in
             let move = SKAction.moveBy(x: -velocity, y: 0, duration: 0.1)

@@ -8,17 +8,15 @@
 import Foundation
 import GameplayKit
 
-class Ground: GKEntity {
+class GroundEntity: GKEntity {
 
-    init(numberOfTiles: Int, assetName: String = "ground") {
+    override init() {
         super.init()
-        addComponent(TileRowComponent(numberOfTiles: numberOfTiles, assetName: assetName))
-        addComponent(MoveScenaryComponent(velocity: 2))
-        addComponent(PlayerControlComponent(states: []))
+        self.addComponent(AnimatedSpriteComponent(textureName: "ground"))
+        self.addComponent(MoveGroundComponent(velocity: 10))
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

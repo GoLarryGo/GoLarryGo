@@ -11,10 +11,18 @@ class RobotEntity: GKEntity {
     
     override init() {
         super.init()
-        // Utiliza o componente AnimatedSpriteComponent para gerar o sprite da entidade
         let animetedSpriteComponent = AnimatedSpriteComponent(atlasName: "robotWalkLeft")
+        setupRobotNode(animetedSpriteComponent: animetedSpriteComponent)
+    }
+    
+    init (name: String) {
+        super.init()
+        let animetedSpriteComponent = AnimatedSpriteComponent(atlasName: name)
+        setupRobotNode(animetedSpriteComponent: animetedSpriteComponent)
+    }
+    
+    func setupRobotNode(animetedSpriteComponent: AnimatedSpriteComponent) {
         animetedSpriteComponent.spriteNode.size = CGSize(width: 64, height: 64)
-
         addComponent(animetedSpriteComponent)
         addComponent(MoveRobotComponent(velocity: 15))
         setupPhysicsBody(component: animetedSpriteComponent)

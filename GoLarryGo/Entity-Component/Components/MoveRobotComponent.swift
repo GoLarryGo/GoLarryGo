@@ -33,11 +33,11 @@ class MoveRobotComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func startMove(direction: RobotDirection) {
+    func startMove(direction: RobotDirection, robotType: String = "robotWalkLeft") {
         spriteNode?.removeAllActions()
         
         guard let spriteComponent = self.entity?.component(ofType:  AnimatedSpriteComponent.self) else {return}
-        spriteComponent.setAnimation(atlasName: "robotWalkLeft")
+        spriteComponent.setAnimation(atlasName: robotType)
         
         if direction == .left {
             let move = SKAction.moveBy(x: -velocity, y: 0, duration: 0.1)
@@ -47,6 +47,10 @@ class MoveRobotComponent: GKComponent {
             spriteNode?.xScale = -1
             spriteNode?.run(SKAction.repeatForever(move))
         }
+    }
+    
+    func changeVelocity(velocity: CGFloat) {
+        self.velocity = velocity
     }
     
 }
