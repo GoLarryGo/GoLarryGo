@@ -228,9 +228,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         guard let node = grounds.first?.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-        if node.position.x < -32 {
-            grounds.removeFirst()
+        if node.position.x <= -32 {
             addNewBlock(activeMove: true)
+            grounds.removeFirst()
             node.removeFromParent()
         }
         
@@ -341,6 +341,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         )
         
         if activeMove {
+            node.size.width += 2.0
             guard let move = block.component(ofType: MoveGroundComponent.self) else {return}
             move.startMove()
         }
