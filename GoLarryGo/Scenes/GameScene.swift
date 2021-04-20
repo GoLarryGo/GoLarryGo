@@ -379,15 +379,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 )
                 incrementXPositionPlataform += node.texture!.size().width/2
                 
-                node.zPosition = ZPositionsCategories.ground
-                node.size = CGSize(width: 32, height: 32)
-                node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
-                node.physicsBody?.isDynamic = false
-                node.name = "platform"
-                self.addChild(node)
-                
-                return node
-            }
+              
+            node.zPosition = ZPositionsCategories.ground
+            node.size = CGSize(width: 32, height: 32)
+            node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
+
+            let subNode = SKSpriteNode(color: .clear, size: CGSize(width: 32, height: 4))
+            subNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: 3))
+            subNode.name = "platformSurface"
+            subNode.position.y = 15
+            subNode.physicsBody?.isDynamic = false
+
+            node.addChild(subNode)
+
+            node.physicsBody?.isDynamic = false
+            node.name = "platform"
+            self.addChild(node)
+            return node
+        }
 
             movePlatform.startMove()
             platformsClones.append(platform)
@@ -464,9 +473,9 @@ extension GameScene {
         }
         
         if  nodeA.name == "character" && nodeB.name == "ground"     ||
-            nodeA.name == "character" && nodeB.name == "platform"   ||
+            nodeA.name == "character" && nodeB.name == "platformSurface"   ||
             nodeB.name == "character" && nodeA.name == "ground"     ||
-            nodeB.name == "character" && nodeA.name == "platform" {
+            nodeB.name == "character" && nodeA.name == "platformSurface" {
                 characterContactGround = true
         }
     }
