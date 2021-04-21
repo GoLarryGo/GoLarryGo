@@ -140,7 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func robotConfigure(robot: RobotEntity, position: CGPoint, reverse: Bool = false, name: String = "robot") {
+    func robotConfigure(robot: RobotEntity, position: CGPoint, reverse: Bool = false, name: String = "robotWalkLeft") {
         guard let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else { fatalError() }
         robotNode.physicsBody?.isDynamic = true
         if reverse {
@@ -264,9 +264,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         robotClones.forEach { robot in
-            guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
+            guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
+                  let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+            if isOn {
 
-            isOn ? robotMove.startMove(direction: .left) : robotMove.startMove(direction: .none)
+                robotMove.startMove(direction: .left, robotType: robotNode.name!)
+            } else {
+                robotMove.startMove(direction: .none, robotType: robotNode.name!)
+            }
+
         }
 
     }
@@ -418,7 +424,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
             node.addChild(subNode)
 
-            let subNodeLeft = SKSpriteNode(color: .cyan, size: CGSize(width: 4, height: 32))
+            let subNodeLeft = SKSpriteNode(color: .clear, size: CGSize(width: 4, height: 32))
             subNodeLeft.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: 3))
             subNodeLeft.name = "platformLeftSurface"
 
@@ -513,11 +519,7 @@ extension GameScene {
                     robotClones.forEach { robot in
                         guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
                               let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-                        if robotNode.name == "robotIdle" {
-                            robotNode.removeAllActions()
-                        } else {
-                            robotMove.startMove(direction: .none)
-                        }
+                        robotMove.startMove(direction: .none, robotType: robotNode.name!)
                         
                     }
                 }
@@ -534,7 +536,6 @@ extension GameScene {
             nodeA.name == "platformLeftSurface" && nodeB.name == "character" {
             let characterLarry = nodeA.name == "character" ? nodeA : nodeB
             characterLarry.physicsBody?.applyImpulse(CGVector(dx: -1, dy: -1))
-            print("VAI VAI")
         }
     }
     
