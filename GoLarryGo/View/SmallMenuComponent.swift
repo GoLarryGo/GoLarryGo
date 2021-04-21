@@ -111,44 +111,44 @@ extension SmallMenuComponent {
             imageViewButtonMenu.topAnchor.constraint(equalTo: buttonMenu.topAnchor),
             imageViewButtonMenu.rightAnchor.constraint(equalTo: buttonMenu.rightAnchor),
         ])
-    }
+            }
 
 
-    func setupButtonRestart() {
-        buttonRestart.translatesAutoresizingMaskIntoConstraints = false
+            func setupButtonRestart() {
+                buttonRestart.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            buttonRestart.leftAnchor.constraint(equalTo: leftAnchor, constant: 42),
-            buttonRestart.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            buttonRestart.widthAnchor.constraint(equalToConstant: 105),
-            buttonRestart.heightAnchor.constraint(equalToConstant: 28)
-        ])
-    }
+                NSLayoutConstraint.activate([
+                    buttonRestart.leftAnchor.constraint(equalTo: leftAnchor, constant: 42),
+                    buttonRestart.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+                    buttonRestart.widthAnchor.constraint(equalToConstant: 105),
+                    buttonRestart.heightAnchor.constraint(equalToConstant: 28)
+                ])
+            }
 
-    func setupButtonMenu() {
-        buttonMenu.translatesAutoresizingMaskIntoConstraints = false
+            func setupButtonMenu() {
+                buttonMenu.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            buttonMenu.rightAnchor.constraint(equalTo: rightAnchor, constant: -42),
-            buttonMenu.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            buttonMenu.widthAnchor.constraint(equalToConstant: 105),
-            buttonMenu.heightAnchor.constraint(equalToConstant: 28)
-        ])
-    }
-}
+                NSLayoutConstraint.activate([
+                    buttonMenu.rightAnchor.constraint(equalTo: rightAnchor, constant: -42),
+                    buttonMenu.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+                    buttonMenu.widthAnchor.constraint(equalToConstant: 105),
+                    buttonMenu.heightAnchor.constraint(equalToConstant: 28)
+                ])
+            }
+        }
 
-extension SmallMenuComponent {
-    func buttonFactory(buttonTitle: String) -> UIButton {
-        let button = UIButton()
-        button.backgroundColor = .clear
+        extension SmallMenuComponent {
+            func buttonFactory(buttonTitle: String) -> UIButton {
+                let button = UIButton()
+                button.backgroundColor = .clear
 
-        button.isEnabled = true
-        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "PixelArial11", size: 13) as Any,
-                                                          .foregroundColor: UIColor(hue: 44/360, saturation: 22/100, brightness: 99/100, alpha: 1)]
-        button.setAttributedTitle(NSAttributedString(string: buttonTitle,
-                                                     attributes: attributes),
-                                                     for: .normal)
-        return button
-    }
+                button.isEnabled = true
+                let attributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "PixelArial11", size: 13) as Any,
+                                                                  .foregroundColor: UIColor(hue: 44/360, saturation: 22/100, brightness: 99/100, alpha: 1)]
+                button.setAttributedTitle(NSAttributedString(string: buttonTitle,
+                                                             attributes: attributes),
+                                                             for: .normal)
+                return button
+            }
 
-}
+        }

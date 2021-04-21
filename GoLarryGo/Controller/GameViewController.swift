@@ -8,6 +8,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import GameKit
 
 protocol GameViewControllerDelegate: class {
     func startGame(viewController: UIViewController)
@@ -18,6 +19,8 @@ protocol GameViewControllerDelegate: class {
 
 class GameViewController: UIViewController {
     
+
+   
     static var isHomeViewPresenting: Bool = false
     static var scene: GameScene!
     let scoreView = ScoreView()
@@ -64,7 +67,11 @@ class GameViewController: UIViewController {
         GameViewController.scene.isPaused = true
         GameViewController.scene.presentGameOver = presentGameOverViewController
         GameViewController.scene.pauseAction = pauseAction
+        
+    
     }
+    
+   
     func setUpLabelScoreConstraints() {
         NSLayoutConstraint.activate([
             scoreView.labelScore.topAnchor.constraint(equalTo: view.topAnchor, constant: 35),

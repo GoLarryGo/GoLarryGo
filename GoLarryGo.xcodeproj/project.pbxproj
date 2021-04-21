@@ -54,6 +54,7 @@
 		7B74CB102600E78400F1BD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */; };
 		7B74CB602603AF7F00F1BD5B /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74CB5F2603AF7F00F1BD5B /* ScoreView.swift */; };
 		7BE4B9752606DCD9004E6CD9 /* PlatformEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE4B9742606DCD9004E6CD9 /* PlatformEntity.swift */; };
+		7BF91C21262FC2D7002C65A7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF91C20262FC2D7002C65A7 /* GameKit.framework */; };
 		EF390EAE26023E6F008778F3 /* botao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA726023E6F008778F3 /* botao.mp3 */; };
 		EF390EB026023E6F008778F3 /* roboMorrendo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EA926023E6F008778F3 /* roboMorrendo.mp3 */; };
 		EF390EB126023E6F008778F3 /* larryPulando.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF390EAA26023E6F008778F3 /* larryPulando.mp3 */; };
@@ -136,6 +137,7 @@
 		7B74CB0F2600E78400F1BD5B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B74CB5F2603AF7F00F1BD5B /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		7BE4B9742606DCD9004E6CD9 /* PlatformEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformEntity.swift; sourceTree = "<group>"; };
+		7BF91C20262FC2D7002C65A7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		EF390E9F26023E5C008778F3 /* pixel-arial-11-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pixel-arial-11-bold.ttf"; sourceTree = "<group>"; };
 		EF390EA026023E5C008778F3 /* pixel-arial-11.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pixel-arial-11.ttf"; sourceTree = "<group>"; };
 		EF390EA726023E6F008778F3 /* botao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = botao.mp3; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF91C21262FC2D7002C65A7 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +306,7 @@
 				7B6D3C4125F65E8800215887 /* GoLarryGoTests */,
 				7B6D3C4C25F65E8800215887 /* GoLarryGoUITests */,
 				7B6D3C2825F65E8500215887 /* Products */,
+				7BF91C1F262FC2D7002C65A7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -350,6 +354,14 @@
 				7B6D3C4F25F65E8800215887 /* Info.plist */,
 			);
 			path = GoLarryGoUITests;
+			sourceTree = "<group>";
+		};
+		7BF91C1F262FC2D7002C65A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BF91C20262FC2D7002C65A7 /* GameKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EF390E9926023D07008778F3 /* Resources */ = {
