@@ -19,7 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entityManager: EntityManager!
     var presentGameOver: (() -> Void)?
     //Floor
-    var countPlatform:Int = 1
+    var countPlatform: Int = 1
     
     //Scenery
     var scenery = Scenery()
@@ -140,7 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func robotConfigure(robot: RobotEntity, position: CGPoint, reverse: Bool = false, name: String = "robot") {
+    func robotConfigure(robot: RobotEntity, position: CGPoint, reverse: Bool = false, name: String = "robotWalkLeft") {
         guard let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else { fatalError() }
         robotNode.physicsBody?.isDynamic = true
         if reverse {
@@ -207,8 +207,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 activeMoveScenery = true
                 characterMove.halt()
                 platformCasesTests()
+                movePlataformAndRobot(isOn: true)
             }
         } else {
+            movePlataformAndRobot(isOn: false)
             activeMoveScenery = false
             setupSpeed(isDead: true)
             characterMove.startMove()
@@ -249,6 +251,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             stopGame()
         }
         
+    }
+
+    func movePlataformAndRobot(isOn: Bool) {
+        platformsClones.forEach { platform in
+            guard let platformMove = platform.component(ofType: MovePlatformComponent.self) else {return}
+            if isOn {
+                platformMove.startMove()
+            } else {
+                platformMove.stopMove()
+            }
+        }
+
+        robotClones.forEach { robot in
+            guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
+                  let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+            if isOn {
+
+                robotMove.startMove(direction: .left, robotType: robotNode.name!)
+            } else {
+                robotMove.startMove(direction: .none, robotType: robotNode.name!)
+            }
+
+        }
+
     }
     
     func setupSpeed(isDead: Bool) {
@@ -398,6 +424,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
             node.addChild(subNode)
 
+            let subNodeLeft = SKSpriteNode(color: .clear, size: CGSize(width: 4, height: 32))
+            subNodeLeft.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: 3))
+            subNodeLeft.name = "platformLeftSurface"
+
+            subNodeLeft.position.y = 0
+            subNodeLeft.position.x = -15
+            subNodeLeft.physicsBody?.isDynamic = false
+
+            node.addChild(subNodeLeft)
+
             node.physicsBody?.isDynamic = false
             node.name = "platform"
             self.addChild(node)
@@ -483,11 +519,7 @@ extension GameScene {
                     robotClones.forEach { robot in
                         guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
                               let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-                        if robotNode.name == "robotIdle" {
-                            robotNode.removeAllActions()
-                        } else {
-                            robotMove.startMove(direction: .none)
-                        }
+                        robotMove.startMove(direction: .none, robotType: robotNode.name!)
                         
                     }
                 }
@@ -499,6 +531,11 @@ extension GameScene {
             nodeB.name == "character" && nodeA.name == "ground"     ||
             nodeB.name == "character" && nodeA.name == "platformSurface" {
                 characterContactGround = true
+
+        } else if  nodeA.name == "character" && nodeB.name == "platformLeftSurface" ||
+            nodeA.name == "platformLeftSurface" && nodeB.name == "character" {
+            let characterLarry = nodeA.name == "character" ? nodeA : nodeB
+            characterLarry.physicsBody?.applyImpulse(CGVector(dx: -1, dy: -1))
         }
     }
     
