@@ -34,6 +34,9 @@ class MoveRobotComponent: GKComponent {
     }
     
     func startMove(direction: RobotDirection, robotType: String = "robotWalkLeft") {
+        if direction == .none && walk == .none && robotType != "robotWalkLeft" {
+            return
+        }
         spriteNode?.removeAllActions()
         
         guard let spriteComponent = self.entity?.component(ofType:  AnimatedSpriteComponent.self) else {return}
@@ -46,7 +49,11 @@ class MoveRobotComponent: GKComponent {
             let move = SKAction.moveBy(x: velocity, y: 0, duration: 0.1)
             spriteNode?.xScale = -1
             spriteNode?.run(SKAction.repeatForever(move))
-        }
+        } else if robotType == "robotWalkLeft" {
+            let move = SKAction.moveBy(x: -velocity, y: 0, duration: 0.1)
+            spriteNode?.run(SKAction.repeatForever(move))
+        } 
+        walk = direction
     }
     
     func changeVelocity(velocity: CGFloat) {

@@ -10,6 +10,9 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var velocityGame: CGFloat = 15.0
+    
+    var scoreGame: ScoreView?
     var customIsPaused: Bool = false
     var homeViewController: UIViewController?
     var pauseAction: (()-> Void)?
@@ -26,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backNode = SKNode()
     var cloundsNode = SKNode()
     var sunNode = SKNode()
-    var timeIntervalCases: Double = 10.0
+    var timeIntervalCases: Double = 6.0
     
     //MARK: - Generate Robot Clone
     var robotClones: [RobotEntity] = []
@@ -84,7 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func randomCasesPlatformsAndRobot() {
         let numberXPlatform = Int.random(in: 8..<10)
-        let random = Int.random(in: 1...5)
+        let random = Int.random(in: 1...6)
         self.casesPlatformsAndRobot(random: random, numberTiles: numberXPlatform)
     }
     
@@ -136,6 +139,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             robotAndPlatformTypeOne(robotPosition: nil, numberTiles: numberTiles, platformHeigth: 200.0, platformBegin: CGFloat(numberTiles * 30))
             hideGroundPlatform(numberTiles: numberTiles, first: CGFloat(numberTiles * 30) + size.width)
             break
+        case 6:
+            var robotPosition = CGPoint(x: (size.width + CGFloat(numberTiles / 2 * 32)), y: 70.0)
+            robotPosition.x = (size.width + CGFloat(numberTiles * 32))
+            robotAndPlatformTypeTwo(robotPosition: robotPosition, numberTiles: numberTiles, platformHeigth: 120.0)
+            break
         default: break
         }
     }
@@ -160,7 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let robot = RobotEntity(name: "robotIdle")
         robotConfigure(robot: robot, position: robotPosition, reverse: true, name: "robotIdle")
         guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
-        robotMove.changeVelocity(velocity: 10.0)
+        robotMove.changeVelocity(velocity: velocityGame)
         robotMove.startMove(direction: .left, robotType: "robotIdle")
         robotClones.append(robot)
     }
@@ -172,18 +180,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let robot = RobotEntity(name: "robotWalkLeft")
         robotConfigure(robot: robot, position: robotPosition)
         guard let robotMove = robot.component(ofType: MoveRobotComponent.self) else {return}
-        robotMove.changeVelocity(velocity: 15.0)
+        robotMove.changeVelocity(velocity: velocityGame + 5)
         robotMove.startMove(direction: .left)
         robotClones.append(robot)
     }
     //MARK: - End logic of randomization
     
     var activeMoveScenery: Bool = false
+    var testIsPaused = false
     override func update(_ currentTime: TimeInterval) {
         
         // Pause controll
         if self.customIsPaused {
             isPaused = true
+            testIsPaused = true
             if !GameViewController.isHomeViewPresenting {
                 pauseAction?()
                 customIsPaused = false
@@ -240,7 +250,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let tilesScenary = scenaryEntity.component(ofType: TileRowComponent.self),
               let moveScenary = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         
-        if tilesScenary.tileNodes.first?.position.x == size.width {
+        if (tilesScenary.tileNodes.first?.position.x)! <= size.width {
             moveScenary.stopMove()
             setupScenary()
             moveScenary.startMove()
@@ -267,7 +277,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
                   let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
             if isOn {
-
                 robotMove.startMove(direction: .left, robotType: robotNode.name!)
             } else {
                 robotMove.startMove(direction: .none, robotType: robotNode.name!)
@@ -280,12 +289,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func setupSpeed(isDead: Bool) {
         guard let scenaryMoveComponent = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         if isDead {
-            backNode.speed = 0
+            //backNode.speed = 0
             cloundsNode.speed = 0
             scenaryMoveComponent.stopMove()
             moveGroundStop()
         } else {
-            backNode.speed = 1
+            //backNode.speed = 1
             cloundsNode.speed = 1
             scenaryMoveComponent.startMove()
             moveGroundStart()
@@ -328,7 +337,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupScenary() {
-        guard let scenaryTileRowComponent = scenaryEntity.component(ofType: TileRowComponent.self) else { return }
+        guard let scenaryTileRowComponent = scenaryEntity.component(ofType: TileRowComponent.self),
+              let moveScenary = scenaryEntity.component(ofType: MoveScenaryComponent.self) else { return }
         
         let tileCount = scenaryTileRowComponent.tileNodes.count
         scenaryTileRowComponent.tileNodes = scenaryTileRowComponent.tileNodes.enumerated().map { (index, node) in
@@ -341,6 +351,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 node.zPosition = ZPositionsCategories.montainFix
                 return node
         }
+        moveScenary.velocity = velocityGame - 12.0
+        
     }
     
     func addNodesScenary() {
@@ -360,12 +372,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addNewBlock(activeMove: Bool = false) {
         let block = GroundEntity()
-        guard let node = block.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+        guard let node = block.component(ofType: AnimatedSpriteComponent.self)?.spriteNode,
+              let move = block.component(ofType: MoveGroundComponent.self) else {return}
         node.zPosition = ZPositionsCategories.ground
         node.size = CGSize(width: 32, height: 32)
         node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: node.size.height))
         node.physicsBody?.isDynamic = false
         node.name = "ground"
+        move.velocity = velocityGame
+        
         
         node.position = CGPoint(
             x: grounds.count * 32,
@@ -395,8 +410,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             moveBlock.stopMove()
         }
     }
-    //MARK: - End Setup Ground
     
+    //MARK: - End Setup Ground
     func setupPlatFormPosition(platform: Platform, positionY: CGFloat, begin: CGFloat = 0.0) {
         
             guard let platformTileRowComponent = platform.component(ofType: TileRowComponent.self),
@@ -439,7 +454,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(node)
             return node
         }
-
+            movePlatform.velocity = velocityGame
             movePlatform.startMove()
             platformsClones.append(platform)
     }
@@ -479,18 +494,18 @@ extension GameScene {
         
         var nodeCharacter = SKNode()
         var nodeRobot = SKNode()
-        if (nodeA.name == "character" && nodeB.name == "robot") ||
+        if (nodeA.name == "character" && nodeB.name == "robotWalkLeft") ||
             (nodeA.name == "character" && nodeB.name == "robotIdle") {
             nodeCharacter = nodeA
             nodeRobot = nodeB
-        } else if (nodeA.name == "robot" && nodeB.name == "character") ||
-                    (nodeA.name == "robot" && nodeB.name == "character") {
+        } else if (nodeA.name == "robotIdle" && nodeB.name == "character") ||
+                    (nodeA.name == "robotWalkLeft" && nodeB.name == "character") {
             nodeCharacter = nodeB
             nodeRobot = nodeA
         }
         
-        if  (nodeA.name == "character" && nodeB.name == "robot" ||
-                nodeA.name == "robot" && nodeB.name == "character") ||
+        if  (nodeA.name == "character" && nodeB.name == "robotWalkLeft" ||
+                nodeA.name == "robotWalkLeft" && nodeB.name == "character") ||
                 (nodeA.name == "character" && nodeB.name == "robotIdle" ||
                 nodeA.name == "robotIdle" && nodeB.name == "character") {
             
@@ -502,7 +517,7 @@ extension GameScene {
                     robotClones.forEach { robot in
                         guard let component = robot.component(ofType: AnimatedSpriteComponent.self) else {return}
                         if nodeRobot.isEqual(to: component.spriteNode) {
-                            if (nodeRobot.name == "robot") {
+                            if (nodeRobot.name == "robotWalkLeft") {
                                 component.setAnimationSingle(atlasName: "robotDead", direction: true)
                             }
                             AVAudioPlayerManager.sharedPlayerManager.playSoundIfSoundIsOn(of: .dyingRobot)
@@ -516,12 +531,6 @@ extension GameScene {
                     
                 } else {
                     stopGame()
-                    robotClones.forEach { robot in
-                        guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
-                              let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
-                        robotMove.startMove(direction: .none, robotType: robotNode.name!)
-                        
-                    }
                 }
             }
         }
@@ -562,6 +571,12 @@ extension GameScene {
         platformsClones.forEach { platform in
             guard let platformMove = platform.component(ofType: MovePlatformComponent.self) else {return}
             platformMove.stopMove()
+        }
+        robotClones.forEach { robot in
+            guard let robotMove = robot.component(ofType: MoveRobotComponent.self),
+                  let robotNode = robot.component(ofType: AnimatedSpriteComponent.self)?.spriteNode else {return}
+            robotMove.startMove(direction: .none, robotType: robotNode.name!)
+            
         }
     }
 }
