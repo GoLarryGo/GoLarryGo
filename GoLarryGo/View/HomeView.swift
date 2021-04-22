@@ -33,7 +33,7 @@ class HomeView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "PixelArial11", size: 19)
-        label.text = "Toque para iniciar"
+        label.text = "Tap to start"
         label.textColor = UIColor(red: 0.086, green: 0.612, blue: 0.569, alpha: 1)
         return label
     }()
